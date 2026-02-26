@@ -8,5 +8,5 @@ class Kisi extends Model
 {
     protected $table = 'kisiler';
 
-    protected $fillable = ['ad', 'soyad', 'yas'];
+    protected $fillable = ['ad', 'soyad', 'yas', 'email', 'gorsel'];
 }

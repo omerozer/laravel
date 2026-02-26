@@ -13,6 +13,8 @@
         label { display: block; margin-bottom: 0.35rem; font-weight: 500; color: #555; }
         input { width: 100%; padding: 0.5rem 0.75rem; border: 1px solid #ddd; border-radius: 6px; font-size: 1rem; }
         input:focus { outline: none; border-color: #6366f1; }
+        input[type="file"] { padding: 0.4rem; }
+        img.thumb { width: 48px; height: 48px; object-fit: cover; border-radius: 6px; }
         button { padding: 0.6rem 1.5rem; background: #6366f1; color: white; border: none; border-radius: 6px; font-size: 1rem; cursor: pointer; font-weight: 500; }
         button:hover { background: #4f46e5; }
         .success { background: #dcfce7; color: #166534; padding: 0.75rem; border-radius: 6px; margin-bottom: 1rem; }
@@ -32,7 +34,7 @@
     @endif
 
     <div class="form-box">
-        <form action="{{ route('kisi.store') }}" method="POST">
+        <form action="{{ route('kisi.store') }}" method="POST" enctype="multipart/form-data">
             @csrf
             <div class="form-group">
                 <label for="ad">Ad</label>
@@ -49,6 +51,16 @@
                 <input type="number" id="yas" name="yas" value="{{ old('yas') }}" min="1" max="150" required>
                 @error('yas')<small style="color:#dc2626;">{{ $message }}</small>@enderror
             </div>
+            <div class="form-group">
+                <label for="email">E-posta</label>
+                <input type="email" id="email" name="email" value="{{ old('email') }}" placeholder="ornek@mail.com">
+                @error('email')<small style="color:#dc2626;">{{ $message }}</small>@enderror
+            </div>
+            <div class="form-group">
+                <label for="gorsel">Görsel</label>
+                <input type="file" id="gorsel" name="gorsel" accept="image/jpeg,image/png,image/gif,image/jpg">
+                @error('gorsel')<small style="color:#dc2626;">{{ $message }}</small>@enderror
+            </div>
             <button type="submit">Kaydet</button>
         </form>
     </div>
@@ -61,17 +73,27 @@
             <table>
                 <thead>
                     <tr>
+                        <th>Görsel</th>
                         <th>Ad</th>
                         <th>Soyad</th>
                         <th>Yaş</th>
+                        <th>E-posta</th>
                     </tr>
                 </thead>
                 <tbody>
                     @foreach($kisiler as $kisi)
                         <tr>
+                            <td>
+                                @if($kisi->gorsel)
+                                    <img src="{{ Storage::url($kisi->gorsel) }}" alt="" class="thumb">
+                                @else
+                                    <span style="color:#94a3b8;">-</span>
+                                @endif
+                            </td>
                             <td>{{ $kisi->ad }}</td>
                             <td>{{ $kisi->soyad }}</td>
                             <td>{{ $kisi->yas }}</td>
+                            <td>{{ $kisi->email ?? '-' }}</td>
                         </tr>
                     @endforeach
                 </tbody>

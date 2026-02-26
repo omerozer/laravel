@@ -19,9 +19,17 @@ class KisiController extends Controller
             'ad' => 'required|string|max:255',
             'soyad' => 'required|string|max:255',
             'yas' => 'required|integer|min:1|max:150',
+            'email' => 'nullable|email',
+            'gorsel' => 'nullable|image|mimes:jpeg,png,jpg,gif|max:2048',
         ]);
 
-        Kisi::create($request->only('ad', 'soyad', 'yas'));
+        $data = $request->only('ad', 'soyad', 'yas', 'email');
+
+        if ($request->hasFile('gorsel')) {
+            $data['gorsel'] = $request->file('gorsel')->store('kisiler', 'public');
+        }
+
+        Kisi::create($data);
 
         return redirect('/')->with('success', 'Kayıt başarıyla eklendi.');
     }

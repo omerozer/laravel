@@ -44,24 +44,6 @@ Route::get('build/assets/{path}', function (string $path): Response {
     return response()->file($fullPath, ['Content-Type' => $mime]);
 })->where('path', '.*')->name('vite.build.assets');
 
-// Storage public fallback: local nginx ortamında storage:link gerektirmeden /storage/* dosyalarını sun
-Route::get('storage/{path}', function (string $path): Response {
-    $path = str_replace(['../', '..'.DIRECTORY_SEPARATOR], '', $path);
-    $fullPath = storage_path("app/public/{$path}");
-    if (!File::isFile($fullPath)) {
-        abort(404);
-    }
-    $base = realpath(storage_path('app/public'));
-    if (!$base || !str_starts_with(realpath($fullPath), $base)) {
-        abort(404);
-    }
-    $mime = File::mimeType($fullPath) ?: 'application/octet-stream';
-    return response()->file($fullPath, [
-        'Content-Type' => $mime,
-        'Cache-Control' => 'public, max-age=31536000',
-    ]);
-})->where('path', '.*')->name('storage.public');
-
 Route::get('/', [KisiController::class, 'index'])->name('home');
 Route::post('/kaydet', [KisiController::class, 'store'])->name('kisi.store');
 Route::put('/kisi/{kisi}', [KisiController::class, 'update'])->name('kisi.update');

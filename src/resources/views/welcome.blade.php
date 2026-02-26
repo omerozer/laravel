@@ -168,6 +168,7 @@
                                                         data-soyad="{{ $kisi->soyad }}"
                                                         data-yas="{{ $kisi->yas }}"
                                                         data-email="{{ $kisi->email }}"
+                                                        data-aktif="{{ isset($kisi->aktif) && $kisi->aktif ? '1' : '0' }}"
                                                         data-action="{{ route('kisi.update', $kisi) }}"
                                                         onclick="window.openEditKisiModal(this)">
                                                         <svg class="h-4 w-4" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20" fill="currentColor">
@@ -230,6 +231,7 @@
                                 </div>
                                 <div class="flex items-center gap-3">
                                     <span class="text-sm font-medium text-gray-700 dark:text-gray-200">Aktif</span>
+                                    <input type="hidden" name="aktif" value="1" data-aktif-input>
                                     <button type="button"
                                         class="relative inline-flex items-center w-10 h-5 rounded-full bg-green-500 transition-colors"
                                         data-switch>

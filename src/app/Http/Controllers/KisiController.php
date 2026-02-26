@@ -43,9 +43,13 @@ class KisiController extends Controller
             'yas' => 'required|integer|min:1|max:150',
             'email' => 'nullable|email',
             'gorsel' => 'nullable|image|mimes:jpeg,png,jpg,gif|max:2048',
+            'aktif' => 'nullable|boolean',
         ]);
 
         $data = $request->only('ad', 'soyad', 'yas', 'email');
+        if ($request->has('aktif')) {
+            $data['aktif'] = filter_var($request->aktif, FILTER_VALIDATE_BOOLEAN);
+        }
 
         if ($request->hasFile('gorsel')) {
             if ($kisi->gorsel) {

@@ -8,5 +8,12 @@ class Kisi extends Model
 {
     protected $table = 'kisiler';
 
-    protected $fillable = ['ad', 'soyad', 'yas', 'email', 'gorsel'];
+    protected $fillable = ['ad', 'soyad', 'yas', 'email', 'gorsel', 'aktif'];
+
+    protected function casts(): array
+    {
+        return [
+            'aktif' => 'boolean',
+        ];
+    }
 }

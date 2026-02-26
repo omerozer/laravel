@@ -48,13 +48,20 @@ function initEditModal() {
 
     function openModal(button) {
         const action = button.dataset.action;
-        form.action = action;
+        if (action) form.setAttribute('action', action);
 
         adField.value = button.dataset.ad || '';
         soyadField.value = button.dataset.soyad || '';
         yasField.value = button.dataset.yas || '';
         emailField.value = button.dataset.email || '';
         idField.value = button.dataset.id || '';
+
+        const aktifInput = form.querySelector('[data-aktif-input]');
+        if (aktifInput) {
+            aktifInput.value = button.dataset.aktif === '0' ? '0' : '1';
+            const switchBtn = form.querySelector('[data-switch]');
+            if (switchBtn) switchBtn.dispatchEvent(new CustomEvent('aktif-sync'));
+        }
 
         modal.classList.remove('hidden');
     }
@@ -78,14 +85,24 @@ function initSwitches() {
         const knob = el.querySelector('[data-switch-knob]');
         if (!knob) return;
 
-        let isOn = true;
+        const form = el.closest('form');
+        const aktifInput = form ? form.querySelector('[data-aktif-input]') : null;
+        let isOn = aktifInput ? aktifInput.value === '1' : true;
 
         function render() {
             el.classList.toggle('bg-green-500', isOn);
             el.classList.toggle('bg-red-500', !isOn);
             knob.classList.toggle('translate-x-5', isOn);
             knob.classList.toggle('translate-x-0', !isOn);
+            if (aktifInput) aktifInput.value = isOn ? '1' : '0';
         }
+
+        el.addEventListener('aktif-sync', () => {
+            if (aktifInput) {
+                isOn = aktifInput.value === '1';
+                render();
+            }
+        });
 
         el.addEventListener('click', () => {
             isOn = !isOn;

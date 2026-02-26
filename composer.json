@@ -2,7 +2,7 @@
     "name": "omerozer/laravel",
     "description": "Laravel deployment wrapper for Hostinger shared hosting",
     "scripts": {
-        "post-install-cmd": "cd src && composer install --no-dev --optimize-autoloader --no-interaction"
+        "post-install-cmd": "@composer install --working-dir=src --no-dev --optimize-autoloader --no-interaction"
     },
     "require": {}
 }

@@ -10,53 +10,99 @@
     @vite(['resources/css/app.css', 'resources/js/app.js'])
     <link rel="stylesheet" href="{{ asset('fonts/filament/filament/inter/index.css') }}">
 </head>
-<body class="h-full bg-gray-50 dark:bg-gray-950 font-sans antialiased">
-    <div class="min-h-full fi-body flex flex-col">
-        <header class="fi-header sticky top-0 z-30 border-b border-gray-200 dark:border-white/5 bg-white/80 dark:bg-gray-900/80 backdrop-blur-xl">
-            <div class="mx-auto {{ $siteWidth ?? 'max-w-7xl' }} px-4 sm:px-6 lg:px-8">
-                <div class="flex h-16 items-center justify-between gap-4">
-                    <a href="{{ route('home') }}" class="cursor-pointer text-xl font-semibold text-gray-950 dark:text-white">{{ config('app.name') }}</a>
-                    <nav class="flex items-center gap-2">
-                        <button type="button" data-theme-toggle class="fi-btn cursor-pointer relative inline-flex items-center justify-center rounded-lg border border-gray-200 dark:border-white/10 bg-white dark:bg-gray-800 px-3 py-2 text-sm font-medium text-gray-700 dark:text-gray-200 shadow-sm hover:bg-gray-50 dark:hover:bg-white/5 focus:outline-none focus:ring-2 focus:ring-amber-500/50">
-                            <span class="sr-only">Tema</span>
-                            <svg class="h-5 w-5 hidden dark:inline-block" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" d="M21.752 15.002A9.718 9.718 0 0118 15.75 9.75 9.75 0 018.25 6c0-1.33.266-2.597.748-3.752A9.753 9.753 0 003 11.25 9.75 9.75 0 0012.75 21c3.313 0 6.24-1.61 8.002-4.098z" /></svg>
-                            <svg class="h-5 w-5 dark:hidden" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" d="M12 3.75V5.25M18.364 5.636L17.303 6.697M20.25 12H18.75M18.364 18.364L17.303 17.303M12 18.75V20.25M6.697 17.303L5.636 18.364M5.25 12H3.75M6.697 6.697L5.636 5.636M12 8.25A3.75 3.75 0 1012 15.75A3.75 3.75 0 0012 8.25Z" /></svg>
-                        </button>
-                        <a href="{{ route('home') }}" class="fi-btn cursor-pointer inline-flex items-center justify-center rounded-lg border border-gray-200 dark:border-white/10 bg-white dark:bg-gray-800 px-3 py-2 text-sm font-medium text-gray-700 dark:text-gray-200 shadow-sm hover:bg-gray-50 dark:hover:bg-white/5">Ana Sayfa</a>
-                        <a href="{{ route('blog.index') }}" class="fi-btn cursor-pointer inline-flex items-center justify-center rounded-lg bg-amber-500 px-3 py-2 text-sm font-semibold text-white shadow-sm hover:bg-amber-600">Blog</a>
-                        <a href="{{ url('/dashboard') }}" class="fi-btn cursor-pointer inline-flex items-center justify-center rounded-lg border border-gray-200 dark:border-white/10 bg-white dark:bg-gray-800 px-3 py-2 text-sm font-medium text-gray-700 dark:text-gray-200 shadow-sm hover:bg-gray-50 dark:hover:bg-white/5">Admin</a>
-                    </nav>
+<body class="h-full bg-gray-50 dark:bg-black font-sans antialiased text-gray-900 dark:text-white">
+    <div class="min-h-full flex flex-col">
+        <x-header />
+
+        <main class="flex-1">
+            <div class="mx-auto {{ $siteWidth ?? 'max-w-7xl' }} px-4 sm:px-6 lg:px-8 py-8">
+                <div class="flex flex-col lg:flex-row gap-8 lg:gap-12">
+                    {{-- Sol sidebar: H2 başlıkları (scrollspy) --}}
+                    <aside id="toc-sidebar" class="hidden lg:block lg:w-64 flex-shrink-0">
+                        <nav class="sticky top-24 border border-gray-200 dark:border-zinc-700 rounded-xl p-4 bg-white/50 dark:bg-zinc-900/50">
+                            <p class="text-xs font-semibold uppercase tracking-wider text-gray-500 dark:text-zinc-500 mb-4">Bu sayfada</p>
+                            <div id="toc-list" class="space-y-0.5">
+                                {{-- JS ile doldurulacak --}}
+                            </div>
+                        </nav>
+                    </aside>
+
+                    {{-- Ana içerik --}}
+                    <article class="min-w-0 flex-1 max-w-3xl">
+                        <a href="{{ route('blog.index') }}" class="inline-flex items-center gap-1 text-sm text-gray-500 dark:text-zinc-400 hover:text-gray-900 dark:hover:text-white transition-colors mb-8">
+                            <svg class="h-4 w-4" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 19l-7-7 7-7" /></svg>
+                            Bloga dön
+                        </a>
+
+                        @if($post->category)
+                            <a href="{{ route('blog.category', $post->category->slug) }}" class="inline-block text-sm font-medium text-amber-600 dark:text-amber-400 hover:text-amber-500 dark:hover:text-amber-300 transition-colors">{{ $post->category->name }}</a>
+                        @endif
+                        <h1 class="mt-2 text-4xl font-bold tracking-tight text-gray-900 dark:text-white sm:text-5xl">{{ $post->title }}</h1>
+                        <p class="mt-3 text-sm text-gray-500 dark:text-zinc-500">{{ $post->published_at?->format('d F Y') }} · {{ $post->author->name ?? '' }} · {{ $post->view_count }} görüntülenme</p>
+
+                        @if($post->image)
+                            <img src="{{ '/storage/'.$post->image }}" alt="" class="mt-8 w-full rounded-xl object-cover max-h-[28rem]">
+                        @endif
+
+                        @if($post->excerpt)
+                            <p class="mt-8 text-lg leading-relaxed text-gray-600 dark:text-zinc-300">{{ $post->excerpt }}</p>
+                        @endif
+
+                        <div class="blog-post-content mt-8 prose prose-lg prose-invert max-w-none prose-headings:scroll-mt-24">
+                            {!! $post->content !!}
+                        </div>
+                    </article>
                 </div>
             </div>
-        </header>
-
-        <main class="fi-main flex-1">
-            <article class="mx-auto max-w-2xl px-4 py-10 sm:px-6 lg:px-8">
-                <a href="{{ route('blog.index') }}" class="inline-flex items-center text-sm text-amber-600 dark:text-amber-400 hover:underline mb-8 cursor-pointer">← Bloga dön</a>
-
-                @if($post->category)
-                    <a href="{{ route('blog.category', $post->category->slug) }}" class="text-sm font-medium text-amber-600 dark:text-amber-400">{{ $post->category->name }}</a>
-                @endif
-                <h1 class="mt-2 text-4xl font-bold tracking-tight text-gray-950 dark:text-white sm:text-5xl">{{ $post->title }}</h1>
-                <p class="mt-3 text-sm text-gray-500 dark:text-gray-400">{{ $post->published_at?->format('d F Y') }} · {{ $post->author->name ?? '' }} · {{ $post->view_count }} görüntülenme</p>
-
-                @if($post->image)
-                    <img src="{{ '/storage/'.$post->image }}" alt="" class="mt-8 w-full rounded-2xl object-cover max-h-[28rem]">
-                @endif
-
-                @if($post->excerpt)
-                    <p class="mt-8 text-lg leading-relaxed text-gray-600 dark:text-gray-300">{{ $post->excerpt }}</p>
-                @endif
-
-                <div class="mt-8 prose prose-lg prose-gray dark:prose-invert max-w-none prose-p:leading-relaxed prose-headings:font-bold text-gray-700 dark:text-gray-200">
-                    {!! nl2br(e($post->content)) !!}
-                </div>
-            </article>
         </main>
+
+        <x-footer />
     </div>
+
     <script>
         document.addEventListener('DOMContentLoaded', function () {
-            document.querySelectorAll('button[data-theme-toggle], .fi-btn, a').forEach(function (el) { el.style.cursor = 'pointer'; });
+            document.querySelectorAll('button[data-theme-toggle], a').forEach(function (el) { el.style.cursor = 'pointer'; });
+
+            var content = document.querySelector('.blog-post-content');
+            if (!content) return;
+
+            var h2s = content.querySelectorAll('h2');
+            if (h2s.length === 0) return;
+
+            var tocList = document.getElementById('toc-list');
+            var sidebar = document.getElementById('toc-sidebar');
+            if (!tocList || !sidebar) return;
+
+            sidebar.classList.remove('hidden');
+
+            var items = [];
+            h2s.forEach(function(h2, i) {
+                var id = 'section-' + i;
+                h2.id = id;
+                h2.setAttribute('data-toc-id', id);
+                var text = h2.textContent.trim();
+                var link = document.createElement('a');
+                link.href = '#' + id;
+                link.className = 'toc-link flex items-center gap-2 px-3 py-2 text-sm rounded-lg text-gray-500 dark:text-zinc-400 hover:text-gray-900 dark:hover:text-white hover:bg-gray-100 dark:hover:bg-white/5 transition-colors';
+                link.innerHTML = '<span class="text-amber-400/80"><svg class="h-4 w-4" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M7 7h.01M7 3h5c.512 0 1.024.195 1.414.586l7 7a2 2 0 010 2.828l-7 7a2 2 0 01-2.828 0l-7-7A1.994 1.994 0 013 12V7a4 4 0 014-4z" /></svg></span><span>' + text + '</span>';
+                tocList.appendChild(link);
+                items.push({ id: id, link: link, el: h2 });
+            });
+
+            var observer = new IntersectionObserver(function(entries) {
+                entries.forEach(function(entry) {
+                    if (!entry.isIntersecting) return;
+                    var id = entry.target.id;
+                    items.forEach(function(item) {
+                        item.link.classList.remove('toc-link-active');
+                        if (item.id === id) {
+                            item.link.classList.add('toc-link-active');
+                        }
+                    });
+                });
+            }, { rootMargin: '-100px 0px -60% 0px', threshold: 0 });
+
+            items.forEach(function(item) { observer.observe(item.el); });
         });
     </script>
 </body>

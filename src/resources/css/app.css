@@ -12,3 +12,121 @@
     --font-sans: 'Instrument Sans', ui-sans-serif, system-ui, sans-serif, 'Apple Color Emoji', 'Segoe UI Emoji',
         'Segoe UI Symbol', 'Noto Color Emoji';
 }
+
+/* Blog post content: h2, h3, h4 başlıkları belirgin */
+.blog-post-content h2 {
+    font-size: 1.5rem !important;
+    font-weight: 700 !important;
+    margin-top: 2.5rem !important;
+    margin-bottom: 1rem !important;
+    line-height: 1.3 !important;
+    letter-spacing: -0.025em;
+    color: rgb(17 24 39) !important;
+    padding-bottom: 0.5rem;
+    border-bottom: 1px solid rgb(229 231 235);
+}
+
+.dark .blog-post-content h2 {
+    color: white !important;
+    border-bottom-color: rgba(255, 255, 255, 0.1);
+}
+
+.blog-post-content h2:first-of-type {
+    margin-top: 0 !important;
+}
+
+.blog-post-content h3 {
+    font-size: 1.25rem !important;
+    font-weight: 600 !important;
+    margin-top: 2rem !important;
+    margin-bottom: 0.75rem !important;
+    color: rgb(17 24 39) !important;
+}
+
+.dark .blog-post-content h3 {
+    color: white !important;
+}
+
+.blog-post-content h4 {
+    font-size: 1.125rem !important;
+    font-weight: 600 !important;
+    margin-top: 1.5rem !important;
+    margin-bottom: 0.5rem !important;
+    color: rgb(17 24 39) !important;
+}
+
+.dark .blog-post-content h4 {
+    color: white !important;
+}
+
+.blog-post-content p {
+    margin-top: 1rem;
+    margin-bottom: 1rem;
+    line-height: 1.75;
+    color: rgb(31 41 55) !important;
+}
+
+.dark .blog-post-content p {
+    color: white !important;
+}
+
+.blog-post-content ul,
+.blog-post-content ol {
+    color: rgb(31 41 55) !important;
+}
+
+.dark .blog-post-content ul,
+.dark .blog-post-content ol {
+    color: white !important;
+}
+
+.blog-post-content li {
+    color: inherit !important;
+}
+
+.blog-post-content a {
+    color: rgb(217 119 6);
+}
+
+.dark .blog-post-content a {
+    color: rgb(251 191 36);
+}
+
+.blog-post-content a:hover {
+    color: rgb(180 83 9);
+}
+
+.dark .blog-post-content a:hover {
+    color: rgb(253 224 71);
+}
+
+.blog-post-content pre,
+.blog-post-content code {
+    background: rgb(243 244 246);
+    color: rgb(17 24 39) !important;
+}
+
+.dark .blog-post-content pre,
+.dark .blog-post-content code {
+    background: rgb(24 24 27);
+    color: white !important;
+}
+
+.blog-post-content strong {
+    color: inherit !important;
+}
+
+.dark .blog-post-content strong {
+    color: white !important;
+}
+
+/* TOC sidebar: aktif link arka planı */
+.toc-link-active {
+    background: rgb(253 230 138) !important; /* amber-200 */
+    color: rgb(120 53 15) !important; /* amber-900 */
+}
+
+.dark .toc-link-active {
+    background: rgba(251, 191, 36, 0.25) !important; /* amber-400/25 */
+    color: rgb(253 224 71) !important; /* amber-300 */
+}

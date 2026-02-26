@@ -1,9 +1,15 @@
 import './bootstrap';
 
-document.addEventListener('DOMContentLoaded', () => {
+// Init immediately if DOM hazır, yoksa DOMContentLoaded bekle
+if (document.readyState === 'loading') {
+    document.addEventListener('DOMContentLoaded', () => {
+        initThemeToggle();
+        initEditModal();
+    });
+} else {
     initThemeToggle();
     initEditModal();
-});
+}
 
 function initThemeToggle() {
     const root = document.documentElement;

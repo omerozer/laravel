@@ -4,10 +4,11 @@ namespace App\Http\Responses\Auth;
 
 use Filament\Auth\Http\Responses\Contracts\LoginResponse as LoginResponseContract;
 use Illuminate\Http\RedirectResponse;
+use Livewire\Features\SupportRedirects\Redirector;
 
 class LoginResponse implements LoginResponseContract
 {
-    public function toResponse($request): RedirectResponse
+    public function toResponse($request): RedirectResponse | Redirector
     {
         return redirect()->intended('/dashboard');
     }

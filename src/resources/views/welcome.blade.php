@@ -15,7 +15,7 @@
     <div class="min-h-full fi-body flex flex-col">
         {{-- Header --}}
         <header class="fi-header sticky top-0 z-30 border-b border-gray-200 dark:border-white/5 bg-white/80 dark:bg-gray-900/80 backdrop-blur-xl">
-            <div class="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
+            <div class="mx-auto {{ $siteWidth ?? 'max-w-7xl' }} px-4 sm:px-6 lg:px-8">
                 <div class="flex h-16 items-center justify-between gap-4">
                     <a href="{{ route('home') }}" class="cursor-pointer text-xl font-semibold text-gray-950 dark:text-white">
                         {{ config('app.name') }}
@@ -47,7 +47,7 @@
         </header>
 
         <main class="fi-main flex-1">
-            <div class="mx-auto max-w-4xl px-4 py-8 sm:px-6 lg:px-8">
+            <div class="mx-auto {{ $siteWidth ?? 'max-w-7xl' }} px-4 py-8 sm:px-6 lg:px-8">
                 <h1 class="fi-header-heading text-2xl font-bold tracking-tight text-gray-950 dark:text-white mb-6">
                     Kayıt Formu
                 </h1>

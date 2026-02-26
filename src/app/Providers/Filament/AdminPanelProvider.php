@@ -26,7 +26,8 @@ class AdminPanelProvider extends PanelProvider
         return $panel
             ->default()
             ->id('admin')
-            ->path('')
+            ->path('dashboard')
+            ->maxContentWidth('full')
             ->login()
             ->colors([
                 'primary' => Color::Amber,

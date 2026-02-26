@@ -13,7 +13,7 @@
 <body class="h-full bg-gray-50 dark:bg-gray-950 font-sans antialiased">
     <div class="min-h-full fi-body flex flex-col">
         <header class="fi-header sticky top-0 z-30 border-b border-gray-200 dark:border-white/5 bg-white/80 dark:bg-gray-900/80 backdrop-blur-xl">
-            <div class="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
+            <div class="mx-auto {{ $siteWidth ?? 'max-w-7xl' }} px-4 sm:px-6 lg:px-8">
                 <div class="flex h-16 items-center justify-between gap-4">
                     <a href="{{ route('home') }}" class="cursor-pointer text-xl font-semibold text-gray-950 dark:text-white">{{ config('app.name') }}</a>
                     <nav class="flex items-center gap-2">

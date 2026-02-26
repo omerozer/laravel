@@ -3,8 +3,11 @@
 namespace App\Providers;
 
 use App\Http\Responses\Auth\LoginResponse;
+use App\Models\Setting;
 use Filament\Auth\Http\Responses\Contracts\LoginResponse as LoginResponseContract;
+use Illuminate\Support\Facades\Schema;
 use Illuminate\Support\ServiceProvider;
+use Illuminate\Support\Facades\View;
 
 class AppServiceProvider extends ServiceProvider
 {
@@ -22,5 +25,10 @@ class AppServiceProvider extends ServiceProvider
     public function boot(): void
     {
         $this->app->bind(LoginResponseContract::class, LoginResponse::class);
+
+        $siteWidth = Schema::hasTable('settings')
+            ? Setting::get('site_width', 'max-w-7xl')
+            : 'max-w-7xl';
+        View::share('siteWidth', $siteWidth === 'full' ? 'max-w-full' : $siteWidth);
     }
 }

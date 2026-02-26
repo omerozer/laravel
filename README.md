@@ -59,3 +59,19 @@ docker compose run --rm app php artisan migrate
 docker compose exec app bash
 docker compose exec mysql mysql -u laravel -psecret laravel
 ```
+
+## Production modu (Docker)
+
+Docker ortamı production ayarlarıyla çalışır: `APP_ENV=production`, `APP_DEBUG=false`, `LOG_LEVEL=error` (docker-compose üzerinden ayarlı).
+
+## Hostinger’a deploy (GitHub)
+
+1. Kodu GitHub’a pushlayın. `.env` repoda yoktur; sunucuda elle oluşturulur.
+2. Hostinger’da projeyi GitHub’dan clone/pull edin. Laravel uygulaması `src/` içindedir; web root’u `src/public` olacak şekilde ayarlayın.
+3. Sunucuda `src/` dizininde:
+   - `.env.example` dosyasını `.env` olarak kopyalayın.
+   - `APP_KEY`, `APP_URL` (canlı domain), `DB_*`, `MAIL_*` vb. değerleri doldurun.
+   - `php artisan key:generate` (veya mevcut key’i yapıştırın).
+   - `php artisan migrate --force`, `php artisan config:cache`, `php artisan route:cache`, `php artisan view:cache` çalıştırın.
+4. Frontend build (Vite): Lokalde veya CI’da `npm ci && npm run build` çalıştırıp `src/public/build` klasörünü sunucuya dahil edin (veya Hostinger’da Node varsa sunucuda build alın).
+5. `storage` ve `bootstrap/cache` yazılabilir olmalı (`chmod -R 775` veya sunucu kullanıcısına uygun izinler).

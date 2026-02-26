@@ -1,308 +1,79 @@
 <!DOCTYPE html>
-<html lang="tr" class="h-full">
+<html lang="tr" class="h-full dark">
 <head>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <meta name="csrf-token" content="{{ csrf_token() }}">
-    <title>{{ config('app.name') }} - Kayıt Formu</title>
+    <title>{{ config('app.name') }}</title>
     @vite(['resources/css/app.css', 'resources/js/app.js'])
     <link rel="stylesheet" href="{{ asset('fonts/filament/filament/inter/index.css') }}">
     <style>
         [x-cloak] { display: none !important; }
     </style>
 </head>
-<body class="h-full bg-gray-50 dark:bg-gray-950 font-sans antialiased">
-    <div class="min-h-full fi-body flex flex-col">
-        {{-- Header --}}
-        <header class="fi-header sticky top-0 z-30 border-b border-gray-200 dark:border-white/5 bg-white/80 dark:bg-gray-900/80 backdrop-blur-xl">
-            <div class="mx-auto {{ $siteWidth ?? 'max-w-7xl' }} px-4 sm:px-6 lg:px-8">
-                <div class="flex h-16 items-center justify-between gap-4">
-                    <a href="{{ route('home') }}" class="cursor-pointer text-xl font-semibold text-gray-950 dark:text-white">
-                        {{ config('app.name') }}
-                    </a>
-                    <nav class="flex items-center gap-2">
-                        <button type="button"
-                            data-theme-toggle
-                            class="fi-btn cursor-pointer relative inline-flex items-center justify-center rounded-lg border border-gray-200 dark:border-white/10 bg-white/80 dark:bg-gray-800 px-3 py-2 text-sm font-medium text-gray-700 dark:text-gray-200 shadow-sm hover:bg-gray-50 dark:hover:bg-white/5 focus:outline-none focus:ring-2 focus:ring-amber-500/50">
-                            <span class="sr-only">Tema değiştir</span>
-                            <svg class="h-5 w-5 hidden dark:inline-block" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor">
-                                <path stroke-linecap="round" stroke-linejoin="round" d="M21.752 15.002A9.718 9.718 0 0118 15.75 9.75 9.75 0 018.25 6c0-1.33.266-2.597.748-3.752A9.753 9.753 0 003 11.25 9.75 9.75 0 0012.75 21c3.313 0 6.24-1.61 8.002-4.098z" />
-                            </svg>
-                            <svg class="h-5 w-5 dark:hidden" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor">
-                                <path stroke-linecap="round" stroke-linejoin="round" d="M12 3.75V5.25M18.364 5.636L17.303 6.697M20.25 12H18.75M18.364 18.364L17.303 17.303M12 18.75V20.25M6.697 17.303L5.636 18.364M5.25 12H3.75M6.697 6.697L5.636 5.636M12 8.25A3.75 3.75 0 1012 15.75A3.75 3.75 0 0012 8.25Z" />
-                            </svg>
-                        </button>
-                        <a href="{{ route('home') }}" class="fi-btn cursor-pointer relative grid-flow-col items-center justify-center font-semibold outline-none transition duration-75 focus:ring-2 rounded-lg fi-btn-color-primary fi-size-md gap-1.5 px-3 py-2 text-sm inline-grid shadow-sm bg-amber-500 text-white hover:bg-amber-600 focus:ring-amber-500/50 dark:bg-amber-500 dark:hover:bg-amber-600 dark:focus:ring-amber-500/50">
-                            Kayıt Formu
-                        </a>
-                        <a href="{{ route('blog.index') }}" class="fi-btn cursor-pointer relative grid-flow-col items-center justify-center font-semibold outline-none transition duration-75 focus:ring-2 rounded-lg fi-btn-color-gray fi-size-md gap-1.5 px-3 py-2 text-sm inline-grid shadow-sm bg-white dark:bg-gray-800 border border-gray-200 dark:border-white/10 text-gray-950 dark:text-white hover:bg-gray-50 dark:hover:bg-white/5 focus:ring-gray-500/50 dark:focus:ring-white/50">
-                            Blog
-                        </a>
-                        <a href="{{ url('/dashboard') }}" class="fi-btn cursor-pointer relative grid-flow-col items-center justify-center font-semibold outline-none transition duration-75 focus:ring-2 rounded-lg fi-btn-color-gray fi-size-md gap-1.5 px-3 py-2 text-sm inline-grid shadow-sm bg-white dark:bg-gray-800 border border-gray-200 dark:border-white/10 text-gray-950 dark:text-white hover:bg-gray-50 dark:hover:bg-white/5 focus:ring-gray-500/50 dark:focus:ring-white/50">
-                            Admin
-                        </a>
-                    </nav>
-                </div>
-            </div>
-        </header>
+<body class="h-full bg-black font-sans antialiased text-white">
+    <div class="min-h-full flex flex-col">
+        <x-header />
 
-        <main class="fi-main flex-1">
-            <div class="mx-auto {{ $siteWidth ?? 'max-w-7xl' }} px-4 py-8 sm:px-6 lg:px-8">
-                <h1 class="fi-header-heading text-2xl font-bold tracking-tight text-gray-950 dark:text-white mb-6">
-                    Kayıt Formu
-                </h1>
-
-                @if(session('success'))
-                    <div class="fi-section rounded-xl bg-white dark:bg-gray-900/50 shadow-sm ring-1 ring-gray-950/5 dark:ring-white/10 mb-6 overflow-hidden">
-                        <div class="p-4 fi-ta-content flex items-center gap-2 text-sm text-green-700 dark:text-green-400 bg-green-50 dark:bg-green-500/10 rounded-lg">
-                            <svg class="h-5 w-5 flex-shrink-0" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20" fill="currentColor"><path fill-rule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zm3.857-9.809a.75.75 0 00-1.214-.882l-3.483 4.79-1.88-1.88a.75.75 0 10-1.06 1.061l2.5 2.5a.75.75 0 001.137-.089l4-5.5z" clip-rule="evenodd" /></svg>
-                            {{ session('success') }}
-                        </div>
-                    </div>
-                @endif
-
-                {{-- Blog yazıları --}}
-                <div class="mb-10">
-                    <div class="flex items-center justify-between mb-6">
-                        <h2 class="text-xl font-bold tracking-tight text-gray-950 dark:text-white">Son Yazılar</h2>
-                        <a href="{{ route('blog.index') }}" class="text-sm font-medium text-amber-600 dark:text-amber-400 hover:underline">Tümünü gör</a>
-                    </div>
-                    @if($posts->isEmpty())
-                        <p class="text-sm text-gray-500 dark:text-gray-400">Henüz yayınlanmış yazı yok.</p>
-                    @else
-                        <div class="grid grid-cols-1 gap-6 sm:grid-cols-2 lg:grid-cols-3">
-                            @foreach($posts as $post)
-                                <a href="{{ route('blog.show', $post->slug) }}" class="fi-section cursor-pointer rounded-xl bg-white dark:bg-gray-900/50 shadow-sm ring-1 ring-gray-950/5 dark:ring-white/10 overflow-hidden hover:ring-amber-500/50 dark:hover:ring-amber-500/30 transition">
-                                    @if($post->image)
-                                        <img src="{{ '/storage/'.$post->image }}" alt="" class="w-full h-48 object-cover">
-                                    @else
-                                        <div class="w-full h-48 bg-gray-200 dark:bg-gray-700 flex items-center justify-center text-gray-400 dark:text-gray-500">
-                                            <svg class="h-12 w-12" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 16l4.586-4.586a2 2 0 012.828 0L16 16m-2-2l1.586-1.586a2 2 0 012.828 0L20 14" /></svg>
-                                        </div>
-                                    @endif
-                                    <div class="p-4">
-                                        @if($post->category)
-                                            <span class="text-xs font-medium text-amber-600 dark:text-amber-400">{{ $post->category->name }}</span>
-                                        @endif
-                                        <h3 class="mt-1 text-lg font-semibold text-gray-950 dark:text-white line-clamp-2">{{ $post->title }}</h3>
-                                        <p class="mt-2 text-sm text-gray-600 dark:text-gray-400 line-clamp-2">{{ $post->excerpt ?? \Illuminate\Support\Str::limit(strip_tags($post->content), 120) }}</p>
-                                        <p class="mt-2 text-xs text-gray-500 dark:text-gray-500">{{ $post->published_at?->format('d.m.Y') }} · {{ $post->author->name ?? '' }}</p>
-                                    </div>
-                                </a>
-                            @endforeach
-                        </div>
-                    @endif
-                </div>
-
-                {{-- Form card --}}
-                <div class="fi-section rounded-xl bg-white dark:bg-gray-900/50 shadow-sm ring-1 ring-gray-950/5 dark:ring-white/10 overflow-hidden mb-8">
-                    <div class="fi-section-content-ctn">
-                        <div class="fi-section-content p-6">
-                            <form action="{{ route('kisi.store') }}" method="POST" enctype="multipart/form-data" class="space-y-6">
-                                @csrf
-                                <div class="grid grid-cols-1 gap-6 sm:grid-cols-2">
-                                    <div>
-                                        <label for="ad" class="fi-fo-field-wrp-label inline-flex items-center gap-x-3">
-                                            <span class="text-sm font-medium leading-6 text-gray-950 dark:text-white">Ad</span>
-                                            <span class="fi-fo-field-wrp-required indicator flex text-danger-500">*</span>
-                                        </label>
-                                        <input type="text" id="ad" name="ad" value="{{ old('ad') }}" required
-                                            class="fi-input block w-full h-10 px-3 py-2 rounded-lg border border-gray-300 dark:border-white/20 dark:bg-white/5 text-gray-950 dark:text-white shadow-sm focus:border-amber-500 focus:ring-amber-500 dark:focus:border-amber-500 dark:focus:ring-amber-500 sm:text-sm">
-                                        @error('ad')<p class="fi-fo-field-wrp-error-message mt-1 text-sm text-danger-600 dark:text-danger-400">{{ $message }}</p>@enderror
-                                    </div>
-                                    <div>
-                                        <label for="soyad" class="fi-fo-field-wrp-label inline-flex items-center gap-x-3">
-                                            <span class="text-sm font-medium leading-6 text-gray-950 dark:text-white">Soyad</span>
-                                            <span class="fi-fo-field-wrp-required indicator flex text-danger-500">*</span>
-                                        </label>
-                                        <input type="text" id="soyad" name="soyad" value="{{ old('soyad') }}" required
-                                            class="fi-input block w-full h-10 px-3 py-2 rounded-lg border border-gray-300 dark:border-white/20 dark:bg-white/5 text-gray-950 dark:text-white shadow-sm focus:border-amber-500 focus:ring-amber-500 dark:focus:border-amber-500 dark:focus:ring-amber-500 sm:text-sm">
-                                        @error('soyad')<p class="fi-fo-field-wrp-error-message mt-1 text-sm text-danger-600 dark:text-danger-400">{{ $message }}</p>@enderror
-                                    </div>
-                                </div>
-                                <div class="grid grid-cols-1 gap-6 sm:grid-cols-2">
-                                    <div>
-                                        <label for="yas" class="fi-fo-field-wrp-label inline-flex items-center gap-x-3">
-                                            <span class="text-sm font-medium leading-6 text-gray-950 dark:text-white">Yaş</span>
-                                            <span class="fi-fo-field-wrp-required indicator flex text-danger-500">*</span>
-                                        </label>
-                                        <input type="number" id="yas" name="yas" value="{{ old('yas') }}" min="1" max="150" required
-                                            class="fi-input block w-full h-10 px-3 py-2 rounded-lg border border-gray-300 dark:border-white/20 dark:bg-white/5 text-gray-950 dark:text-white shadow-sm focus:border-amber-500 focus:ring-amber-500 dark:focus:border-amber-500 dark:focus:ring-amber-500 sm:text-sm">
-                                        @error('yas')<p class="fi-fo-field-wrp-error-message mt-1 text-sm text-danger-600 dark:text-danger-400">{{ $message }}</p>@enderror
-                                    </div>
-                                    <div>
-                                        <label for="email" class="fi-fo-field-wrp-label inline-flex items-center gap-x-3">
-                                            <span class="text-sm font-medium leading-6 text-gray-950 dark:text-white">E-posta</span>
-                                        </label>
-                                        <input type="email" id="email" name="email" value="{{ old('email') }}" placeholder="ornek@mail.com"
-                                            class="fi-input block w-full h-10 px-3 py-2 rounded-lg border border-gray-300 dark:border-white/20 dark:bg-white/5 text-gray-950 dark:text-white shadow-sm focus:border-amber-500 focus:ring-amber-500 dark:focus:border-amber-500 dark:focus:ring-amber-500 sm:text-sm">
-                                        @error('email')<p class="fi-fo-field-wrp-error-message mt-1 text-sm text-danger-600 dark:text-danger-400">{{ $message }}</p>@enderror
-                                    </div>
-                                </div>
-                                <div>
-                                    <label for="gorsel" class="fi-fo-field-wrp-label inline-flex items-center gap-x-3">
-                                        <span class="text-sm font-medium leading-6 text-gray-950 dark:text-white">Görsel</span>
-                                    </label>
-                                    <input type="file" id="gorsel" name="gorsel" accept="image/jpeg,image/png,image/gif,image/jpg"
-                                        class="fi-input block w-full text-sm text-gray-500 file:me-2 file:rounded-lg file:border-0 file:bg-amber-500 file:px-4 file:py-2 file:text-sm file:font-semibold file:text-white hover:file:bg-amber-600 focus:outline-none disabled:pointer-events-none disabled:opacity-50 dark:file:bg-amber-500 dark:hover:file:bg-amber-600">
-                                    @error('gorsel')<p class="fi-fo-field-wrp-error-message mt-1 text-sm text-danger-600 dark:text-danger-400">{{ $message }}</p>@enderror
-                                </div>
-                                <div class="flex flex-wrap gap-3">
-                                    <button type="submit" class="fi-btn cursor-pointer relative grid-flow-col items-center justify-center font-semibold outline-none transition duration-75 focus:ring-2 rounded-lg fi-btn-color-primary fi-size-md gap-1.5 px-4 py-2.5 text-sm inline-grid shadow-sm bg-amber-500 text-white hover:bg-amber-600 focus:ring-amber-500/50 dark:bg-amber-500 dark:hover:bg-amber-600 dark:focus:ring-amber-500/50">
-                                        Kaydet
-                                    </button>
-                                </div>
-                            </form>
+        <main class="flex-1">
+            {{-- Hero --}}
+            <section class="relative overflow-hidden">
+                <div class="absolute inset-0 bg-[radial-gradient(ellipse_80%_50%_at_50%_-20%,rgba(251,191,36,0.15),transparent)]" aria-hidden="true"></div>
+                <div class="mx-auto {{ $siteWidth ?? 'max-w-7xl' }} px-4 sm:px-6 lg:px-8 pt-20 pb-24 sm:pt-32 sm:pb-32 lg:pt-40 lg:pb-40 relative">
+                    <div class="text-center max-w-4xl mx-auto">
+                        <h1 class="text-4xl sm:text-5xl lg:text-6xl font-bold tracking-tight text-white">
+                            Laravel ile
+                            <span class="block mt-2 bg-gradient-to-r from-amber-400 via-amber-300 to-emerald-400 bg-clip-text text-transparent">
+                                Web Uygulamaları
+                            </span>
+                        </h1>
+                        <p class="mt-6 text-lg sm:text-xl text-zinc-400 max-w-2xl mx-auto">
+                            Modern, hızlı ve güvenilir web uygulamaları oluşturmak için Laravel framework ile başlayın.
+                        </p>
+                        <div class="mt-10 flex flex-col sm:flex-row items-center justify-center gap-4">
+                            <a href="{{ route('blog.index') }}" class="inline-flex items-center justify-center rounded-lg bg-amber-500 px-6 py-3 text-base font-semibold text-black hover:bg-amber-400 transition-colors focus:outline-none focus:ring-2 focus:ring-amber-500/50 focus:ring-offset-2 focus:ring-offset-black">
+                                Bloğu Keşfet
+                            </a>
+                            <a href="{{ url('/dashboard') }}" class="inline-flex items-center justify-center rounded-lg border border-zinc-600 px-6 py-3 text-base font-semibold text-white hover:bg-white/5 transition-colors focus:outline-none focus:ring-2 focus:ring-white/20 focus:ring-offset-2 focus:ring-offset-black">
+                                Admin
+                            </a>
                         </div>
                     </div>
                 </div>
+            </section>
 
-                {{-- Table card --}}
-                <div class="fi-section rounded-xl bg-white dark:bg-gray-900/50 shadow-sm ring-1 ring-gray-950/5 dark:ring-white/10 overflow-hidden">
-                    <div class="fi-section-header flex items-center gap-x-3 p-6">
-                        <h2 class="fi-section-header-heading text-lg font-bold text-gray-950 dark:text-white">
-                            Kayıtlı Kişiler
-                        </h2>
-                    </div>
-                    <div class="fi-section-content-ctn">
-                        <div class="overflow-x-auto">
-                            @if($kisiler->isEmpty())
-                                <div class="fi-ta-empty-state p-12 text-center">
-                                    <p class="text-sm text-gray-500 dark:text-gray-400">Henüz kayıt yok. Yukarıdaki formdan ekleyebilirsiniz.</p>
-                                </div>
-                            @else
-                                <table class="fi-ta-table w-full table-auto divide-y divide-gray-200 dark:divide-white/5">
-                                    <thead class="divide-y divide-gray-200 dark:divide-white/5">
-                                        <tr class="bg-gray-50 dark:bg-white/5">
-                                            <th class="fi-ta-header-cell px-4 py-3 text-start text-sm font-semibold text-gray-950 dark:text-white">Görsel</th>
-                                            <th class="fi-ta-header-cell px-4 py-3 text-start text-sm font-semibold text-gray-950 dark:text-white">Ad</th>
-                                            <th class="fi-ta-header-cell px-4 py-3 text-start text-sm font-semibold text-gray-950 dark:text-white">Soyad</th>
-                                            <th class="fi-ta-header-cell px-4 py-3 text-start text-sm font-semibold text-gray-950 dark:text-white">Yaş</th>
-                                            <th class="fi-ta-header-cell px-4 py-3 text-start text-sm font-semibold text-gray-950 dark:text-white">E-posta</th>
-                                            <th class="fi-ta-header-cell px-4 py-3 text-start text-sm font-semibold text-gray-950 dark:text-white">İşlemler</th>
-                                        </tr>
-                                    </thead>
-                                    <tbody class="divide-y divide-gray-200 dark:divide-white/5">
-                                        @foreach($kisiler as $kisi)
-                                            <tr class="fi-ta-row transition duration-75 hover:bg-gray-50 dark:hover:bg-white/5">
-                                                <td class="fi-ta-cell px-4 py-3">
-                                                    @if($kisi->gorsel)
-                                                        <img src="{{ '/storage/'.$kisi->gorsel }}" alt="" class="h-10 w-10 rounded-lg object-cover ring-1 ring-gray-950/5 dark:ring-white/10">
-                                                    @else
-                                                        <span class="text-gray-400 dark:text-gray-500">—</span>
-                                                    @endif
-                                                </td>
-                                                <td class="fi-ta-cell px-4 py-3 text-sm text-gray-950 dark:text-white">{{ $kisi->ad }}</td>
-                                                <td class="fi-ta-cell px-4 py-3 text-sm text-gray-950 dark:text-white">{{ $kisi->soyad }}</td>
-                                                <td class="fi-ta-cell px-4 py-3 text-sm text-gray-950 dark:text-white">{{ $kisi->yas }}</td>
-                                                <td class="fi-ta-cell px-4 py-3 text-sm text-gray-600 dark:text-gray-400">{{ $kisi->email ?? '—' }}</td>
-                                                <td class="fi-ta-cell px-4 py-3 text-sm text-gray-600 dark:text-gray-300">
-                                                    <button type="button"
-                                                        class="fi-btn cursor-pointer relative inline-flex items-center justify-center rounded-lg border border-gray-200 dark:border-white/10 bg-white dark:bg-gray-800 px-2.5 py-1.5 text-xs font-medium text-gray-700 dark:text-gray-200 shadow-sm hover:bg-gray-50 dark:hover:bg-white/5 focus:outline-none focus:ring-2 focus:ring-amber-500/50"
-                                                        data-id="{{ $kisi->id }}"
-                                                        data-ad="{{ $kisi->ad }}"
-                                                        data-soyad="{{ $kisi->soyad }}"
-                                                        data-yas="{{ $kisi->yas }}"
-                                                        data-email="{{ $kisi->email }}"
-                                                        data-aktif="{{ isset($kisi->aktif) && $kisi->aktif ? '1' : '0' }}"
-                                                        data-action="{{ route('kisi.update', $kisi) }}"
-                                                        onclick="window.openEditKisiModal(this)">
-                                                        <svg class="h-4 w-4" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20" fill="currentColor">
-                                                            <path d="M5.433 13.917l1.262-.252a3 3 0 001.63-.846l6.306-6.306a1.5 1.5 0 00-2.121-2.121L6.203 10.698a3 3 0 00-.846 1.63l-.252 1.262a.75.75 0 00.672.872.764.764 0 00.156-.015z" />
-                                                            <path d="M3.5 5.75A2.25 2.25 0 015.75 3.5H8a.75.75 0 000-1.5H5.75A3.75 3.75 0 002 5.75v8.5A3.75 3.75 0 005.75 18h8.5A3.75 3.75 0 0018 14.25V12a.75.75 0 00-1.5 0v2.25A2.25 2.25 0 0114.25 16.5h-8.5A2.25 2.25 0 013.5 14.25v-8.5z" />
-                                                        </svg>
-                                                    </button>
-                                                </td>
-                                            </tr>
-                                        @endforeach
-                                    </tbody>
-                                </table>
-                            @endif
+            {{-- Feature cards (Next.js style) --}}
+            <section class="border-t border-white/5">
+                <div class="mx-auto {{ $siteWidth ?? 'max-w-7xl' }} px-4 sm:px-6 lg:px-8 py-20 lg:py-24">
+                    <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 lg:gap-8">
+                        <div class="group rounded-2xl border border-white/5 bg-white/[0.02] p-6 lg:p-8 hover:border-amber-500/30 transition-colors">
+                            <h3 class="text-lg font-semibold text-white">Modern Stack</h3>
+                            <p class="mt-2 text-sm text-zinc-400">
+                                Laravel, Tailwind CSS ve Vite ile güncel teknoloji stack'i.
+                            </p>
+                        </div>
+                        <div class="group rounded-2xl border border-white/5 bg-white/[0.02] p-6 lg:p-8 hover:border-amber-500/30 transition-colors">
+                            <h3 class="text-lg font-semibold text-white">Filament Admin</h3>
+                            <p class="mt-2 text-sm text-zinc-400">
+                                Güçlü Filament panel ile hızlı ve esnek yönetim arayüzü.
+                            </p>
+                        </div>
+                        <div class="group rounded-2xl border border-white/5 bg-white/[0.02] p-6 lg:p-8 hover:border-amber-500/30 transition-colors">
+                            <h3 class="text-lg font-semibold text-white">Blog & İçerik</h3>
+                            <p class="mt-2 text-sm text-zinc-400">
+                                Medium tarzı blog yazıları ile içerik yayınlama.
+                            </p>
                         </div>
                     </div>
                 </div>
-                {{-- Edit modal --}}
-                <div id="edit-kisi-modal" class="fixed inset-0 z-40 hidden">
-                    <div data-edit-modal-overlay class="absolute inset-0 bg-gray-900/50 dark:bg-black/60 backdrop-blur-sm"></div>
-                    <div class="relative z-10 flex min-h-full items-center justify-center px-4 py-8">
-                        <div class="w-full max-w-lg rounded-xl bg-white dark:bg-gray-900 shadow-lg ring-1 ring-gray-950/5 dark:ring-white/10">
-                            <div class="flex items-center justify-between border-b border-gray-200 dark:border-white/10 px-6 py-4">
-                                <h3 class="text-sm font-semibold text-gray-900 dark:text-white">
-                                    Kişiyi Düzenle
-                                </h3>
-                                <button type="button" data-edit-modal-close class="cursor-pointer text-gray-400 hover:text-gray-600 dark:hover:text-gray-200 focus:outline-none">
-                                    <span class="sr-only">Kapat</span>
-                                    <svg class="h-5 w-5" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20" fill="currentColor">
-                                        <path fill-rule="evenodd" d="M4.293 4.293a1 1 0 011.414 0L10 8.586l4.293-4.293a1 1 0 111.414 1.414L11.414 10l4.293 4.293a1 1 0 01-1.414 1.414L10 11.414l-4.293 4.293a1 1 0 01-1.414-1.414L8.586 10 4.293 5.707a1 1 0 010-1.414z" clip-rule="evenodd" />
-                                    </svg>
-                                </button>
-                            </div>
-                            <form method="POST" enctype="multipart/form-data" class="px-6 py-5 space-y-5">
-                                @csrf
-                                @method('PUT')
-                                <input type="hidden" name="id">
-                                <div class="grid grid-cols-1 gap-4 sm:grid-cols-2">
-                                    <div>
-                                        <label class="block text-sm font-medium text-gray-700 dark:text-gray-200">Ad</label>
-                                        <input type="text" name="ad" required
-                                            class="mt-1 block w-full h-10 px-3 py-2 rounded-lg border border-gray-300 dark:border-white/20 dark:bg-white/5 text-gray-950 dark:text-white shadow-sm focus:border-amber-500 focus:ring-amber-500 dark:focus:border-amber-500 dark:focus:ring-amber-500 sm:text-sm">
-                                    </div>
-                                    <div>
-                                        <label class="block text-sm font-medium text-gray-700 dark:text-gray-200">Soyad</label>
-                                        <input type="text" name="soyad" required
-                                            class="mt-1 block w-full h-10 px-3 py-2 rounded-lg border border-gray-300 dark:border-white/20 dark:bg-white/5 text-gray-950 dark:text-white shadow-sm focus:border-amber-500 focus:ring-amber-500 dark:focus:border-amber-500 dark:focus:ring-amber-500 sm:text-sm">
-                                    </div>
-                                </div>
-                                <div class="grid grid-cols-1 gap-4 sm:grid-cols-2">
-                                    <div>
-                                        <label class="block text-sm font-medium text-gray-700 dark:text-gray-200">Yaş</label>
-                                        <input type="number" name="yas" min="1" max="150" required
-                                            class="mt-1 block w-full h-10 px-3 py-2 rounded-lg border border-gray-300 dark:border-white/20 dark:bg-white/5 text-gray-950 dark:text-white shadow-sm focus:border-amber-500 focus:ring-amber-500 dark:focus:border-amber-500 dark:focus:ring-amber-500 sm:text-sm">
-                                    </div>
-                                    <div>
-                                        <label class="block text-sm font-medium text-gray-700 dark:text-gray-200">E-posta</label>
-                                        <input type="email" name="email"
-                                            class="mt-1 block w-full h-10 px-3 py-2 rounded-lg border border-gray-300 dark:border-white/20 dark:bg-white/5 text-gray-950 dark:text-white shadow-sm focus:border-amber-500 focus:ring-amber-500 dark:focus:border-amber-500 dark:focus:ring-amber-500 sm:text-sm">
-                                    </div>
-                                </div>
-                                <div class="flex items-center gap-3">
-                                    <span class="text-sm font-medium text-gray-700 dark:text-gray-200">Aktif</span>
-                                    <input type="hidden" name="aktif" value="1" data-aktif-input>
-                                    <button type="button"
-                                        class="relative inline-flex items-center w-10 h-5 rounded-full bg-green-500 transition-colors"
-                                        data-switch>
-                                        <span class="absolute left-0.5 h-4 w-4 rounded-full bg-white shadow ring-1 ring-gray-900/10 dark:ring-black/40 transform translate-x-5 transition-transform"
-                                            data-switch-knob></span>
-                                    </button>
-                                </div>
-                                <div>
-                                    <label class="block text-sm font-medium text-gray-700 dark:text-gray-200">Yeni Görsel (isteğe bağlı)</label>
-                                    <input type="file" name="gorsel" accept="image/jpeg,image/png,image/gif,image/jpg"
-                                        class="mt-1 block w-full text-sm text-gray-500 file:me-2 file:rounded-lg file:border-0 file:bg-amber-500 file:px-4 file:py-2 file:text-sm file:font-semibold file:text-white hover:file:bg-amber-600 focus:outline-none disabled:pointer-events-none disabled:opacity-50 dark:file:bg-amber-500 dark:hover:file:bg-amber-600">
-                                </div>
-                                <div class="flex justify-end gap-3 pt-2">
-                                    <button type="button" data-edit-modal-close
-                                        class="fi-btn cursor-pointer relative inline-flex items-center justify-center rounded-lg border border-gray-200 dark:border-white/10 bg-white dark:bg-gray-800 px-4 py-2 text-sm font-medium text-gray-700 dark:text-gray-200 shadow-sm hover:bg-gray-50 dark:hover:bg-white/5 focus:outline-none focus:ring-2 focus:ring-gray-500/50 dark:focus:ring-white/50">
-                                        Vazgeç
-                                    </button>
-                                    <button type="submit"
-                                        class="fi-btn cursor-pointer relative inline-flex items-center justify-center rounded-lg bg-amber-500 px-4 py-2 text-sm font-semibold text-white shadow-sm hover:bg-amber-600 focus:outline-none focus:ring-2 focus:ring-amber-500/50">
-                                        Kaydı Güncelle
-                                    </button>
-                                </div>
-                            </form>
-                        </div>
-                    </div>
-                </div>
-            </div>
+            </section>
         </main>
-    </div>
 
+        <x-footer />
+    </div>
     <script>
         document.addEventListener('DOMContentLoaded', function () {
-            document.querySelectorAll('button, [role="button"], .fi-btn').forEach(function (el) {
-                el.style.cursor = 'pointer';
-            });
+            document.querySelectorAll('button, a').forEach(function (el) { el.style.cursor = 'pointer'; });
         });
     </script>
 </body>

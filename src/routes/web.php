@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\BlogController;
 use App\Http\Controllers\KisiController;
 use Illuminate\Support\Facades\Route;
 use Illuminate\Support\Facades\File;
@@ -49,3 +50,7 @@ Route::post('/kaydet', [KisiController::class, 'store'])->name('kisi.store');
 Route::put('/kisi/{kisi}', [KisiController::class, 'update'])->name('kisi.update');
 
 Route::view('/component', 'components')->name('components.gallery');
+
+Route::get('/blog', [BlogController::class, 'index'])->name('blog.index');
+Route::get('/blog/kategori/{slug}', [BlogController::class, 'category'])->name('blog.category');
+Route::get('/blog/{slug}', [BlogController::class, 'show'])->name('blog.show');

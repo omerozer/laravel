@@ -47,3 +47,5 @@ Route::get('build/assets/{path}', function (string $path): Response {
 Route::get('/', [KisiController::class, 'index'])->name('home');
 Route::post('/kaydet', [KisiController::class, 'store'])->name('kisi.store');
 Route::put('/kisi/{kisi}', [KisiController::class, 'update'])->name('kisi.update');
+
+Route::view('/component', 'components')->name('components.gallery');

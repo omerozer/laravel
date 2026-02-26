@@ -250,5 +250,13 @@
             </div>
         </main>
     </div>
+
+    <script>
+        document.addEventListener('DOMContentLoaded', function () {
+            document.querySelectorAll('button, [role="button"], .fi-btn').forEach(function (el) {
+                el.style.cursor = 'pointer';
+            });
+        });
+    </script>
 </body>
 </html>

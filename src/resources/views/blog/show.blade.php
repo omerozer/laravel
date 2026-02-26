@@ -30,15 +30,23 @@
 
                     {{-- Ana içerik --}}
                     <article class="min-w-0 flex-1 max-w-3xl">
-                        <a href="{{ route('blog.index') }}" class="inline-flex items-center gap-1 text-sm text-gray-500 dark:text-zinc-400 hover:text-gray-900 dark:hover:text-white transition-colors mb-8">
-                            <svg class="h-4 w-4" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 19l-7-7 7-7" /></svg>
-                            Bloga dön
-                        </a>
+                        <nav class="breadcrumbs mb-6 rounded-lg px-3 py-2 bg-gradient-to-r from-violet-100/70 via-fuchsia-100/50 to-amber-100/70 dark:from-violet-950/30 dark:via-fuchsia-950/20 dark:to-amber-950/30 border border-violet-200/40 dark:border-violet-800/30" aria-label="Breadcrumb">
+                            <ol class="flex flex-wrap items-center gap-1.5 text-sm">
+                                <li>
+                                    <a href="{{ route('blog.index') }}" class="text-gray-600 dark:text-zinc-400 hover:text-gray-900 dark:hover:text-white transition-colors">Blog</a>
+                                </li>
+                                @if($post->category)
+                                    <li class="text-gray-400 dark:text-zinc-500" aria-hidden="true">/</li>
+                                    <li>
+                                        <a href="{{ route('blog.category', $post->category->slug) }}" class="text-gray-600 dark:text-zinc-400 hover:text-gray-900 dark:hover:text-white transition-colors">{{ $post->category->name }}</a>
+                                    </li>
+                                @endif
+                                <li class="text-gray-400 dark:text-zinc-500" aria-hidden="true">/</li>
+                                <li class="text-gray-900 dark:text-white font-medium truncate max-w-[12rem] sm:max-w-none" aria-current="page">{{ $post->title }}</li>
+                            </ol>
+                        </nav>
 
-                        @if($post->category)
-                            <a href="{{ route('blog.category', $post->category->slug) }}" class="inline-block text-sm font-medium text-amber-600 dark:text-amber-400 hover:text-amber-500 dark:hover:text-amber-300 transition-colors">{{ $post->category->name }}</a>
-                        @endif
-                        <h1 class="mt-2 text-4xl font-bold tracking-tight text-gray-900 dark:text-white sm:text-5xl">{{ $post->title }}</h1>
+                        <h1 class="text-4xl font-bold tracking-tight text-gray-900 dark:text-white sm:text-5xl">{{ $post->title }}</h1>
                         <p class="mt-3 text-sm text-gray-500 dark:text-zinc-500">{{ $post->published_at?->format('d F Y') }} · {{ $post->author->name ?? '' }} · {{ $post->view_count }} görüntülenme</p>
 
                         @if($post->image)

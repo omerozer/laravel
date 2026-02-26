@@ -130,3 +130,16 @@
     background: rgba(255, 255, 255, 0.06) !important; /* hover gibi hafif */
     color: white !important;
 }
+
+/* Breadcrumbs: pastel gradient, düşük profile */
+.breadcrumbs {
+    font-size: 0.8125rem;
+}
+
+.breadcrumbs a {
+    text-decoration: none;
+}
+
+.breadcrumbs li[aria-current] {
+    color: inherit;
+}

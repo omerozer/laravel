@@ -1,5 +1,8 @@
 @import 'tailwindcss';
 
+/* Dark mode: .dark class ile (tema butonu) — varsayılan media yerine class kullan */
+@custom-variant dark (&:where(.dark, .dark *));
+
 @source '../../vendor/laravel/framework/src/Illuminate/Pagination/resources/views/*.blade.php';
 @source '../../storage/framework/views/*.php';
 @source '../**/*.blade.php';

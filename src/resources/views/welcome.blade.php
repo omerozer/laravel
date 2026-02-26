@@ -61,6 +61,39 @@
                     </div>
                 @endif
 
+                {{-- Blog yazıları --}}
+                <div class="mb-10">
+                    <div class="flex items-center justify-between mb-6">
+                        <h2 class="text-xl font-bold tracking-tight text-gray-950 dark:text-white">Son Yazılar</h2>
+                        <a href="{{ route('blog.index') }}" class="text-sm font-medium text-amber-600 dark:text-amber-400 hover:underline">Tümünü gör</a>
+                    </div>
+                    @if($posts->isEmpty())
+                        <p class="text-sm text-gray-500 dark:text-gray-400">Henüz yayınlanmış yazı yok.</p>
+                    @else
+                        <div class="grid grid-cols-1 gap-6 sm:grid-cols-2 lg:grid-cols-3">
+                            @foreach($posts as $post)
+                                <a href="{{ route('blog.show', $post->slug) }}" class="fi-section cursor-pointer rounded-xl bg-white dark:bg-gray-900/50 shadow-sm ring-1 ring-gray-950/5 dark:ring-white/10 overflow-hidden hover:ring-amber-500/50 dark:hover:ring-amber-500/30 transition">
+                                    @if($post->image)
+                                        <img src="{{ '/storage/'.$post->image }}" alt="" class="w-full h-48 object-cover">
+                                    @else
+                                        <div class="w-full h-48 bg-gray-200 dark:bg-gray-700 flex items-center justify-center text-gray-400 dark:text-gray-500">
+                                            <svg class="h-12 w-12" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 16l4.586-4.586a2 2 0 012.828 0L16 16m-2-2l1.586-1.586a2 2 0 012.828 0L20 14" /></svg>
+                                        </div>
+                                    @endif
+                                    <div class="p-4">
+                                        @if($post->category)
+                                            <span class="text-xs font-medium text-amber-600 dark:text-amber-400">{{ $post->category->name }}</span>
+                                        @endif
+                                        <h3 class="mt-1 text-lg font-semibold text-gray-950 dark:text-white line-clamp-2">{{ $post->title }}</h3>
+                                        <p class="mt-2 text-sm text-gray-600 dark:text-gray-400 line-clamp-2">{{ $post->excerpt ?? \Illuminate\Support\Str::limit(strip_tags($post->content), 120) }}</p>
+                                        <p class="mt-2 text-xs text-gray-500 dark:text-gray-500">{{ $post->published_at?->format('d.m.Y') }} · {{ $post->author->name ?? '' }}</p>
+                                    </div>
+                                </a>
+                            @endforeach
+                        </div>
+                    @endif
+                </div>
+
                 {{-- Form card --}}
                 <div class="fi-section rounded-xl bg-white dark:bg-gray-900/50 shadow-sm ring-1 ring-gray-950/5 dark:ring-white/10 overflow-hidden mb-8">
                     <div class="fi-section-content-ctn">

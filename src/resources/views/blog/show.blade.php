@@ -31,24 +31,24 @@
         </header>
 
         <main class="fi-main flex-1">
-            <article class="mx-auto max-w-3xl px-4 py-8 sm:px-6 lg:px-8">
-                <a href="{{ route('blog.index') }}" class="inline-flex items-center text-sm text-amber-600 dark:text-amber-400 hover:underline mb-6 cursor-pointer">← Bloga dön</a>
+            <article class="mx-auto max-w-2xl px-4 py-10 sm:px-6 lg:px-8">
+                <a href="{{ route('blog.index') }}" class="inline-flex items-center text-sm text-amber-600 dark:text-amber-400 hover:underline mb-8 cursor-pointer">← Bloga dön</a>
 
                 @if($post->category)
                     <a href="{{ route('blog.category', $post->category->slug) }}" class="text-sm font-medium text-amber-600 dark:text-amber-400">{{ $post->category->name }}</a>
                 @endif
-                <h1 class="mt-2 text-3xl font-bold tracking-tight text-gray-950 dark:text-white">{{ $post->title }}</h1>
-                <p class="mt-2 text-sm text-gray-500 dark:text-gray-400">{{ $post->published_at?->format('d F Y') }} · {{ $post->author->name ?? '' }} · {{ $post->view_count }} görüntülenme</p>
+                <h1 class="mt-2 text-4xl font-bold tracking-tight text-gray-950 dark:text-white sm:text-5xl">{{ $post->title }}</h1>
+                <p class="mt-3 text-sm text-gray-500 dark:text-gray-400">{{ $post->published_at?->format('d F Y') }} · {{ $post->author->name ?? '' }} · {{ $post->view_count }} görüntülenme</p>
 
                 @if($post->image)
-                    <img src="{{ '/storage/'.$post->image }}" alt="" class="mt-6 w-full rounded-xl object-cover max-h-96">
+                    <img src="{{ '/storage/'.$post->image }}" alt="" class="mt-8 w-full rounded-2xl object-cover max-h-[28rem]">
                 @endif
 
                 @if($post->excerpt)
-                    <p class="mt-6 text-lg text-gray-600 dark:text-gray-300">{{ $post->excerpt }}</p>
+                    <p class="mt-8 text-lg leading-relaxed text-gray-600 dark:text-gray-300">{{ $post->excerpt }}</p>
                 @endif
 
-                <div class="mt-6 prose prose-gray dark:prose-invert max-w-none text-gray-700 dark:text-gray-200">
+                <div class="mt-8 prose prose-lg prose-gray dark:prose-invert max-w-none prose-p:leading-relaxed prose-headings:font-bold text-gray-700 dark:text-gray-200">
                     {!! nl2br(e($post->content)) !!}
                 </div>
             </article>

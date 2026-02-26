@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\BlogPost;
 use App\Models\Kisi;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Storage;
@@ -11,7 +12,12 @@ class KisiController extends Controller
     public function index()
     {
         $kisiler = Kisi::latest()->get();
-        return view('welcome', compact('kisiler'));
+        $posts = BlogPost::published()
+            ->with(['category', 'author'])
+            ->latest('published_at')
+            ->take(12)
+            ->get();
+        return view('welcome', compact('kisiler', 'posts'));
     }
 
     public function store(Request $request)

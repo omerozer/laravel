@@ -12,10 +12,6 @@ RUN apt-get update && apt-get install -y \
     unzip \
     libzip-dev
 
-# Node.js (Vite/Tailwind build için, sadece container içinde)
-RUN curl -fsSL https://deb.nodesource.com/setup_20.x | bash - \
-    && apt-get install -y nodejs
-
 # PHP eklentileri (intl Filament için gerekli)
 RUN docker-php-ext-install pdo_mysql mbstring exif pcntl bcmath gd zip intl
 

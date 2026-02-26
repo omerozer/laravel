@@ -40,5 +40,10 @@
     Header always set X-Content-Type-Options "nosniff"
     Header always set X-Frame-Options "SAMEORIGIN"
     Header always set Referrer-Policy "no-referrer-when-downgrade"
+
+    # Görseller için uzun süreli browser cache
+    <FilesMatch "\.(jpe?g|png|gif|webp)$">
+        Header set Cache-Control "public, max-age=31536000"
+    </FilesMatch>
 </IfModule>
 </IfModule>

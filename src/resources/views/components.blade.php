@@ -23,7 +23,7 @@
                     <nav class="flex items-center gap-2">
                         <button type="button"
                             data-theme-toggle
-                            class="fi-btn cursor-pointer relative inline-flex items-center justify-center rounded-lg border border-gray-200 dark:border-white/10 bg-white/80 dark:bg-gray-800 px-3 py-2 text-sm font-medium text-gray-700 dark:text-gray-200 shadow-sm hover:bg-gray-50 dark:hover:bg-white/5 focus:outline-none focus:ring-2 focus:ring-amber-500/50">
+                            class="fi-btn cursor-pointer relative inline-flex items-center justify-center rounded-lg border border-gray-200 dark:border-white/10 bg-white/80 dark:bg-gray-800 px-3 py-2 text-sm font-medium text-gray-700 dark:text-gray-200 shadow-sm hover:bg-gray-50 dark:hover:bg-white/5 focus:outline-none focus:ring-2 focus:ring-accent-500/50">
                             <span class="sr-only">Tema değiştir</span>
                             <svg class="h-5 w-5 hidden dark:inline-block" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor">
                                 <path stroke-linecap="round" stroke-linejoin="round" d="M21.752 15.002A9.718 9.718 0 0118 15.75 9.75 9.75 0 018.25 6c0-1.33.266-2.597.748-3.752A9.753 9.753 0 003 11.25 9.75 9.75 0 0012.75 21c3.313 0 6.24-1.61 8.002-4.098z" />
@@ -38,7 +38,7 @@
                         <a href="{{ route('blog.index') }}" class="fi-btn cursor-pointer relative grid-flow-col items-center justify-center font-semibold outline-none transition duration-75 focus:ring-2 rounded-lg fi-btn-color-gray fi-size-md gap-1.5 px-3 py-2 text-sm inline-grid shadow-sm bg-white dark:bg-gray-800 border border-gray-200 dark:border-white/10 text-gray-950 dark:text-white hover:bg-gray-50 dark:hover:bg-white/5 focus:ring-gray-500/50 dark:focus:ring-white/50">
                             Blog
                         </a>
-                        <a href="{{ route('components.gallery') }}" class="fi-btn cursor-pointer relative grid-flow-col items-center justify-center font-semibold outline-none transition duration-75 focus:ring-2 rounded-lg fi-btn-color-primary fi-size-md gap-1.5 px-3 py-2 text-sm inline-grid shadow-sm bg-amber-500 text-white hover:bg-amber-600 focus:ring-amber-500/50 dark:bg-amber-500 dark:hover:bg-amber-600 dark:focus:ring-amber-500/50">
+                        <a href="{{ route('components.gallery') }}" class="fi-btn cursor-pointer relative grid-flow-col items-center justify-center font-semibold outline-none transition duration-75 focus:ring-2 rounded-lg fi-btn-color-primary fi-size-md gap-1.5 px-3 py-2 text-sm inline-grid shadow-sm bg-accent-500 text-white hover:bg-accent-600 focus:ring-accent-500/50 dark:bg-accent-500 dark:hover:bg-accent-600 dark:focus:ring-accent-500/50">
                             Filament UI
                         </a>
                         <a href="{{ url('/dashboard') }}" class="fi-btn cursor-pointer relative grid-flow-col items-center justify-center font-semibold outline-none transition duration-75 focus:ring-2 rounded-lg fi-btn-color-gray fi-size-md gap-1.5 px-3 py-2 text-sm inline-grid shadow-sm bg-white dark:bg-gray-800 border border-gray-200 dark:border-white/10 text-gray-950 dark:text-white hover:bg-gray-50 dark:hover:bg-white/5 focus:ring-gray-500/50 dark:focus:ring-white/50">
@@ -73,13 +73,13 @@
                             <div class="space-y-2">
                                 <p class="text-xs font-medium uppercase tracking-wide text-gray-500 dark:text-gray-400">Primary</p>
                                 <div class="flex flex-wrap gap-3">
-                                    <button class="fi-btn cursor-pointer relative inline-flex items-center justify-center rounded-lg bg-amber-500 px-4 py-2 text-sm font-semibold text-white shadow-sm hover:bg-amber-600 focus:outline-none focus:ring-2 focus:ring-amber-500/50">
+                                    <button class="fi-btn cursor-pointer relative inline-flex items-center justify-center rounded-lg bg-accent-500 px-4 py-2 text-sm font-semibold text-white shadow-sm hover:bg-accent-600 focus:outline-none focus:ring-2 focus:ring-accent-500/50">
                                         Primary
                                     </button>
-                                    <button class="fi-btn cursor-pointer relative inline-flex items-center justify-center rounded-lg bg-amber-500/90 px-4 py-2 text-sm font-semibold text-white shadow-sm hover:bg-amber-600 focus:outline-none focus:ring-2 focus:ring-amber-500/50">
+                                    <button class="fi-btn cursor-pointer relative inline-flex items-center justify-center rounded-lg bg-accent-500/90 px-4 py-2 text-sm font-semibold text-white shadow-sm hover:bg-accent-600 focus:outline-none focus:ring-2 focus:ring-accent-500/50">
                                         Primary (Yoğun)
                                     </button>
-                                    <button disabled class="fi-btn relative inline-flex items-center justify-center rounded-lg bg-amber-500/40 px-4 py-2 text-sm font-semibold text-white/70 shadow-sm cursor-not-allowed">
+                                    <button disabled class="fi-btn relative inline-flex items-center justify-center rounded-lg bg-accent-500/40 px-4 py-2 text-sm font-semibold text-white/70 shadow-sm cursor-not-allowed">
                                         Primary Disabled
                                     </button>
                                 </div>
@@ -103,7 +103,7 @@
                             <div class="space-y-2">
                                 <p class="text-xs font-medium uppercase tracking-wide text-gray-500 dark:text-gray-400">İkonlu</p>
                                 <div class="flex flex-wrap gap-3">
-                                    <button class="fi-btn cursor-pointer relative inline-flex items-center justify-center gap-2 rounded-lg bg-amber-500 px-4 py-2 text-sm font-semibold text-white shadow-sm hover:bg-amber-600 focus:outline-none focus:ring-2 focus:ring-amber-500/50">
+                                    <button class="fi-btn cursor-pointer relative inline-flex items-center justify-center gap-2 rounded-lg bg-accent-500 px-4 py-2 text-sm font-semibold text-white shadow-sm hover:bg-accent-600 focus:outline-none focus:ring-2 focus:ring-accent-500/50">
                                         <svg class="h-4 w-4" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor">
                                             <path stroke-linecap="round" stroke-linejoin="round" d="M12 4.5v15m7.5-7.5h-15"/>
                                         </svg>
@@ -137,7 +137,7 @@
                                         <span class="text-sm font-medium leading-6 text-gray-950 dark:text-white">Metin Alanı</span>
                                         <span class="fi-fo-field-wrp-required indicator flex text-danger-500">*</span>
                                     </label>
-                                    <input type="text" class="fi-input block w-full h-10 px-3 py-2 rounded-lg border border-gray-300 dark:border-white/20 dark:bg-white/5 text-gray-950 dark:text-white shadow-sm focus:border-amber-500 focus:ring-amber-500 dark:focus:border-amber-500 dark:focus:ring-amber-500 sm:text-sm" placeholder="Örnek metin">
+                                    <input type="text" class="fi-input block w-full h-10 px-3 py-2 rounded-lg border border-gray-300 dark:border-white/20 dark:bg-white/5 text-gray-950 dark:text-white shadow-sm focus:border-accent-500 focus:ring-accent-500 dark:focus:border-accent-500 dark:focus:ring-accent-500 sm:text-sm" placeholder="Örnek metin">
                                     <p class="text-xs text-gray-500 dark:text-gray-400">Yardımcı açıklama metni.</p>
                                 </div>
                                 <div class="space-y-2">
@@ -154,7 +154,7 @@
                                     <label class="fi-fo-field-wrp-label inline-flex items-center gap-x-3">
                                         <span class="text-sm font-medium leading-6 text-gray-950 dark:text-white">Seçim</span>
                                     </label>
-                                    <select class="fi-input block w-full h-10 px-3 py-2 rounded-lg border border-gray-300 dark:border-white/20 dark:bg-white/5 text-gray-950 dark:text-white shadow-sm focus:border-amber-500 focus:ring-amber-500 dark:focus:border-amber-500 dark:focus:ring-amber-500 sm:text-sm">
+                                    <select class="fi-input block w-full h-10 px-3 py-2 rounded-lg border border-gray-300 dark:border-white/20 dark:bg-white/5 text-gray-950 dark:text-white shadow-sm focus:border-accent-500 focus:ring-accent-500 dark:focus:border-accent-500 dark:focus:ring-accent-500 sm:text-sm">
                                         <option>Seçenek 1</option>
                                         <option>Seçenek 2</option>
                                         <option>Seçenek 3</option>
@@ -164,22 +164,22 @@
                                     <label class="fi-fo-field-wrp-label inline-flex items-center gap-x-3">
                                         <span class="text-sm font-medium leading-6 text-gray-950 dark:text-white">Textarea</span>
                                     </label>
-                                    <textarea rows="3" class="fi-input block w-full px-3 py-2 rounded-lg border border-gray-300 dark:border-white/20 dark:bg-white/5 text-gray-950 dark:text-white shadow-sm focus:border-amber-500 focus:ring-amber-500 dark:focus:border-amber-500 dark:focus:ring-amber-500 sm:text-sm" placeholder="Daha uzun metin"></textarea>
+                                    <textarea rows="3" class="fi-input block w-full px-3 py-2 rounded-lg border border-gray-300 dark:border-white/20 dark:bg-white/5 text-gray-950 dark:text-white shadow-sm focus:border-accent-500 focus:ring-accent-500 dark:focus:border-accent-500 dark:focus:ring-accent-500 sm:text-sm" placeholder="Daha uzun metin"></textarea>
                                 </div>
                             </div>
 
                             <div class="grid grid-cols-1 gap-6 sm:grid-cols-2">
                                 <div class="space-y-3">
                                     <div class="flex items-center gap-2">
-                                        <input id="checkbox-ornek" type="checkbox" class="h-4 w-4 rounded border-gray-300 text-amber-500 focus:ring-amber-500">
+                                        <input id="checkbox-ornek" type="checkbox" class="h-4 w-4 rounded border-gray-300 text-accent-500 focus:ring-accent-500">
                                         <label for="checkbox-ornek" class="text-sm text-gray-700 dark:text-gray-200">Checkbox örneği</label>
                                     </div>
                                     <div class="flex items-center gap-2">
-                                        <input id="radio-1" name="radio-ornek" type="radio" class="h-4 w-4 border-gray-300 text-amber-500 focus:ring-amber-500">
+                                        <input id="radio-1" name="radio-ornek" type="radio" class="h-4 w-4 border-gray-300 text-accent-500 focus:ring-accent-500">
                                         <label for="radio-1" class="text-sm text-gray-700 dark:text-gray-200">Radio 1</label>
                                     </div>
                                     <div class="flex items-center gap-2">
-                                        <input id="radio-2" name="radio-ornek" type="radio" class="h-4 w-4 border-gray-300 text-amber-500 focus:ring-amber-500">
+                                        <input id="radio-2" name="radio-ornek" type="radio" class="h-4 w-4 border-gray-300 text-accent-500 focus:ring-accent-500">
                                         <label for="radio-2" class="text-sm text-gray-700 dark:text-gray-200">Radio 2</label>
                                     </div>
                                 </div>
@@ -189,9 +189,9 @@
                                         <span class="sr-only">Bildirimleri aç/kapat</span>
                                         <span class="inline-flex h-5 w-5 transform rounded-full bg-white shadow ring-1 ring-gray-900/10"></span>
                                     </button>
-                                    <button type="button" class="cursor-pointer inline-flex items-center rounded-full border border-transparent bg-amber-500 p-0.5 transition hover:bg-amber-600">
+                                    <button type="button" class="cursor-pointer inline-flex items-center rounded-full border border-transparent bg-accent-500 p-0.5 transition hover:bg-accent-600">
                                         <span class="sr-only">Bildirimleri aç/kapat</span>
-                                        <span class="inline-flex h-5 w-5 transform rounded-full bg-white shadow ring-1 ring-amber-600 translate-x-5"></span>
+                                        <span class="inline-flex h-5 w-5 transform rounded-full bg-white shadow ring-1 ring-accent-600 translate-x-5"></span>
                                     </button>
                                 </div>
                             </div>
@@ -217,7 +217,7 @@
                                 <div class="p-3 rounded-lg bg-blue-50 dark:bg-blue-500/10 text-sm text-blue-700 dark:text-blue-300">
                                     Bilgilendirme mesajı örneği.
                                 </div>
-                                <div class="p-3 rounded-lg bg-amber-50 dark:bg-amber-500/10 text-sm text-amber-700 dark:text-amber-300">
+                                <div class="p-3 rounded-lg bg-accent-50 dark:bg-accent-500/10 text-sm text-accent-700 dark:text-accent-300">
                                     Uyarı mesajı örneği.
                                 </div>
                                 <div class="p-3 rounded-lg bg-red-50 dark:bg-red-500/10 text-sm text-red-700 dark:text-red-300">
@@ -228,7 +228,7 @@
                             <div class="space-y-2">
                                 <p class="text-xs font-medium uppercase tracking-wide text-gray-500 dark:text-gray-400">Badge / Etiket</p>
                                 <div class="flex flex-wrap gap-2">
-                                    <span class="inline-flex items-center rounded-full bg-amber-50 px-2.5 py-1 text-xs font-medium text-amber-700 dark:bg-amber-500/15 dark:text-amber-300">
+                                    <span class="inline-flex items-center rounded-full bg-accent-50 px-2.5 py-1 text-xs font-medium text-accent-700 dark:bg-accent-500/15 dark:text-accent-300">
                                         Durum: Aktif
                                     </span>
                                     <span class="inline-flex items-center rounded-full bg-gray-100 px-2.5 py-1 text-xs font-medium text-gray-700 dark:bg-gray-800 dark:text-gray-200">
@@ -263,7 +263,7 @@
                                 <button type="button" data-notify="danger" class="fi-btn cursor-pointer inline-flex items-center justify-center rounded-lg bg-red-600 px-4 py-2 text-sm font-medium text-white shadow-sm hover:bg-red-700 focus:outline-none focus:ring-2 focus:ring-red-500/50">
                                     Danger
                                 </button>
-                                <button type="button" data-notify="warning" class="fi-btn cursor-pointer inline-flex items-center justify-center rounded-lg bg-amber-600 px-4 py-2 text-sm font-medium text-white shadow-sm hover:bg-amber-700 focus:outline-none focus:ring-2 focus:ring-amber-500/50">
+                                <button type="button" data-notify="warning" class="fi-btn cursor-pointer inline-flex items-center justify-center rounded-lg bg-accent-600 px-4 py-2 text-sm font-medium text-white shadow-sm hover:bg-accent-700 focus:outline-none focus:ring-2 focus:ring-accent-500/50">
                                     Warning
                                 </button>
                                 <button type="button" data-notify="info" class="fi-btn cursor-pointer inline-flex items-center justify-center rounded-lg bg-blue-600 px-4 py-2 text-sm font-medium text-white shadow-sm hover:bg-blue-700 focus:outline-none focus:ring-2 focus:ring-blue-500/50">
@@ -313,7 +313,7 @@
                                         <tr class="fi-ta-row hover:bg-gray-50 dark:hover:bg-white/5">
                                             <td class="fi-ta-cell px-4 py-3 text-sm text-gray-950 dark:text-white">Demo Kullanıcı</td>
                                             <td class="fi-ta-cell px-4 py-3">
-                                                <span class="inline-flex items-center rounded-full bg-amber-50 px-2.5 py-1 text-xs font-medium text-amber-700 dark:bg-amber-500/15 dark:text-amber-300">
+                                                <span class="inline-flex items-center rounded-full bg-accent-50 px-2.5 py-1 text-xs font-medium text-accent-700 dark:bg-accent-500/15 dark:text-accent-300">
                                                     Aktif
                                                 </span>
                                             </td>
@@ -378,11 +378,11 @@
                                         <div class="grid grid-cols-1 gap-4 sm:grid-cols-2">
                                             <div>
                                                 <label class="block text-xs font-medium text-gray-700 dark:text-gray-200">Alan 1</label>
-                                                <input type="text" class="mt-1 block w-full h-10 px-3 py-2 rounded-lg border border-gray-300 dark:border-white/20 dark:bg-white/5 text-gray-950 dark:text-white shadow-sm focus:border-amber-500 focus:ring-amber-500 dark:focus:border-amber-500 dark:focus:ring-amber-500 sm:text-xs">
+                                                <input type="text" class="mt-1 block w-full h-10 px-3 py-2 rounded-lg border border-gray-300 dark:border-white/20 dark:bg-white/5 text-gray-950 dark:text-white shadow-sm focus:border-accent-500 focus:ring-accent-500 dark:focus:border-accent-500 dark:focus:ring-accent-500 sm:text-xs">
                                             </div>
                                             <div>
                                                 <label class="block text-xs font-medium text-gray-700 dark:text-gray-200">Alan 2</label>
-                                                <input type="text" class="mt-1 block w-full h-10 px-3 py-2 rounded-lg border border-gray-300 dark:border-white/20 dark:bg-white/5 text-gray-950 dark:text-white shadow-sm focus:border-amber-500 focus:ring-amber-500 dark:focus:border-amber-500 dark:focus:ring-amber-500 sm:text-xs">
+                                                <input type="text" class="mt-1 block w-full h-10 px-3 py-2 rounded-lg border border-gray-300 dark:border-white/20 dark:bg-white/5 text-gray-950 dark:text-white shadow-sm focus:border-accent-500 focus:ring-accent-500 dark:focus:border-accent-500 dark:focus:ring-accent-500 sm:text-xs">
                                             </div>
                                         </div>
                                     </div>
@@ -390,7 +390,7 @@
                                         <button type="button" class="fi-btn cursor-pointer relative inline-flex items-center justify-center rounded-lg border border-gray-200 dark:border-white/10 bg-white dark:bg-gray-800 px-4 py-2 text-xs font-medium text-gray-700 dark:text-gray-200 shadow-sm hover:bg-gray-50 dark:hover:bg-white/5 focus:outline-none focus:ring-2 focus:ring-gray-500/50 dark:focus:ring-white/50">
                                             Vazgeç
                                         </button>
-                                        <button type="button" class="fi-btn cursor-pointer relative inline-flex items-center justify-center rounded-lg bg-amber-500 px-4 py-2 text-xs font-semibold text-white shadow-sm hover:bg-amber-600 focus:outline-none focus:ring-2 focus:ring-amber-500/50">
+                                        <button type="button" class="fi-btn cursor-pointer relative inline-flex items-center justify-center rounded-lg bg-accent-500 px-4 py-2 text-xs font-semibold text-white shadow-sm hover:bg-accent-600 focus:outline-none focus:ring-2 focus:ring-accent-500/50">
                                             Kaydet
                                         </button>
                                     </div>

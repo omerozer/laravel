@@ -11,6 +11,13 @@
 @theme {
     --font-sans: 'Instrument Sans', ui-sans-serif, system-ui, sans-serif, 'Apple Color Emoji', 'Segoe UI Emoji',
         'Segoe UI Symbol', 'Noto Color Emoji';
+    --color-accent: #00ff99;
+    --color-accent-300: #6bffb8;
+    --color-accent-400: #2dffa3;
+    --color-accent-500: #00ff99;
+    --color-accent-600: #00e68a;
+    --color-accent-700: #00cc7a;
+    --color-accent-800: #00996b;
 }
 
 /* Blog post content: h2, h3, h4 başlıkları belirgin */
@@ -85,19 +92,19 @@
 }
 
 .blog-post-content a {
-    color: rgb(217 119 6);
+    color: #00ff99;
 }
 
 .dark .blog-post-content a {
-    color: rgb(251 191 36);
+    color: #2dffa3;
 }
 
 .blog-post-content a:hover {
-    color: rgb(180 83 9);
+    color: #00e68a;
 }
 
 .dark .blog-post-content a:hover {
-    color: rgb(253 224 71);
+    color: #6bffb8;
 }
 
 .blog-post-content pre,

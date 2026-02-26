@@ -6,6 +6,11 @@ services:
     container_name: laravel-app
     restart: unless-stopped
     working_dir: /var/www/html
+    environment:
+      DB_HOST: mysql
+      DB_DATABASE: laravel
+      DB_USERNAME: laravel
+      DB_PASSWORD: secret
     volumes:
       - ./src:/var/www/html
     networks:

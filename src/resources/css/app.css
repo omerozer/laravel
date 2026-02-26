@@ -120,13 +120,13 @@
     color: white !important;
 }
 
-/* TOC sidebar: aktif link arka planı */
+/* TOC sidebar: aktif link hover benzeri arka plan */
 .toc-link-active {
-    background: rgb(253 230 138) !important; /* amber-200 */
-    color: rgb(120 53 15) !important; /* amber-900 */
+    background: rgb(243 244 246) !important; /* gray-100 */
+    color: rgb(17 24 39) !important; /* gray-900 */
 }
 
 .dark .toc-link-active {
-    background: rgba(251, 191, 36, 0.25) !important; /* amber-400/25 */
-    color: rgb(253 224 71) !important; /* amber-300 */
+    background: rgba(255, 255, 255, 0.06) !important; /* hover gibi hafif */
+    color: white !important;
 }

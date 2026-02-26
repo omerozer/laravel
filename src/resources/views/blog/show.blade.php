@@ -9,6 +9,7 @@
     @endif
     @vite(['resources/css/app.css', 'resources/js/app.js'])
     <link rel="stylesheet" href="{{ asset('fonts/filament/filament/inter/index.css') }}">
+    <style>html { scroll-behavior: smooth; }</style>
 </head>
 <body class="h-full bg-gray-50 dark:bg-black font-sans antialiased text-gray-900 dark:text-white">
     <div class="min-h-full flex flex-col">
@@ -19,7 +20,7 @@
                 <div class="flex flex-col lg:flex-row gap-8 lg:gap-12">
                     {{-- Sol sidebar: H2 başlıkları (scrollspy) --}}
                     <aside id="toc-sidebar" class="hidden lg:block lg:w-64 flex-shrink-0">
-                        <nav class="sticky top-24 border border-gray-200 dark:border-zinc-700 rounded-xl p-4 bg-white/50 dark:bg-zinc-900/50">
+                        <nav class="sticky top-24 border border-gray-200 dark:border-zinc-800/80 rounded-xl p-4 bg-white/50 dark:bg-zinc-900/50">
                             <p class="text-xs font-semibold uppercase tracking-wider text-gray-500 dark:text-zinc-500 mb-4">Bu sayfada</p>
                             <div id="toc-list" class="space-y-0.5">
                                 {{-- JS ile doldurulacak --}}
@@ -84,6 +85,11 @@
                 var link = document.createElement('a');
                 link.href = '#' + id;
                 link.className = 'toc-link flex items-center gap-2 px-3 py-2 text-sm rounded-lg text-gray-500 dark:text-zinc-400 hover:text-gray-900 dark:hover:text-white hover:bg-gray-100 dark:hover:bg-white/5 transition-colors';
+                link.addEventListener('click', function(e) {
+                    e.preventDefault();
+                    var target = document.getElementById(id);
+                    if (target) target.scrollIntoView({ behavior: 'smooth', block: 'start' });
+                });
                 link.innerHTML = '<span class="text-amber-400/80"><svg class="h-4 w-4" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M7 7h.01M7 3h5c.512 0 1.024.195 1.414.586l7 7a2 2 0 010 2.828l-7 7a2 2 0 01-2.828 0l-7-7A1.994 1.994 0 013 12V7a4 4 0 014-4z" /></svg></span><span>' + text + '</span>';
                 tocList.appendChild(link);
                 items.push({ id: id, link: link, el: h2 });

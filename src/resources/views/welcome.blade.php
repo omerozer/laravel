@@ -228,6 +228,15 @@
                                             class="mt-1 block w-full h-10 px-3 py-2 rounded-lg border border-gray-300 dark:border-white/20 dark:bg-white/5 text-gray-950 dark:text-white shadow-sm focus:border-amber-500 focus:ring-amber-500 dark:focus:border-amber-500 dark:focus:ring-amber-500 sm:text-sm">
                                     </div>
                                 </div>
+                                <div class="flex items-center gap-3">
+                                    <span class="text-sm font-medium text-gray-700 dark:text-gray-200">Aktif</span>
+                                    <button type="button"
+                                        class="relative inline-flex items-center w-10 h-5 rounded-full bg-green-500 transition-colors"
+                                        data-switch>
+                                        <span class="absolute left-0.5 h-4 w-4 rounded-full bg-white shadow ring-1 ring-gray-900/10 dark:ring-black/40 transform translate-x-5 transition-transform"
+                                            data-switch-knob></span>
+                                    </button>
+                                </div>
                                 <div>
                                     <label class="block text-sm font-medium text-gray-700 dark:text-gray-200">Yeni Görsel (isteğe bağlı)</label>
                                     <input type="file" name="gorsel" accept="image/jpeg,image/png,image/gif,image/jpg"

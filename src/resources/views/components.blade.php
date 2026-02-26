@@ -240,6 +240,37 @@
                     </div>
                 </section>
 
+                {{-- Notifications (toast sağ alttan) --}}
+                <section class="fi-section rounded-xl bg-white dark:bg-gray-900/50 shadow-sm ring-1 ring-gray-950/5 dark:ring-white/10">
+                    <div class="fi-section-header flex items-center justify-between gap-x-3 border-b border-gray-200 dark:border-white/5 px-6 py-4">
+                        <h2 class="fi-section-header-heading text-sm font-semibold text-gray-950 dark:text-white">
+                            Notification
+                        </h2>
+                        <p class="text-xs text-gray-500 dark:text-gray-400">Sağ alttan toast — butona tıkla, bildirim sağ altta görünsün</p>
+                    </div>
+                    <div class="fi-section-content-ctn">
+                        <div class="fi-section-content p-6 space-y-4">
+                            <p class="text-sm text-gray-600 dark:text-gray-400">
+                                Aşağıdaki butonlara tıklayarak sağ alt köşede beliren bildirimleri deneyebilirsin. Otomatik kapanır veya X ile kapatılabilir.
+                            </p>
+                            <div class="flex flex-wrap gap-3">
+                                <button type="button" data-notify="success" class="fi-btn cursor-pointer inline-flex items-center justify-center rounded-lg bg-green-600 px-4 py-2 text-sm font-medium text-white shadow-sm hover:bg-green-700 focus:outline-none focus:ring-2 focus:ring-green-500/50">
+                                    Success
+                                </button>
+                                <button type="button" data-notify="danger" class="fi-btn cursor-pointer inline-flex items-center justify-center rounded-lg bg-red-600 px-4 py-2 text-sm font-medium text-white shadow-sm hover:bg-red-700 focus:outline-none focus:ring-2 focus:ring-red-500/50">
+                                    Danger
+                                </button>
+                                <button type="button" data-notify="warning" class="fi-btn cursor-pointer inline-flex items-center justify-center rounded-lg bg-amber-600 px-4 py-2 text-sm font-medium text-white shadow-sm hover:bg-amber-700 focus:outline-none focus:ring-2 focus:ring-amber-500/50">
+                                    Warning
+                                </button>
+                                <button type="button" data-notify="info" class="fi-btn cursor-pointer inline-flex items-center justify-center rounded-lg bg-blue-600 px-4 py-2 text-sm font-medium text-white shadow-sm hover:bg-blue-700 focus:outline-none focus:ring-2 focus:ring-blue-500/50">
+                                    Info
+                                </button>
+                            </div>
+                        </div>
+                    </div>
+                </section>
+
                 {{-- Cards / Table (layout) --}}
                 <section class="fi-section rounded-xl bg-white dark:bg-gray-900/50 shadow-sm ring-1 ring-gray-950/5 dark:ring-white/10">
                     <div class="fi-section-header flex items-center justify-between gap-x-3 border-b border-gray-200 dark:border-white/5 px-6 py-4">
@@ -368,6 +399,9 @@
             </div>
         </main>
     </div>
+
+    {{-- Toast container: sağ alt köşe --}}
+    <div id="notification-toast-container" class="fixed bottom-4 right-4 z-[100] flex flex-col-reverse gap-3 pointer-events-none w-full max-w-sm sm:max-w-md" aria-live="polite"></div>
 
     <script>
         document.addEventListener('DOMContentLoaded', function () {

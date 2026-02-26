@@ -25,5 +25,24 @@ foreach ($filamentAssetPaths as $prefix) {
     })->where('path', '.*')->name("filament.assets.{$prefix}");
 }
 
+// Vite build assets fallback: document root src/public değilse /build/assets/* 404 olur; Laravel'den sun
+Route::get('build/assets/{path}', function (string $path): Response {
+    $path = str_replace(['../', '..'.DIRECTORY_SEPARATOR], '', $path);
+    $fullPath = public_path("build/assets/{$path}");
+    if (!File::isFile($fullPath)) {
+        abort(404);
+    }
+    $base = realpath(public_path('build/assets'));
+    if (!$base || !str_starts_with(realpath($fullPath), $base)) {
+        abort(404);
+    }
+    $mime = match (pathinfo($fullPath, PATHINFO_EXTENSION)) {
+        'css' => 'text/css',
+        'js' => 'application/javascript',
+        default => File::mimeType($fullPath),
+    };
+    return response()->file($fullPath, ['Content-Type' => $mime]);
+})->where('path', '.*')->name('vite.build.assets');
+
 Route::get('/', [KisiController::class, 'index'])->name('home');
 Route::post('/kaydet', [KisiController::class, 'store'])->name('kisi.store');

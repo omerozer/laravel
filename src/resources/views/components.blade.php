@@ -17,7 +17,7 @@
         <header class="fi-header sticky top-0 z-30 border-b border-gray-200 dark:border-white/5 bg-white/80 dark:bg-gray-900/80 backdrop-blur-xl">
             <div class="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
                 <div class="flex h-16 items-center justify-between gap-4">
-                    <a href="{{ url('/') }}" class="cursor-pointer text-xl font-semibold text-gray-950 dark:text-white">
+                    <a href="{{ route('home') }}" class="cursor-pointer text-xl font-semibold text-gray-950 dark:text-white">
                         {{ config('app.name') }}
                     </a>
                     <nav class="flex items-center gap-2">
@@ -38,7 +38,7 @@
                         <a href="{{ route('components.gallery') }}" class="fi-btn cursor-pointer relative grid-flow-col items-center justify-center font-semibold outline-none transition duration-75 focus:ring-2 rounded-lg fi-btn-color-primary fi-size-md gap-1.5 px-3 py-2 text-sm inline-grid shadow-sm bg-amber-500 text-white hover:bg-amber-600 focus:ring-amber-500/50 dark:bg-amber-500 dark:hover:bg-amber-600 dark:focus:ring-amber-500/50">
                             Filament UI
                         </a>
-                        <a href="{{ url('/control') }}" class="fi-btn cursor-pointer relative grid-flow-col items-center justify-center font-semibold outline-none transition duration-75 focus:ring-2 rounded-lg fi-btn-color-gray fi-size-md gap-1.5 px-3 py-2 text-sm inline-grid shadow-sm bg-white dark:bg-gray-800 border border-gray-200 dark:border-white/10 text-gray-950 dark:text-white hover:bg-gray-50 dark:hover:bg-white/5 focus:ring-gray-500/50 dark:focus:ring-white/50">
+                        <a href="{{ url('/') }}" class="fi-btn cursor-pointer relative grid-flow-col items-center justify-center font-semibold outline-none transition duration-75 focus:ring-2 rounded-lg fi-btn-color-gray fi-size-md gap-1.5 px-3 py-2 text-sm inline-grid shadow-sm bg-white dark:bg-gray-800 border border-gray-200 dark:border-white/10 text-gray-950 dark:text-white hover:bg-gray-50 dark:hover:bg-white/5 focus:ring-gray-500/50 dark:focus:ring-white/50">
                             Admin
                         </a>
                     </nav>

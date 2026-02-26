@@ -17,7 +17,7 @@
         <header class="fi-header sticky top-0 z-30 border-b border-gray-200 dark:border-white/5 bg-white/80 dark:bg-gray-900/80 backdrop-blur-xl">
             <div class="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
                 <div class="flex h-16 items-center justify-between gap-4">
-                    <a href="{{ url('/') }}" class="cursor-pointer text-xl font-semibold text-gray-950 dark:text-white">
+                    <a href="{{ route('home') }}" class="cursor-pointer text-xl font-semibold text-gray-950 dark:text-white">
                         {{ config('app.name') }}
                     </a>
                     <nav class="flex items-center gap-2">
@@ -32,10 +32,10 @@
                                 <path stroke-linecap="round" stroke-linejoin="round" d="M12 3.75V5.25M18.364 5.636L17.303 6.697M20.25 12H18.75M18.364 18.364L17.303 17.303M12 18.75V20.25M6.697 17.303L5.636 18.364M5.25 12H3.75M6.697 6.697L5.636 5.636M12 8.25A3.75 3.75 0 1012 15.75A3.75 3.75 0 0012 8.25Z" />
                             </svg>
                         </button>
-                        <a href="{{ url('/') }}" class="fi-btn cursor-pointer relative grid-flow-col items-center justify-center font-semibold outline-none transition duration-75 focus:ring-2 rounded-lg fi-btn-color-primary fi-size-md gap-1.5 px-3 py-2 text-sm inline-grid shadow-sm bg-amber-500 text-white hover:bg-amber-600 focus:ring-amber-500/50 dark:bg-amber-500 dark:hover:bg-amber-600 dark:focus:ring-amber-500/50">
+                        <a href="{{ route('home') }}" class="fi-btn cursor-pointer relative grid-flow-col items-center justify-center font-semibold outline-none transition duration-75 focus:ring-2 rounded-lg fi-btn-color-primary fi-size-md gap-1.5 px-3 py-2 text-sm inline-grid shadow-sm bg-amber-500 text-white hover:bg-amber-600 focus:ring-amber-500/50 dark:bg-amber-500 dark:hover:bg-amber-600 dark:focus:ring-amber-500/50">
                             Kayıt Formu
                         </a>
-                        <a href="{{ url('/control') }}" class="fi-btn cursor-pointer relative grid-flow-col items-center justify-center font-semibold outline-none transition duration-75 focus:ring-2 rounded-lg fi-btn-color-gray fi-size-md gap-1.5 px-3 py-2 text-sm inline-grid shadow-sm bg-white dark:bg-gray-800 border border-gray-200 dark:border-white/10 text-gray-950 dark:text-white hover:bg-gray-50 dark:hover:bg-white/5 focus:ring-gray-500/50 dark:focus:ring-white/50">
+                        <a href="{{ url('/') }}" class="fi-btn cursor-pointer relative grid-flow-col items-center justify-center font-semibold outline-none transition duration-75 focus:ring-2 rounded-lg fi-btn-color-gray fi-size-md gap-1.5 px-3 py-2 text-sm inline-grid shadow-sm bg-white dark:bg-gray-800 border border-gray-200 dark:border-white/10 text-gray-950 dark:text-white hover:bg-gray-50 dark:hover:bg-white/5 focus:ring-gray-500/50 dark:focus:ring-white/50">
                             Admin
                         </a>
                     </nav>

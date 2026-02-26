@@ -151,7 +151,7 @@
                                             <tr class="fi-ta-row transition duration-75 hover:bg-gray-50 dark:hover:bg-white/5">
                                                 <td class="fi-ta-cell px-4 py-3">
                                                     @if($kisi->gorsel)
-                                                        <img src="{{ Storage::url($kisi->gorsel) }}" alt="" class="h-10 w-10 rounded-lg object-cover ring-1 ring-gray-950/5 dark:ring-white/10">
+                                                        <img src="{{ '/storage/'.$kisi->gorsel }}" alt="" class="h-10 w-10 rounded-lg object-cover ring-1 ring-gray-950/5 dark:ring-white/10">
                                                     @else
                                                         <span class="text-gray-400 dark:text-gray-500">—</span>
                                                     @endif

@@ -20,9 +20,6 @@
     RewriteRule ^src/(vendor|storage|bootstrap|database|resources|tests)/ - [F,L]
     RewriteRule ^src/\.env - [F,L]
 
-    # /storage/ -> src/storage/app/public/
-    RewriteRule ^storage/(.*)$ src/storage/app/public/$1 [L]
-
     # Redirect Trailing Slashes If Not A Folder
     RewriteCond %{REQUEST_FILENAME} !-d
     RewriteCond %{REQUEST_URI} (.+)/$

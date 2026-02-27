@@ -3,6 +3,7 @@
 namespace App\Filament\Pages;
 
 use App\Models\Setting;
+use BackedEnum;
 use Filament\Actions\Action;
 use Filament\Notifications\Notification;
 use Filament\Forms\Components\FileUpload;
@@ -23,7 +24,8 @@ class DesignSettings extends \Filament\Pages\Page
 
     protected static ?string $title = 'Ayarlar';
 
-    protected static ?string $navigationIcon = 'heroicon-o-cog-6-tooth';
+    /** @var BackedEnum|string|null */
+    protected static BackedEnum|string|null $navigationIcon = 'heroicon-o-cog-6-tooth';
 
     public ?array $data = [];
 

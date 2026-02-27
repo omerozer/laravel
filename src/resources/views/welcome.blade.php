@@ -174,10 +174,10 @@
                                 type="button"
                                 class="block w-full focus:outline-none"
                                 data-dashboard-lightbox-open
-                                data-dashboard-lightbox-target="{{ asset('images/78.png') }}"
+                                data-dashboard-lightbox-target="{{ asset('images/98.png') }}"
                             >
                                 <img
-                                    src="{{ asset('images/78.png') }}"
+                                    src="{{ asset('images/98.png') }}"
                                     alt="Todolist yazılımı dashboard tasarımı"
                                     class="w-full rounded-3xl shadow-2xl ring-1 ring-black/5 dark:ring-white/10 transition-transform group-hover:scale-[1.01]"
                                     loading="lazy"
@@ -208,7 +208,7 @@
         {{-- Dashboard lightbox --}}
         <div
             id="dashboard-lightbox"
-            class="fixed inset-0 z-50 hidden items-center justify-center bg-black/80 px-2 sm:px-3"
+            class="fixed inset-0 z-50 hidden items-center justify-center bg-black/80 px-4 sm:px-8"
         >
             <button
                 type="button"
@@ -217,7 +217,7 @@
                 aria-label="Kapat"
             ></button>
             <div
-                class="relative w-full max-w-[95vw] mx-auto transform transition-all duration-200 opacity-0 scale-95"
+                class="relative w-full max-w-7xl mx-auto transform transition-all duration-200 opacity-0 scale-95"
                 data-dashboard-lightbox-panel
             >
                 <button
@@ -230,7 +230,7 @@
                 <img
                     src="{{ asset('images/on-muhasebe-dashboard.png') }}"
                     alt="Ön Muhasebe programı dashboard tasarımı - tam ekran"
-                    class="w-full max-h-[92vh] rounded-2xl shadow-2xl bg-white object-contain"
+                    class="w-full max-h-[90vh] rounded-2xl shadow-2xl bg-white object-contain"
                     data-dashboard-lightbox-image
                 >
             </div>

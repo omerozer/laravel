@@ -4,6 +4,7 @@ namespace App\Filament\Pages;
 
 use App\Models\Setting;
 use BackedEnum;
+use Illuminate\Support\Facades\Storage;
 use Filament\Actions\Action;
 use Filament\Notifications\Notification;
 use Filament\Forms\Components\FileUpload;
@@ -73,6 +74,17 @@ class DesignSettings extends \Filament\Pages\Page
             return $first !== false ? (string) $first : null;
         }
         return $value !== null && $value !== '' ? (string) $value : null;
+    }
+
+    /**
+     * Delete file from private storage when logo/favicon is removed or replaced.
+     */
+    private function deleteSettingFileIfChanged(string $key, ?string $newPath): void
+    {
+        $oldPath = Setting::get($key);
+        if ($oldPath && $oldPath !== $newPath && Storage::disk('local')->exists($oldPath)) {
+            Storage::disk('local')->delete($oldPath);
+        }
     }
 
     public function form(Schema $schema): Schema
@@ -203,13 +215,25 @@ class DesignSettings extends \Filament\Pages\Page
         $data = $this->getSchema('form')->getState();
 
         Setting::set('site_width', $data['site_width'] ?? 'max-w-7xl');
-        Setting::set('dashboard_logo', $this->toSingleFilePath($data['dashboard_logo'] ?? null));
+
+        $dashboardLogo = $this->toSingleFilePath($data['dashboard_logo'] ?? null);
+        $this->deleteSettingFileIfChanged('dashboard_logo', $dashboardLogo);
+        Setting::set('dashboard_logo', $dashboardLogo);
+
         Setting::set('dashboard_logo_width', $data['dashboard_logo_width'] ?? 160);
         Setting::set('dashboard_logo_height', $data['dashboard_logo_height'] ?? 40);
-        Setting::set('public_logo', $this->toSingleFilePath($data['public_logo'] ?? null));
+
+        $publicLogo = $this->toSingleFilePath($data['public_logo'] ?? null);
+        $this->deleteSettingFileIfChanged('public_logo', $publicLogo);
+        Setting::set('public_logo', $publicLogo);
+
         Setting::set('public_logo_width', $data['public_logo_width'] ?? 160);
         Setting::set('public_logo_height', $data['public_logo_height'] ?? 40);
-        Setting::set('favicon', $this->toSingleFilePath($data['favicon'] ?? null));
+
+        $favicon = $this->toSingleFilePath($data['favicon'] ?? null);
+        $this->deleteSettingFileIfChanged('favicon', $favicon);
+        Setting::set('favicon', $favicon);
+
         Setting::set('favicon_size', $data['favicon_size'] ?? 32);
         Setting::set('seo_home_title', $data['seo_home_title'] ?? null);
         Setting::set('seo_home_description', $data['seo_home_description'] ?? null);

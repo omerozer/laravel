@@ -4,7 +4,8 @@ namespace App\Filament\Pages;
 
 use App\Models\Setting;
 use BackedEnum;
-use Illuminate\Support\Facades\Storage;
+use Illuminate\Support\Facades\Config;
+use Illuminate\Support\Facades\Mail;
 use Filament\Actions\Action;
 use Filament\Notifications\Notification;
 use Filament\Forms\Components\FileUpload;
@@ -32,7 +33,7 @@ class DesignSettings extends \Filament\Pages\Page
 
     public static function getSlug(?\Filament\Panel $panel = null): string
     {
-        return 'tasarim-ayarlari';
+        return 'settings';
     }
 
     public function mount(): void
@@ -50,6 +51,17 @@ class DesignSettings extends \Filament\Pages\Page
             'seo_home_title' => Setting::get('seo_home_title'),
             'seo_home_description' => Setting::get('seo_home_description'),
             'seo_home_keywords' => Setting::get('seo_home_keywords'),
+            'smtp_host' => Setting::get('smtp_host', ''),
+            'smtp_port' => Setting::get('smtp_port', 587),
+            'smtp_username' => Setting::get('smtp_username', ''),
+            'smtp_password' => Setting::get('smtp_password', ''),
+            'smtp_encryption' => Setting::get('smtp_encryption', 'tls'),
+            'mail_from_address' => Setting::get('mail_from_address', config('mail.from.address')),
+            'mail_from_name' => Setting::get('mail_from_name', config('mail.from.name')),
+            'user_panel_name' => Setting::get('user_panel_name', 'Ömer Soft'),
+            'user_panel_email' => Setting::get('user_panel_email', 'iletisim@omersoft.com'),
+            'user_panel_linkedin' => Setting::get('user_panel_linkedin', 'https://www.linkedin.com/in/omerdesign/'),
+            'footer_text' => Setting::get('footer_text', 'All rights reserved.'),
         ];
     }
 
@@ -81,6 +93,51 @@ class DesignSettings extends \Filament\Pages\Page
         // Artık görseller public/images altında tutulduğu için
         // Laravel'in storage diskinden silme işlemi yapmıyoruz.
         // Yalnızca veritabanındaki path güncelleniyor.
+    }
+
+    private function sendTestMail(string $to): void
+    {
+        $host = Setting::get('smtp_host');
+        if (!$host) {
+            Notification::make()
+                ->title('Önce SMTP ayarlarını kaydedin')
+                ->warning()
+                ->send();
+            return;
+        }
+
+        Config::set('mail.mailers.smtp', [
+            'transport' => 'smtp',
+            'host' => $host,
+            'port' => (int) (Setting::get('smtp_port') ?? 587),
+            'encryption' => Setting::get('smtp_encryption') ?: null,
+            'username' => Setting::get('smtp_username') ?: null,
+            'password' => Setting::get('smtp_password') ?: null,
+            'timeout' => null,
+        ]);
+
+        Config::set('mail.from', [
+            'address' => Setting::get('mail_from_address') ?? config('mail.from.address'),
+            'name' => Setting::get('mail_from_name') ?? config('mail.from.name'),
+        ]);
+
+        try {
+            Mail::mailer('smtp')->raw('Bu bir test e-postasıdır. SMTP ayarlarınız doğru yapılandırılmış.', function ($message) use ($to) {
+                $message->to($to)->subject('SMTP Test Mail');
+            });
+
+            Notification::make()
+                ->title('Test mail gönderildi')
+                ->body($to . ' adresine test e-postası gönderildi.')
+                ->success()
+                ->send();
+        } catch (\Throwable $e) {
+            Notification::make()
+                ->title('Mail gönderilemedi')
+                ->body($e->getMessage())
+                ->danger()
+                ->send();
+        }
     }
 
     public function form(Schema $schema): Schema
@@ -168,6 +225,29 @@ class DesignSettings extends \Filament\Pages\Page
                                     ->minValue(16)
                                     ->maxValue(256)
                                     ->suffix('px'),
+
+                                TextInput::make('user_panel_name')
+                                    ->label('Profil Adı (Header panel)')
+                                    ->placeholder('Ömer Soft')
+                                    ->helperText('Sağ üst menü panelinde görünecek profil adı.'),
+
+                                TextInput::make('user_panel_email')
+                                    ->label('Profil E-posta')
+                                    ->email()
+                                    ->placeholder('iletisim@omersoft.com')
+                                    ->helperText('Sağ üst menü panelinde görünecek e-posta adresi.'),
+
+                                TextInput::make('user_panel_linkedin')
+                                    ->label('LinkedIn URL')
+                                    ->url()
+                                    ->placeholder('https://www.linkedin.com/in/omerdesign/')
+                                    ->helperText('Profil panelinde görünecek LinkedIn bağlantısı.'),
+
+                                Textarea::make('footer_text')
+                                    ->label('Footer metni')
+                                    ->rows(2)
+                                    ->placeholder('All rights reserved.')
+                                    ->helperText('Sayfa altında görünecek footer metni.'),
                             ]),
 
                         Tab::make('SEO')
@@ -187,6 +267,40 @@ class DesignSettings extends \Filament\Pages\Page
                                     ->label('Anasayfa Keywords')
                                     ->helperText('Virgülle ayrılmış anahtar kelimeler (opsiyonel).'),
                             ]),
+
+                        Tab::make('SMTP Ayarları')
+                            ->schema([
+                                TextInput::make('smtp_host')
+                                    ->label('SMTP Host')
+                                    ->placeholder('smtp.example.com'),
+                                TextInput::make('smtp_port')
+                                    ->label('SMTP Port')
+                                    ->numeric()
+                                    ->default(587)
+                                    ->placeholder('587'),
+                                TextInput::make('smtp_username')
+                                    ->label('SMTP Kullanıcı Adı')
+                                    ->placeholder('user@example.com'),
+                                TextInput::make('smtp_password')
+                                    ->label('SMTP Şifre')
+                                    ->password()
+                                    ->placeholder('••••••••'),
+                                Select::make('smtp_encryption')
+                                    ->label('Şifreleme')
+                                    ->options([
+                                        'tls' => 'TLS',
+                                        'ssl' => 'SSL',
+                                        '' => 'Yok',
+                                    ])
+                                    ->default('tls'),
+                                TextInput::make('mail_from_address')
+                                    ->label('Gönderen E-posta')
+                                    ->email()
+                                    ->placeholder('noreply@example.com'),
+                                TextInput::make('mail_from_name')
+                                    ->label('Gönderen Adı')
+                                    ->placeholder('Site Adı'),
+                            ]),
                     ]),
             ]);
     }
@@ -201,6 +315,20 @@ class DesignSettings extends \Filament\Pages\Page
                     ->livewireSubmitHandler('save')
                     ->footer([
                         Actions::make([
+                            Action::make('testMail')
+                                ->label('Test Mail Gönder')
+                                ->color('gray')
+                                ->icon('heroicon-o-paper-airplane')
+                                ->form([
+                                    \Filament\Forms\Components\TextInput::make('test_email')
+                                        ->label('Test e-posta adresi')
+                                        ->email()
+                                        ->required()
+                                        ->placeholder('test@example.com'),
+                                ])
+                                ->action(function (array $data): void {
+                                    $this->sendTestMail($data['test_email']);
+                                }),
                             Action::make('save')
                                 ->label('Kaydet')
                                 ->submit('form'),
@@ -237,6 +365,19 @@ class DesignSettings extends \Filament\Pages\Page
         Setting::set('seo_home_title', $data['seo_home_title'] ?? null);
         Setting::set('seo_home_description', $data['seo_home_description'] ?? null);
         Setting::set('seo_home_keywords', $data['seo_home_keywords'] ?? null);
+
+        Setting::set('user_panel_name', $data['user_panel_name'] ?? 'Ömer Soft');
+        Setting::set('user_panel_email', $data['user_panel_email'] ?? '');
+        Setting::set('user_panel_linkedin', $data['user_panel_linkedin'] ?? '');
+        Setting::set('footer_text', $data['footer_text'] ?? 'All rights reserved.');
+
+        Setting::set('smtp_host', $data['smtp_host'] ?? '');
+        Setting::set('smtp_port', $data['smtp_port'] ?? 587);
+        Setting::set('smtp_username', $data['smtp_username'] ?? '');
+        Setting::set('smtp_password', $data['smtp_password'] ?? '');
+        Setting::set('smtp_encryption', $data['smtp_encryption'] ?? 'tls');
+        Setting::set('mail_from_address', $data['mail_from_address'] ?? null);
+        Setting::set('mail_from_name', $data['mail_from_name'] ?? null);
 
         Notification::make()
             ->title('Ayarlar kaydedildi')

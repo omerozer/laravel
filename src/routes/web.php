@@ -1,6 +1,7 @@
 <?php
 
 use App\Http\Controllers\BlogController;
+use App\Http\Controllers\ContactController;
 use App\Http\Controllers\KisiController;
 use App\Http\Controllers\SettingsMediaController;
 use Illuminate\Support\Facades\Route;
@@ -47,6 +48,7 @@ Route::get('build/assets/{path}', function (string $path): Response {
 })->where('path', '.*')->name('vite.build.assets');
 
 Route::get('/', [KisiController::class, 'index'])->name('home');
+Route::post('/contact', [ContactController::class, 'store'])->name('contact.store');
 Route::post('/kaydet', [KisiController::class, 'store'])->name('kisi.store');
 Route::put('/kisi/{kisi}', [KisiController::class, 'update'])->name('kisi.update');
 

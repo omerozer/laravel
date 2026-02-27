@@ -3,7 +3,7 @@
         <div class="flex h-16 items-center justify-between gap-4">
             {{-- Sol: tema değiştir --}}
             <div class="flex w-10 sm:w-12 shrink-0 items-center justify-start">
-                <button type="button" data-theme-toggle class="p-2 text-gray-600 dark:text-zinc-400 hover:text-gray-900 dark:hover:text-white rounded-lg hover:bg-gray-100 dark:hover:bg-white/5 focus:outline-none focus:ring-2 focus:ring-accent-500/50 transition-colors" aria-label="Tema değiştir">
+                <button type="button" data-theme-toggle class="p-2 text-gray-600 dark:text-zinc-400 hover:text-gray-900 dark:hover:text-white rounded-lg hover:bg-gray-100 dark:hover:bg-white/5 focus:outline-none focus:ring-2 focus:ring-accent-500/50 transition-colors" aria-label="Toggle theme">
                     <svg class="h-5 w-5 hidden dark:inline-block" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor">
                         <path stroke-linecap="round" stroke-linejoin="round" d="M21.752 15.002A9.718 9.718 0 0118 15.75 9.75 9.75 0 018.25 6c0-1.33.266-2.597.748-3.752A9.753 9.753 0 003 11.25 9.75 9.75 0 0012.75 21c3.313 0 6.24-1.61 8.002-4.098z" />
                     </svg>
@@ -24,12 +24,18 @@
                 </a>
             </div>
 
-            {{-- Sağ: hamburger --}}
-            <div class="flex w-10 sm:w-12 shrink-0 items-center justify-end">
-                <button type="button" id="header-menu-toggle" class="p-2 text-gray-600 dark:text-zinc-400 hover:text-gray-900 dark:hover:text-white rounded-lg hover:bg-gray-100 dark:hover:bg-white/5 focus:outline-none focus:ring-2 focus:ring-accent-500/50 transition-colors" aria-label="Menüyü aç">
-                    <svg class="h-6 w-6" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor">
-                        <path stroke-linecap="round" stroke-linejoin="round" d="M3.75 6.75h16.5M3.75 12h16.5m-16.5 5.25h16.5" />
+            {{-- Sağ: profil + dil seçici (EN / TR bayrağı) --}}
+            <div class="flex shrink-0 items-center justify-end gap-1">
+                <button type="button" id="header-menu-toggle" class="p-2 text-gray-600 dark:text-zinc-400 hover:text-[#a855f7] dark:hover:text-[#a855f7] rounded-lg hover:bg-gray-100 dark:hover:bg-white/5 focus:outline-none focus:ring-2 focus:ring-[#a855f7]/50 transition-colors" aria-label="My info">
+                    <svg class="h-5 w-5" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round">
+                        <path d="M15.75 6a3.75 3.75 0 1 1-7.5 0 3.75 3.75 0 0 1 7.5 0ZM4.501 20.118a7.5 7.5 0 0 1 14.998 0A17.933 17.933 0 0 1 12 21.75c-2.676 0-5.216-.584-7.499-1.632Z" />
                     </svg>
+                </button>
+                <button type="button" id="lang-en" class="flex items-center justify-center w-9 h-9 rounded-lg hover:bg-gray-100 dark:hover:bg-white/5 transition-colors" title="English" aria-label="English">
+                    <span class="text-lg" role="img" aria-hidden="true">🇬🇧</span>
+                </button>
+                <button type="button" id="lang-tr" class="flex items-center justify-center w-9 h-9 rounded-lg hover:bg-gray-100 dark:hover:bg-white/5 transition-colors" title="Türkçe" aria-label="Türkçe">
+                    <span class="text-lg" role="img" aria-hidden="true">🇹🇷</span>
                 </button>
             </div>
         </div>
@@ -38,11 +44,11 @@
 
 {{-- Sağdan kayan menü paneli --}}
 <div id="header-menu-overlay" class="fixed inset-0 z-40 bg-black/50 opacity-0 pointer-events-none transition-opacity duration-300" aria-hidden="true"></div>
-<aside id="header-menu-panel" class="fixed top-0 right-0 z-50 h-full w-full max-w-sm bg-white dark:bg-zinc-900 shadow-xl transform translate-x-full transition-transform duration-300 ease-out overflow-y-auto" aria-hidden="true">
+<aside id="header-menu-panel" class="fixed top-0 right-0 z-50 h-full w-full max-w-sm bg-gradient-to-br from-gray-50 to-purple-50/50 dark:from-[#2d2a4a] dark:to-[#1a1825] shadow-xl transform translate-x-full transition-transform duration-300 ease-out overflow-y-auto" aria-hidden="true">
     <div class="p-6">
         <div class="flex items-center justify-between mb-8">
-            <h2 class="text-lg font-semibold text-gray-900 dark:text-white">Bilgilerim</h2>
-            <button type="button" id="header-menu-close" class="p-2 text-gray-500 dark:text-zinc-400 hover:text-gray-900 dark:hover:text-white rounded-lg hover:bg-gray-100 dark:hover:bg-white/5 transition-colors" aria-label="Menüyü kapat">
+            <h2 class="text-lg font-semibold text-gray-900 dark:text-white lang-panel-title" data-lang-en="My Info" data-lang-tr="Bilgilerim">My Info</h2>
+            <button type="button" id="header-menu-close" class="p-2 text-gray-500 dark:text-zinc-400 hover:text-gray-900 dark:hover:text-white rounded-lg hover:bg-gray-100 dark:hover:bg-white/5 transition-colors" aria-label="Close menu">
                 <svg class="h-5 w-5" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor">
                     <path stroke-linecap="round" stroke-linejoin="round" d="M6 18L18 6M6 6l12 12" />
                 </svg>
@@ -50,16 +56,24 @@
         </div>
         <div class="space-y-6 text-gray-600 dark:text-zinc-400">
             <div>
-                <p class="text-sm font-medium text-gray-500 dark:text-zinc-500 mb-1">Profil</p>
-                <p class="text-gray-900 dark:text-white">Ömer Soft</p>
+                <p class="text-sm font-medium text-gray-500 dark:text-zinc-500 mb-1 lang-panel-profile" data-lang-en="Profile" data-lang-tr="Profil">Profile</p>
+                <p class="text-gray-900 dark:text-white">{{ $userPanelName ?? 'Ömer Soft' }}</p>
             </div>
             <div>
-                <p class="text-sm font-medium text-gray-500 dark:text-zinc-500 mb-1">E-posta</p>
-                <a href="mailto:iletisim@omersoft.com" class="text-[#a855f7] hover:underline">iletisim@omersoft.com</a>
+                <p class="text-sm font-medium text-gray-500 dark:text-zinc-500 mb-1 lang-panel-email" data-lang-en="Email" data-lang-tr="E-posta">Email</p>
+                @if($userPanelEmail ?? null)
+                <a href="mailto:{{ $userPanelEmail }}" class="text-[#a855f7] hover:underline">{{ $userPanelEmail }}</a>
+                @else
+                <span class="text-gray-500 dark:text-zinc-500">—</span>
+                @endif
             </div>
             <div>
                 <p class="text-sm font-medium text-gray-500 dark:text-zinc-500 mb-1">LinkedIn</p>
-                <a href="https://www.linkedin.com/in/omerdesign/" target="_blank" rel="noopener noreferrer" class="text-[#a855f7] hover:underline">linkedin.com/in/omerdesign</a>
+                @if($userPanelLinkedIn ?? null)
+                <a href="{{ $userPanelLinkedIn }}" target="_blank" rel="noopener noreferrer" class="text-[#a855f7] hover:underline">{{ preg_replace('#^https?://(www\.)?#', '', $userPanelLinkedIn) }}</a>
+                @else
+                <span class="text-gray-500 dark:text-zinc-500">—</span>
+                @endif
             </div>
         </div>
     </div>

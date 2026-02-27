@@ -35,9 +35,9 @@
                         </p>
                         <div class="mt-10 flex justify-center">
                             <img
-                                src="{{ asset('images/crm-cozumleri.png') }}"
+                                src="{{ asset('images/service.png') }}"
                                 alt="CRM çözümlerinin alanlarını gösteren görsel"
-                                class="w-full max-w-3xl rounded-2xl shadow-lg ring-1 ring-black/5 dark:ring-white/10"
+                                class="w-full max-w-3xl rounded-3xl shadow-2xl"
                                 loading="lazy"
                             >
                         </div>

@@ -26,6 +26,14 @@
             border-radius: 50%;
             overflow: hidden;
             background: rgb(249 250 251);
+            width: 7rem;
+            height: 7rem;
+        }
+        @media (min-width: 640px) {
+            .hero-avatar-ring-inner { width: 9rem; height: 9rem; }
+        }
+        @media (min-width: 1024px) {
+            .hero-avatar-ring-inner { width: 11rem; height: 11rem; }
         }
         .dark .hero-avatar-ring-inner {
             background: #0f0a1e;
@@ -49,11 +57,11 @@
                 <div class="mx-auto {{ $siteWidth ?? 'max-w-7xl' }} px-4 sm:px-6 lg:px-8 pt-20 pb-24 sm:pt-32 sm:pb-32 lg:pt-40 lg:pb-40 relative">
                     <div class="text-center w-full">
                         <div class="hero-avatar-group hero-avatar-ring mb-8 inline-flex opacity-0 animate-fade-in-up">
-                            <div class="hero-avatar-ring-inner flex items-center justify-center">
+                            <div class="hero-avatar-ring-inner flex items-center justify-center shrink-0">
                                 <img
                                     src="{{ asset('images/omer.jpeg') }}"
                                     alt="Ömer"
-                                    class="hero-avatar-img w-28 h-28 sm:w-36 sm:h-36 lg:w-44 lg:h-44 rounded-full object-cover"
+                                    class="hero-avatar-img w-full h-full rounded-full object-cover"
                                     loading="eager"
                                 >
                             </div>

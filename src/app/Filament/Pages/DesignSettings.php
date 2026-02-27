@@ -38,18 +38,41 @@ class DesignSettings extends \Filament\Pages\Page
     {
         $this->data = [
             'site_width' => Setting::get('site_width', 'max-w-7xl'),
-            'dashboard_logo' => Setting::get('dashboard_logo'),
+            'dashboard_logo' => $this->normalizeFileUploadState(Setting::get('dashboard_logo')),
             'dashboard_logo_width' => Setting::get('dashboard_logo_width', 160),
             'dashboard_logo_height' => Setting::get('dashboard_logo_height', 40),
-            'public_logo' => Setting::get('public_logo'),
+            'public_logo' => $this->normalizeFileUploadState(Setting::get('public_logo')),
             'public_logo_width' => Setting::get('public_logo_width', 160),
             'public_logo_height' => Setting::get('public_logo_height', 40),
-            'favicon' => Setting::get('favicon'),
+            'favicon' => $this->normalizeFileUploadState(Setting::get('favicon')),
             'favicon_size' => Setting::get('favicon_size', 32),
             'seo_home_title' => Setting::get('seo_home_title'),
             'seo_home_description' => Setting::get('seo_home_description'),
             'seo_home_keywords' => Setting::get('seo_home_keywords'),
         ];
+    }
+
+    /**
+     * FileUpload expects array state; DB stores single path as string.
+     */
+    private function normalizeFileUploadState(mixed $value): array
+    {
+        if (is_array($value)) {
+            return $value;
+        }
+        return $value ? [$value] : [];
+    }
+
+    /**
+     * Persist single file path from FileUpload state (array or string).
+     */
+    private function toSingleFilePath(mixed $value): ?string
+    {
+        if (is_array($value)) {
+            $first = reset($value);
+            return $first !== false ? (string) $first : null;
+        }
+        return $value !== null && $value !== '' ? (string) $value : null;
     }
 
     public function form(Schema $schema): Schema
@@ -76,9 +99,11 @@ class DesignSettings extends \Filament\Pages\Page
                                 FileUpload::make('dashboard_logo')
                                     ->label('Dashboard logosu')
                                     ->image()
-                                    ->directory('settings/dashboard')
                                     ->imagePreviewHeight('80')
-                                    ->helperText('Yönetim panelinde kullanılacak logo.'),
+                                    ->directory('settings/dashboard')
+                                    ->maxFiles(1)
+                                    ->acceptedFileTypes(['image/*', 'image/svg+xml'])
+                                    ->helperText('Yönetim panelinde kullanılacak logo (PNG, JPG, SVG).'),
 
                                 TextInput::make('dashboard_logo_width')
                                     ->label('Dashboard logo genişliği (px)')
@@ -97,9 +122,11 @@ class DesignSettings extends \Filament\Pages\Page
                                 FileUpload::make('public_logo')
                                     ->label('Public site logosu')
                                     ->image()
-                                    ->directory('settings/public')
                                     ->imagePreviewHeight('80')
-                                    ->helperText('Public sitede (header/footer) kullanılacak logo.'),
+                                    ->directory('settings/public')
+                                    ->maxFiles(1)
+                                    ->acceptedFileTypes(['image/*', 'image/svg+xml'])
+                                    ->helperText('Public sitede (header/footer) kullanılacak logo (PNG, JPG, SVG).'),
 
                                 TextInput::make('public_logo_width')
                                     ->label('Public logo genişliği (px)')
@@ -118,9 +145,11 @@ class DesignSettings extends \Filament\Pages\Page
                                 FileUpload::make('favicon')
                                     ->label('Favicon')
                                     ->image()
-                                    ->directory('settings/favicon')
                                     ->imagePreviewHeight('40')
-                                    ->helperText('Tarayıcı sekmesinde görünecek ikon.'),
+                                    ->directory('settings/favicon')
+                                    ->maxFiles(1)
+                                    ->acceptedFileTypes(['image/*', 'image/svg+xml', 'image/x-icon'])
+                                    ->helperText('Tarayıcı sekmesinde görünecek ikon (PNG, JPG, SVG, ICO).'),
 
                                 TextInput::make('favicon_size')
                                     ->label('Favicon boyutu (px)')
@@ -174,13 +203,13 @@ class DesignSettings extends \Filament\Pages\Page
         $data = $this->getSchema('form')->getState();
 
         Setting::set('site_width', $data['site_width'] ?? 'max-w-7xl');
-        Setting::set('dashboard_logo', $data['dashboard_logo'] ?? null);
+        Setting::set('dashboard_logo', $this->toSingleFilePath($data['dashboard_logo'] ?? null));
         Setting::set('dashboard_logo_width', $data['dashboard_logo_width'] ?? 160);
         Setting::set('dashboard_logo_height', $data['dashboard_logo_height'] ?? 40);
-        Setting::set('public_logo', $data['public_logo'] ?? null);
+        Setting::set('public_logo', $this->toSingleFilePath($data['public_logo'] ?? null));
         Setting::set('public_logo_width', $data['public_logo_width'] ?? 160);
         Setting::set('public_logo_height', $data['public_logo_height'] ?? 40);
-        Setting::set('favicon', $data['favicon'] ?? null);
+        Setting::set('favicon', $this->toSingleFilePath($data['favicon'] ?? null));
         Setting::set('favicon_size', $data['favicon_size'] ?? 32);
         Setting::set('seo_home_title', $data['seo_home_title'] ?? null);
         Setting::set('seo_home_description', $data['seo_home_description'] ?? null);

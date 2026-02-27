@@ -53,7 +53,7 @@ return [
             'root' => public_path(),
             'url' => rtrim(env('APP_URL', 'http://localhost'), '/'),
             'visibility' => 'public',
-            'serve' => true,
+            'serve' => false,
             'throw' => false,
             'report' => false,
         ],

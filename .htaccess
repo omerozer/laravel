@@ -29,6 +29,10 @@
     RewriteCond %{HTTPS} !=on
     RewriteRule ^ https://%{HTTP_HOST}%{REQUEST_URI} [L,R=301]
 
+    # Serve images from Laravel public under src/
+    # Örn: /images/service.png -> /src/public/images/service.png
+    RewriteRule ^images/(.+)$ src/public/images/$1 [L]
+
     # Front controller
     RewriteCond %{REQUEST_FILENAME} !-d
     RewriteCond %{REQUEST_FILENAME} !-f

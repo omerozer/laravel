@@ -3,7 +3,7 @@
         <div class="flex h-16 items-center justify-between gap-4">
             <a href="{{ route('home') }}" class="flex items-center gap-2 text-xl font-semibold text-gray-900 dark:text-white hover:text-gray-700 dark:hover:text-zinc-200 transition-colors">
                 @if($publicLogoPath ?? null)
-                    <img src="{{ route('settings.media', ['path' => $publicLogoPath]) }}" alt="{{ config('app.name') }}" width="{{ $publicLogoWidth ?? 160 }}" height="{{ $publicLogoHeight ?? 40 }}" class="h-8 w-auto object-contain" />
+                    <img src="{{ asset($publicLogoPath) }}" alt="{{ config('app.name') }}" width="{{ $publicLogoWidth ?? 160 }}" height="{{ $publicLogoHeight ?? 40 }}" class="h-8 w-auto object-contain" />
                 @else
                     {{ config('app.name') }}
                 @endif

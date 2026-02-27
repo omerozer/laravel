@@ -68,7 +68,7 @@ class AdminPanelProvider extends PanelProvider
         if (!$path) {
             return null;
         }
-        $url = route('settings.media', ['path' => $path]);
+        $url = asset($path);
         $w = (int) Setting::get('dashboard_logo_width', 160);
         $h = (int) Setting::get('dashboard_logo_height', 40);
 

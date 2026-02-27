@@ -76,15 +76,11 @@ class DesignSettings extends \Filament\Pages\Page
         return $value !== null && $value !== '' ? (string) $value : null;
     }
 
-    /**
-     * Delete file from private storage when logo/favicon is removed or replaced.
-     */
     private function deleteSettingFileIfChanged(string $key, ?string $newPath): void
     {
-        $oldPath = Setting::get($key);
-        if ($oldPath && $oldPath !== $newPath && Storage::disk('local')->exists($oldPath)) {
-            Storage::disk('local')->delete($oldPath);
-        }
+        // Artık görseller public/images altında tutulduğu için
+        // Laravel'in storage diskinden silme işlemi yapmıyoruz.
+        // Yalnızca veritabanındaki path güncelleniyor.
     }
 
     public function form(Schema $schema): Schema
@@ -112,10 +108,11 @@ class DesignSettings extends \Filament\Pages\Page
                                     ->label('Dashboard logosu')
                                     ->image()
                                     ->imagePreviewHeight('80')
-                                    ->directory('settings/dashboard')
+                                    ->disk('public_root')
+                                    ->directory('images')
                                     ->maxFiles(1)
                                     ->acceptedFileTypes(['image/*', 'image/svg+xml'])
-                                    ->helperText('Yönetim panelinde kullanılacak logo (PNG, JPG, SVG).'),
+                                    ->helperText('Yönetim panelinde kullanılacak logo (PNG, JPG, SVG). Dosya yolu public/images altında saklanır.'),
 
                                 TextInput::make('dashboard_logo_width')
                                     ->label('Dashboard logo genişliği (px)')
@@ -135,10 +132,11 @@ class DesignSettings extends \Filament\Pages\Page
                                     ->label('Public site logosu')
                                     ->image()
                                     ->imagePreviewHeight('80')
-                                    ->directory('settings/public')
+                                    ->disk('public_root')
+                                    ->directory('images')
                                     ->maxFiles(1)
                                     ->acceptedFileTypes(['image/*', 'image/svg+xml'])
-                                    ->helperText('Public sitede (header/footer) kullanılacak logo (PNG, JPG, SVG).'),
+                                    ->helperText('Public sitede (header/footer) kullanılacak logo (PNG, JPG, SVG). Dosya yolu public/images altında saklanır.'),
 
                                 TextInput::make('public_logo_width')
                                     ->label('Public logo genişliği (px)')
@@ -158,10 +156,11 @@ class DesignSettings extends \Filament\Pages\Page
                                     ->label('Favicon')
                                     ->image()
                                     ->imagePreviewHeight('40')
-                                    ->directory('settings/favicon')
+                                    ->disk('public_root')
+                                    ->directory('images')
                                     ->maxFiles(1)
                                     ->acceptedFileTypes(['image/*', 'image/svg+xml', 'image/x-icon'])
-                                    ->helperText('Tarayıcı sekmesinde görünecek ikon (PNG, JPG, SVG, ICO).'),
+                                    ->helperText('Tarayıcı sekmesinde görünecek ikon (PNG, JPG, SVG, ICO). Dosya yolu public/images altında saklanır.'),
 
                                 TextInput::make('favicon_size')
                                     ->label('Favicon boyutu (px)')

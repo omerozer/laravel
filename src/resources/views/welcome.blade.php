@@ -164,12 +164,51 @@
                     </div>
                 </div>
             </section>
+
+            {{-- Todolist Yazılımları bölümü --}}
+            <section class="border-t border-gray-200 dark:border-white/5 bg-white dark:bg-transparent">
+                <div class="mx-auto {{ $siteWidth ?? 'max-w-7xl' }} px-4 sm:px-6 lg:px-8 py-16 lg:py-24">
+                    <div class="grid grid-cols-1 lg:grid-cols-2 gap-12 items-center">
+                        <div class="relative group order-2 lg:order-1">
+                            <button
+                                type="button"
+                                class="block w-full focus:outline-none"
+                                data-dashboard-lightbox-open
+                                data-dashboard-lightbox-target="{{ asset('images/78.png') }}"
+                            >
+                                <img
+                                    src="{{ asset('images/78.png') }}"
+                                    alt="Todolist yazılımı dashboard tasarımı"
+                                    class="w-full rounded-3xl shadow-2xl ring-1 ring-black/5 dark:ring-white/10 transition-transform group-hover:scale-[1.01]"
+                                    loading="lazy"
+                                >
+                            </button>
+                        </div>
+                        <div class="space-y-4 order-1 lg:order-2">
+                            <h2 class="text-2xl sm:text-3xl font-semibold tracking-tight text-gray-900 dark:text-white">
+                                Todolist Yazılımları
+                            </h2>
+                            <p class="text-base sm:text-lg text-gray-600 dark:text-zinc-400">
+                                Görevlerinizi tek ekranda yönetin. Kanban tahtaları, kategoriler ve hatırlatıcılarla işlerinizin akışını takip edin.
+                            </p>
+                            <ul class="space-y-2 text-sm sm:text-base text-gray-600 dark:text-zinc-400">
+                                <li>• Yapılacaklar, devam eden ve tamamlanan görevler için kanban sütunları.</li>
+                                <li>• Kategorilere göre filtreleme, öncelik etiketleri ve son tarih takibi.</li>
+                                <li>• Tek bakışta özet kartları ve son aktiviteler.</li>
+                            </ul>
+                            <p class="text-sm text-gray-500 dark:text-zinc-500">
+                                Görsele tıklayarak tasarımı detaylı şekilde inceleyebilirsiniz.
+                            </p>
+                        </div>
+                    </div>
+                </div>
+            </section>
         </main>
 
         {{-- Dashboard lightbox --}}
         <div
             id="dashboard-lightbox"
-            class="fixed inset-0 z-50 hidden items-center justify-center bg-black/70 px-2 sm:px-4 lg:px-8"
+            class="fixed inset-0 z-50 hidden items-center justify-center bg-black/80 px-2 sm:px-3"
         >
             <button
                 type="button"
@@ -178,7 +217,7 @@
                 aria-label="Kapat"
             ></button>
             <div
-                class="relative w-full max-w-6xl mx-auto transform transition-all duration-200 opacity-0 scale-95"
+                class="relative w-full max-w-[95vw] mx-auto transform transition-all duration-200 opacity-0 scale-95"
                 data-dashboard-lightbox-panel
             >
                 <button
@@ -191,7 +230,7 @@
                 <img
                     src="{{ asset('images/on-muhasebe-dashboard.png') }}"
                     alt="Ön Muhasebe programı dashboard tasarımı - tam ekran"
-                    class="w-full max-h-[80vh] rounded-3xl shadow-2xl bg-white object-contain"
+                    class="w-full max-h-[92vh] rounded-2xl shadow-2xl bg-white object-contain"
                     data-dashboard-lightbox-image
                 >
             </div>

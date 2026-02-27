@@ -2,8 +2,8 @@
     <div class="mx-auto {{ $siteWidth ?? 'max-w-7xl' }} px-4 sm:px-6 lg:px-8">
         <div class="flex h-16 items-center justify-between gap-4">
             <a href="{{ route('home') }}" class="flex items-center gap-2 text-xl font-semibold text-gray-900 dark:text-white hover:text-gray-700 dark:hover:text-zinc-200 transition-colors">
-                @if($publicLogoUrl ?? null)
-                    <img src="{{ $publicLogoUrl }}" alt="{{ config('app.name') }}" width="{{ $publicLogoWidth ?? 160 }}" height="{{ $publicLogoHeight ?? 40 }}" class="h-8 w-auto object-contain" />
+                @if($publicLogoPath ?? null)
+                    <img src="{{ route('settings.media', ['path' => $publicLogoPath]) }}" alt="{{ config('app.name') }}" width="{{ $publicLogoWidth ?? 160 }}" height="{{ $publicLogoHeight ?? 40 }}" class="h-8 w-auto object-contain" />
                 @else
                     {{ config('app.name') }}
                 @endif

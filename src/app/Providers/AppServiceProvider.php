@@ -32,12 +32,11 @@ class AppServiceProvider extends ServiceProvider
         View::share('siteWidth', $siteWidth === 'full' ? 'max-w-full' : $siteWidth);
 
         if (Schema::hasTable('settings')) {
-            $publicLogo = Setting::get('public_logo');
-            View::share('publicLogoUrl', $publicLogo ? route('settings.media', ['path' => $publicLogo]) : null);
+            View::share('publicLogoPath', Setting::get('public_logo'));
             View::share('publicLogoWidth', (int) Setting::get('public_logo_width', 160));
             View::share('publicLogoHeight', (int) Setting::get('public_logo_height', 40));
         } else {
-            View::share('publicLogoUrl', null);
+            View::share('publicLogoPath', null);
             View::share('publicLogoWidth', 160);
             View::share('publicLogoHeight', 40);
         }

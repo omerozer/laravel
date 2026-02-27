@@ -11,7 +11,7 @@
         [x-cloak] { display: none !important; }
     </style>
 </head>
-<body class="h-full bg-gray-50 dark:bg-[radial-gradient(circle_at_0%_0%,#3b0764_0,transparent_55%),radial-gradient(circle_at_100%_100%,#4c1d95_0,transparent_55%),radial-gradient(circle_at_0%_100%,#020617_0,transparent_65%),#020617] font-sans antialiased text-gray-900 dark:text-white">
+<body class="h-full bg-gray-50 dark:bg-[linear-gradient(135deg,#1e1b4b_0%,#0f0a1e_35%,#020617_70%,#1e1b4b_100%)] dark:bg-fixed font-sans antialiased text-gray-900 dark:text-white">
     <div class="min-h-full flex flex-col">
         <x-header />
 
@@ -34,7 +34,7 @@
                         </p>
                         <div class="mt-10 flex justify-center">
                             <img
-                                src="{{ asset('images/service.png') }}"
+                                src="{{ asset('images/tech.png') }}"
                                 alt="CRM çözümlerinin alanlarını gösteren görsel"
                                 class="w-full max-w-3xl rounded-3xl shadow-2xl"
                                 loading="lazy"

@@ -1,4 +1,4 @@
-<header class="sticky top-0 z-30 border-b border-gray-200 dark:border-white/5 bg-white/90 dark:bg-black/90 backdrop-blur-xl">
+<header class="sticky top-0 z-30 border-b border-gray-200 dark:border-white/5 bg-white/90 dark:bg-transparent backdrop-blur-xl">
     <div class="mx-auto {{ $siteWidth ?? 'max-w-7xl' }} px-4 sm:px-6 lg:px-8">
         <div class="flex h-16 items-center justify-between gap-4">
             <a href="{{ route('home') }}" class="flex items-center gap-2 text-xl font-semibold text-gray-900 dark:text-white hover:text-gray-700 dark:hover:text-zinc-200 transition-colors">

@@ -98,6 +98,7 @@
                                 type="button"
                                 class="block w-full focus:outline-none"
                                 data-dashboard-lightbox-open
+                                data-dashboard-lightbox-target="{{ asset('images/on-muhasebe-dashboard.png') }}"
                             >
                                 <img
                                     src="{{ asset('images/on-muhasebe-dashboard.png') }}"
@@ -122,6 +123,42 @@
                             <p class="text-sm text-gray-500 dark:text-zinc-500">
                                 Görsele tıklayarak tasarımı detaylı şekilde inceleyebilirsiniz.
                             </p>
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+            {{-- Koyu tema ön muhasebe dashboard bölümü --}}
+            <section class="border-t border-gray-200 dark:border-white/5 bg-gradient-to-br from-black via-[#050816] to-[#3b0764]">
+                <div class="mx-auto {{ $siteWidth ?? 'max-w-7xl' }} px-4 sm:px-6 lg:px-8 py-16 lg:py-24">
+                    <div class="grid grid-cols-1 lg:grid-cols-2 gap-12 items-center">
+                        <div class="space-y-4 text-white">
+                            <h2 class="text-2xl sm:text-3xl font-semibold tracking-tight">
+                                Karanlık Tema Ön Muhasebe Dashboard
+                            </h2>
+                            <p class="text-base sm:text-lg text-zinc-300">
+                                Gece modu seven ekipler için, mor ve siyah tonlarında hazırlanmış alternatif bir ön muhasebe ekranı. Göz yormadan kritik finansal göstergeleri takip etmenizi sağlar.
+                            </p>
+                            <ul class="space-y-2 text-sm sm:text-base text-zinc-300">
+                                <li>• Solda şirket özeti ve günlük ciro, tahsilat, ödeme durumları.</li>
+                                <li>• Ortada gelir / gider analizi grafiği ve net kâr kartları.</li>
+                                <li>• Sağda bekleyen faturalar ve kritik uyarılar için özet paneller.</li>
+                            </ul>
+                        </div>
+                        <div class="relative">
+                            <button
+                                type="button"
+                                class="block w-full focus:outline-none"
+                                data-dashboard-lightbox-open
+                                data-dashboard-lightbox-target="{{ asset('images/on-muhasebe-dashboard-dark.png') }}"
+                            >
+                                <img
+                                    src="{{ asset('images/on-muhasebe-dashboard-dark.png') }}"
+                                    alt="Koyu tema ön muhasebe programı dashboard tasarımı"
+                                    class="w-full rounded-3xl shadow-[0_30px_80px_rgba(0,0,0,0.9)] ring-1 ring-purple-500/40"
+                                    loading="lazy"
+                                >
+                            </button>
                         </div>
                     </div>
                 </div>
@@ -154,6 +191,7 @@
                     src="{{ asset('images/on-muhasebe-dashboard.png') }}"
                     alt="Ön Muhasebe programı dashboard tasarımı - tam ekran"
                     class="w-full max-h-[80vh] rounded-3xl shadow-2xl bg-white object-contain"
+                    data-dashboard-lightbox-image
                 >
             </div>
         </div>
@@ -169,8 +207,14 @@
                 var openButtons = document.querySelectorAll('[data-dashboard-lightbox-open]');
                 var closeButtons = document.querySelectorAll('[data-dashboard-lightbox-close]');
                 var panel = lightbox.querySelector('[data-dashboard-lightbox-panel]');
+                var image = lightbox.querySelector('[data-dashboard-lightbox-image]');
 
-                function openLightbox() {
+                function openLightbox(event) {
+                    var target = event.currentTarget;
+                    if (image && target && target.getAttribute('data-dashboard-lightbox-target')) {
+                        image.src = target.getAttribute('data-dashboard-lightbox-target');
+                    }
+
                     lightbox.classList.remove('hidden');
                     lightbox.classList.add('flex');
 

@@ -88,13 +88,128 @@
                     </div>
                 </div>
             </section>
+
+            {{-- Ön Muhasebe dashboard bölümü --}}
+            <section class="border-t border-gray-200 dark:border-white/5 bg-white dark:bg-black">
+                <div class="mx-auto {{ $siteWidth ?? 'max-w-7xl' }} px-4 sm:px-6 lg:px-8 py-16 lg:py-20">
+                    <div class="grid grid-cols-1 lg:grid-cols-2 gap-12 items-center">
+                        <div class="relative group">
+                            <button
+                                type="button"
+                                class="block w-full focus:outline-none"
+                                data-dashboard-lightbox-open
+                            >
+                                <img
+                                    src="{{ asset('images/on-muhasebe-dashboard.png') }}"
+                                    alt="Ön Muhasebe programı dashboard tasarımı"
+                                    class="w-full rounded-3xl shadow-2xl ring-1 ring-black/5 dark:ring-white/10 transition-transform group-hover:scale-[1.01]"
+                                    loading="lazy"
+                                >
+                            </button>
+                        </div>
+                        <div class="space-y-4">
+                            <h2 class="text-2xl sm:text-3xl font-semibold tracking-tight">
+                                Ön Muhasebe Programı Dashboard Tasarımı
+                            </h2>
+                            <p class="text-base sm:text-lg text-gray-600 dark:text-zinc-400">
+                                Tek ekranda tahsilatlarınızı, faturalarınızı ve kasa hareketlerinizi görebileceğiniz, küçük ve orta ölçekli işletmeler için tasarlanmış bir ön muhasebe arayüzü.
+                            </p>
+                            <ul class="space-y-2 text-sm sm:text-base text-gray-600 dark:text-zinc-400">
+                                <li>• Solda sade bir menü, sağda tam genişlikte finansal özet ve grafikler.</li>
+                                <li>• Bugünkü tahsilat, bekleyen ödemeler ve kasa bakiyesi gibi KPI kartları.</li>
+                                <li>• Aylık gelir/gider grafiği, son faturalar ve son cari hareketler tek bakışta.</li>
+                            </ul>
+                            <p class="text-sm text-gray-500 dark:text-zinc-500">
+                                Görsele tıklayarak tasarımı detaylı şekilde inceleyebilirsiniz.
+                            </p>
+                        </div>
+                    </div>
+                </div>
+            </section>
         </main>
+
+        {{-- Dashboard lightbox --}}
+        <div
+            id="dashboard-lightbox"
+            class="fixed inset-0 z-50 hidden items-center justify-center bg-black/70 px-2 sm:px-4 lg:px-8"
+        >
+            <button
+                type="button"
+                class="absolute inset-0 w-full h-full cursor-zoom-out"
+                data-dashboard-lightbox-close
+                aria-label="Kapat"
+            ></button>
+            <div
+                class="relative w-full max-w-6xl mx-auto transform transition-all duration-200 opacity-0 scale-95"
+                data-dashboard-lightbox-panel
+            >
+                <button
+                    type="button"
+                    class="absolute -top-10 right-0 inline-flex items-center justify-center rounded-full bg-white/90 dark:bg-zinc-900/90 text-gray-700 dark:text-zinc-100 shadow-md px-3 py-1.5 text-xs font-medium hover:bg-white dark:hover:bg-zinc-900"
+                    data-dashboard-lightbox-close
+                >
+                    Kapat
+                </button>
+                <img
+                    src="{{ asset('images/on-muhasebe-dashboard.png') }}"
+                    alt="Ön Muhasebe programı dashboard tasarımı - tam ekran"
+                    class="w-full max-h-[80vh] rounded-3xl shadow-2xl bg-white object-contain"
+                >
+            </div>
+        </div>
 
         <x-footer />
     </div>
     <script>
         document.addEventListener('DOMContentLoaded', function () {
             document.querySelectorAll('button, a').forEach(function (el) { el.style.cursor = 'pointer'; });
+
+            var lightbox = document.getElementById('dashboard-lightbox');
+            if (lightbox) {
+                var openButtons = document.querySelectorAll('[data-dashboard-lightbox-open]');
+                var closeButtons = document.querySelectorAll('[data-dashboard-lightbox-close]');
+                var panel = lightbox.querySelector('[data-dashboard-lightbox-panel]');
+
+                function openLightbox() {
+                    lightbox.classList.remove('hidden');
+                    lightbox.classList.add('flex');
+
+                    if (panel) {
+                        // Animasyonun düzgün çalışması için bir sonraki frame'de sınıfları değiştir
+                        requestAnimationFrame(function () {
+                            panel.classList.remove('opacity-0', 'scale-95');
+                            panel.classList.add('opacity-100', 'scale-100');
+                        });
+                    }
+                }
+
+                function closeLightbox() {
+                    if (panel) {
+                        panel.classList.add('opacity-0', 'scale-95');
+                        panel.classList.remove('opacity-100', 'scale-100');
+                    }
+
+                    // Animasyon süresiyle uyumlu kısa bir gecikmeden sonra tamamen gizle
+                    setTimeout(function () {
+                        lightbox.classList.add('hidden');
+                        lightbox.classList.remove('flex');
+                    }, 180);
+                }
+
+                openButtons.forEach(function (btn) {
+                    btn.addEventListener('click', openLightbox);
+                });
+
+                closeButtons.forEach(function (btn) {
+                    btn.addEventListener('click', closeLightbox);
+                });
+
+                document.addEventListener('keydown', function (event) {
+                    if (event.key === 'Escape') {
+                        closeLightbox();
+                    }
+                });
+            }
         });
     </script>
 </body>

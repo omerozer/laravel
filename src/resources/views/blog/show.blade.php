@@ -8,7 +8,6 @@
         <meta name="description" content="{{ $post->meta_description }}">
     @endif
     @vite(['resources/css/app.css', 'resources/js/app.js'])
-    <link rel="stylesheet" href="{{ asset('fonts/filament/filament/inter/index.css') }}">
     <style>html { scroll-behavior: smooth; }</style>
 </head>
 <body class="h-full bg-gray-50 dark:bg-black font-sans antialiased text-gray-900 dark:text-white">

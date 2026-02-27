@@ -5,7 +5,6 @@
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <title>Blog - {{ config('app.name') }}</title>
     @vite(['resources/css/app.css', 'resources/js/app.js'])
-    <link rel="stylesheet" href="{{ asset('fonts/filament/filament/inter/index.css') }}">
 </head>
 <body class="h-full bg-gray-50 dark:bg-gray-950 font-sans antialiased">
     <div class="min-h-full fi-body flex flex-col">

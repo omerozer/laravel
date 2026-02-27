@@ -6,7 +6,6 @@
     <meta name="csrf-token" content="{{ csrf_token() }}">
     <title>{{ config('app.name') }} - Filament UI Bileşenleri</title>
     @vite(['resources/css/app.css', 'resources/js/app.js'])
-    <link rel="stylesheet" href="{{ asset('fonts/filament/filament/inter/index.css') }}">
     <style>
         [x-cloak] { display: none !important; }
     </style>

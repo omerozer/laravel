@@ -2,7 +2,9 @@
 
 namespace App\Providers\Filament;
 
+use App\Models\Setting;
 use Filament\Http\Middleware\Authenticate;
+use Illuminate\Support\HtmlString;
 use Filament\Http\Middleware\AuthenticateSession;
 use Filament\Http\Middleware\DisableBladeIconComponents;
 use Filament\Http\Middleware\DispatchServingFilamentEvent;
@@ -29,6 +31,8 @@ class AdminPanelProvider extends PanelProvider
             ->path('dashboard')
             ->maxContentWidth('full')
             ->login()
+            ->brandLogo(fn () => static::brandLogoHtml())
+            ->brandLogoHeight(fn () => (string) (Setting::get('dashboard_logo_height', 40) . 'px'))
             ->colors([
                 'primary' => Color::Amber,
             ])
@@ -56,5 +60,20 @@ class AdminPanelProvider extends PanelProvider
             ->authMiddleware([
                 Authenticate::class,
             ]);
+    }
+
+    private static function brandLogoHtml(): ?HtmlString
+    {
+        $path = Setting::get('dashboard_logo');
+        if (!$path) {
+            return null;
+        }
+        $url = route('settings.media', ['path' => $path]);
+        $w = (int) Setting::get('dashboard_logo_width', 160);
+        $h = (int) Setting::get('dashboard_logo_height', 40);
+
+        return new HtmlString(
+            '<img src="' . e($url) . '" alt="Logo" width="' . $w . '" height="' . $h . '" class="fi-logo h-8 w-auto object-contain" />'
+        );
     }
 }

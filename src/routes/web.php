@@ -2,6 +2,7 @@
 
 use App\Http\Controllers\BlogController;
 use App\Http\Controllers\KisiController;
+use App\Http\Controllers\SettingsMediaController;
 use Illuminate\Support\Facades\Route;
 use Illuminate\Support\Facades\File;
 use Symfony\Component\HttpFoundation\Response;
@@ -44,6 +45,11 @@ Route::get('build/assets/{path}', function (string $path): Response {
     };
     return response()->file($fullPath, ['Content-Type' => $mime]);
 })->where('path', '.*')->name('vite.build.assets');
+
+// Settings media (logos, favicon) from private storage
+Route::get('settings/media/{path}', SettingsMediaController::class)
+    ->where('path', '.*')
+    ->name('settings.media');
 
 Route::get('/', [KisiController::class, 'index'])->name('home');
 Route::post('/kaydet', [KisiController::class, 'store'])->name('kisi.store');

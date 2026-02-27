@@ -1,8 +1,12 @@
 <header class="sticky top-0 z-30 border-b border-gray-200 dark:border-white/5 bg-white/90 dark:bg-black/90 backdrop-blur-xl">
     <div class="mx-auto {{ $siteWidth ?? 'max-w-7xl' }} px-4 sm:px-6 lg:px-8">
         <div class="flex h-16 items-center justify-between gap-4">
-            <a href="{{ route('home') }}" class="text-xl font-semibold text-gray-900 dark:text-white hover:text-gray-700 dark:hover:text-zinc-200 transition-colors">
-                {{ config('app.name') }}
+            <a href="{{ route('home') }}" class="flex items-center gap-2 text-xl font-semibold text-gray-900 dark:text-white hover:text-gray-700 dark:hover:text-zinc-200 transition-colors">
+                @if($publicLogoUrl ?? null)
+                    <img src="{{ $publicLogoUrl }}" alt="{{ config('app.name') }}" width="{{ $publicLogoWidth ?? 160 }}" height="{{ $publicLogoHeight ?? 40 }}" class="h-8 w-auto object-contain" />
+                @else
+                    {{ config('app.name') }}
+                @endif
             </a>
             <nav class="flex items-center gap-1 sm:gap-2">
                 <a href="{{ route('blog.index') }}" class="px-3 py-2 text-sm font-medium text-gray-600 dark:text-zinc-400 hover:text-gray-900 dark:hover:text-white transition-colors rounded-lg hover:bg-gray-100 dark:hover:bg-white/5">

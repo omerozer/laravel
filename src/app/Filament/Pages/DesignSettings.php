@@ -57,6 +57,17 @@ class DesignSettings extends \Filament\Pages\Page
         }
     }
 
+    public function hydrate(): void
+    {
+        $keys = ['dashboard_logo', 'public_logo', 'favicon'];
+        foreach ($keys as $key) {
+            $val = $this->data[$key] ?? null;
+            if (is_array($val) && count($val) > 1) {
+                $this->data[$key] = array_slice(array_values($val), 0, 1);
+            }
+        }
+    }
+
     public function mount(): void
     {
         $this->data = [

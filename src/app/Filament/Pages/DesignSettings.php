@@ -193,8 +193,8 @@ class DesignSettings extends \Filament\Pages\Page
                                     ->disk('public_root')
                                     ->directory('images')
                                     ->maxFiles(1)
-                                    ->acceptedFileTypes(['image/*', 'image/svg+xml'])
-                                    ->helperText('Yönetim panelinde kullanılacak logo (PNG, JPG, SVG). Dosya yolu public/images altında saklanır.')
+                                    ->acceptedFileTypes(['image/*', 'image/svg+xml', 'image/webp'])
+                                    ->helperText('Yönetim panelinde kullanılacak logo (PNG, JPG, WebP, SVG). Dosya yolu public/images altında saklanır.')
                                     ->afterStateUpdated(function (mixed $state): void {
                                         if (is_array($state) && count($state) > 1) {
                                             $this->data['dashboard_logo'] = array_slice(array_values($state), 0, 1);
@@ -222,8 +222,8 @@ class DesignSettings extends \Filament\Pages\Page
                                     ->disk('public_root')
                                     ->directory('images')
                                     ->maxFiles(1)
-                                    ->acceptedFileTypes(['image/*', 'image/svg+xml'])
-                                    ->helperText('Public sitede (header/footer) kullanılacak logo (PNG, JPG, SVG). Dosya yolu public/images altında saklanır.')
+                                    ->acceptedFileTypes(['image/*', 'image/svg+xml', 'image/webp'])
+                                    ->helperText('Public sitede (header/footer) kullanılacak logo (PNG, JPG, WebP, SVG). Dosya yolu public/images altında saklanır.')
                                     ->afterStateUpdated(function (mixed $state): void {
                                         if (is_array($state) && count($state) > 1) {
                                             $this->data['public_logo'] = array_slice(array_values($state), 0, 1);
@@ -251,8 +251,8 @@ class DesignSettings extends \Filament\Pages\Page
                                     ->disk('public_root')
                                     ->directory('images')
                                     ->maxFiles(1)
-                                    ->acceptedFileTypes(['image/*', 'image/svg+xml', 'image/x-icon'])
-                                    ->helperText('Tarayıcı sekmesinde görünecek ikon (PNG, JPG, SVG, ICO). Dosya yolu public/images altında saklanır.')
+                                    ->acceptedFileTypes(['image/*', 'image/svg+xml', 'image/webp', 'image/x-icon'])
+                                    ->helperText('Tarayıcı sekmesinde görünecek ikon (PNG, JPG, WebP, SVG, ICO). Dosya yolu public/images altında saklanır.')
                                     ->afterStateUpdated(function (mixed $state): void {
                                         if (is_array($state) && count($state) > 1) {
                                             $this->data['favicon'] = array_slice(array_values($state), 0, 1);

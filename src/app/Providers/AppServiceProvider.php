@@ -31,10 +31,12 @@ class AppServiceProvider extends ServiceProvider
             : 'max-w-7xl';
         View::share('siteWidth', $siteWidth === 'full' ? 'max-w-full' : $siteWidth);
 
+        $siteName = Schema::hasTable('settings')
+            ? (Setting::get('site_name') ?? config('app.name'))
+            : config('app.name');
+        View::share('siteName', $siteName);
+
         if (Schema::hasTable('settings')) {
-            View::share('publicLogoPath', Setting::get('public_logo'));
-            View::share('publicLogoWidth', (int) Setting::get('public_logo_width', 160));
-            View::share('publicLogoHeight', (int) Setting::get('public_logo_height', 40));
             View::share('userPanelName', Setting::get('user_panel_name', 'Ömer Soft'));
             View::share('userPanelEmail', Setting::get('user_panel_email', 'iletisim@omersoft.com'));
             View::share('userPanelLinkedIn', Setting::get('user_panel_linkedin', 'https://www.linkedin.com/in/omerdesign/'));
@@ -42,9 +44,6 @@ class AppServiceProvider extends ServiceProvider
             View::share('seoHomeTitle', Setting::get('seo_home_title'));
             View::share('seoHomeDescription', Setting::get('seo_home_description'));
         } else {
-            View::share('publicLogoPath', null);
-            View::share('publicLogoWidth', 160);
-            View::share('publicLogoHeight', 40);
             View::share('userPanelName', 'Ömer Soft');
             View::share('userPanelEmail', 'iletisim@omersoft.com');
             View::share('userPanelLinkedIn', 'https://www.linkedin.com/in/omerdesign/');

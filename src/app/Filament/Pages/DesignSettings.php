@@ -40,13 +40,11 @@ class DesignSettings extends \Filament\Pages\Page
     public function mount(): void
     {
         $this->data = [
+            'site_name' => Setting::get('site_name', config('app.name')),
             'site_width' => Setting::get('site_width', 'max-w-7xl'),
             'dashboard_logo' => $this->normalizeFileUploadState(Setting::get('dashboard_logo')),
             'dashboard_logo_width' => Setting::get('dashboard_logo_width', 160),
             'dashboard_logo_height' => Setting::get('dashboard_logo_height', 40),
-            'public_logo' => $this->normalizeFileUploadState(Setting::get('public_logo')),
-            'public_logo_width' => Setting::get('public_logo_width', 160),
-            'public_logo_height' => Setting::get('public_logo_height', 40),
             'favicon' => $this->normalizeFileUploadState(Setting::get('favicon')),
             'favicon_size' => Setting::get('favicon_size', 32),
             'seo_home_title' => Setting::get('seo_home_title'),
@@ -166,6 +164,12 @@ class DesignSettings extends \Filament\Pages\Page
                     ->tabs([
                         Tab::make('Genel Ayarlar')
                             ->schema([
+                                TextInput::make('site_name')
+                                    ->label('Site adı')
+                                    ->placeholder(config('app.name'))
+                                    ->maxLength(255)
+                                    ->helperText('Header\'da ve footer\'da görünen site adı (varsayılan: Laravel).'),
+
                                 Select::make('site_width')
                                     ->label('Public site genişliği')
                                     ->options([
@@ -185,6 +189,7 @@ class DesignSettings extends \Filament\Pages\Page
                                     ->disk('public_root')
                                     ->directory('images')
                                     ->acceptedFileTypes(['image/png', 'image/jpeg', 'image/webp', 'image/svg+xml'])
+                                    ->fetchFileInformation(false)
                                     ->saveUploadedFileUsing(fn (TemporaryUploadedFile $file): ?string => $file->store('images', ['disk' => 'public_root']) ?: null)
                                     ->helperText('Yönetim panelinde kullanılacak logo (PNG, JPG, WebP, SVG).'),
 
@@ -202,30 +207,6 @@ class DesignSettings extends \Filament\Pages\Page
                                     ->maxValue(256)
                                     ->suffix('px'),
 
-                                FileUpload::make('public_logo')
-                                    ->label('Public site logosu')
-                                    ->image()
-                                    ->imagePreviewHeight('80')
-                                    ->disk('public_root')
-                                    ->directory('images')
-                                    ->acceptedFileTypes(['image/png', 'image/jpeg', 'image/webp', 'image/svg+xml'])
-                                    ->saveUploadedFileUsing(fn (TemporaryUploadedFile $file): ?string => $file->store('images', ['disk' => 'public_root']) ?: null)
-                                    ->helperText('Public sitede (header/footer) kullanılacak logo (PNG, JPG, WebP, SVG). Sadece ilk seçilen dosya kaydedilir.'),
-
-                                TextInput::make('public_logo_width')
-                                    ->label('Public logo genişliği (px)')
-                                    ->numeric()
-                                    ->minValue(16)
-                                    ->maxValue(512)
-                                    ->suffix('px'),
-
-                                TextInput::make('public_logo_height')
-                                    ->label('Public logo yüksekliği (px)')
-                                    ->numeric()
-                                    ->minValue(16)
-                                    ->maxValue(256)
-                                    ->suffix('px'),
-
                                 FileUpload::make('favicon')
                                     ->label('Favicon')
                                     ->image()
@@ -233,6 +214,7 @@ class DesignSettings extends \Filament\Pages\Page
                                     ->disk('public_root')
                                     ->directory('images')
                                     ->acceptedFileTypes(['image/*', 'image/svg+xml', 'image/webp', 'image/x-icon'])
+                                    ->fetchFileInformation(false)
                                     ->saveUploadedFileUsing(fn (TemporaryUploadedFile $file): ?string => $file->store('images', ['disk' => 'public_root']) ?: null)
                                     ->helperText('Tarayıcı sekmesinde görünecek ikon (PNG, JPG, WebP, SVG, ICO).'),
 
@@ -358,6 +340,7 @@ class DesignSettings extends \Filament\Pages\Page
     {
         $data = $this->getSchema('form')->getState();
 
+        Setting::set('site_name', $data['site_name'] ?? config('app.name'));
         Setting::set('site_width', $data['site_width'] ?? 'max-w-7xl');
 
         // FileUpload state - use $this->data (Livewire) as getState() may not include file paths
@@ -370,16 +353,6 @@ class DesignSettings extends \Filament\Pages\Page
 
         Setting::set('dashboard_logo_width', $data['dashboard_logo_width'] ?? 160);
         Setting::set('dashboard_logo_height', $data['dashboard_logo_height'] ?? 40);
-
-        $publicLogoRaw = $this->data['public_logo'] ?? $data['public_logo'] ?? null;
-        $publicLogo = $this->toSingleFilePath(is_array($publicLogoRaw) ? array_slice($publicLogoRaw, 0, 1) : $publicLogoRaw);
-        $publicLogoToSave = ($publicLogo !== null && $publicLogo !== '') ? $publicLogo : Setting::get('public_logo');
-        if ($publicLogoToSave !== null && $publicLogoToSave !== '') {
-            Setting::set('public_logo', $publicLogoToSave);
-        }
-
-        Setting::set('public_logo_width', $data['public_logo_width'] ?? 160);
-        Setting::set('public_logo_height', $data['public_logo_height'] ?? 40);
 
         $faviconRaw = $this->data['favicon'] ?? $data['favicon'] ?? null;
         $favicon = $this->toSingleFilePath(is_array($faviconRaw) ? array_slice($faviconRaw, 0, 1) : $faviconRaw);

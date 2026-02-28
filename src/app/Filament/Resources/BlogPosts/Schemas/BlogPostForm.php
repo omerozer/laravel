@@ -54,19 +54,6 @@ class BlogPostForm
                                 'table',
                             ])
                             ->resizableImages(),
-                                'bold',
-                                'italic',
-                                'underline',
-                                'strike',
-                                'link',
-                                'h2',
-                                'h3',
-                                'bulletList',
-                                'orderedList',
-                                'blockquote',
-                                'codeBlock',
-                                'table',
-                            ]),
                         Select::make('blog_category_id')
                             ->label('Kategori')
                             ->relationship('category', 'name')

@@ -194,7 +194,12 @@ class DesignSettings extends \Filament\Pages\Page
                                     ->directory('images')
                                     ->maxFiles(1)
                                     ->acceptedFileTypes(['image/*', 'image/svg+xml'])
-                                    ->helperText('Yönetim panelinde kullanılacak logo (PNG, JPG, SVG). Dosya yolu public/images altında saklanır.'),
+                                    ->helperText('Yönetim panelinde kullanılacak logo (PNG, JPG, SVG). Dosya yolu public/images altında saklanır.')
+                                    ->afterStateUpdated(function (?array $state): void {
+                                        if (is_array($state) && count($state) > 1) {
+                                            $this->data['dashboard_logo'] = array_slice(array_values($state), 0, 1);
+                                        }
+                                    }),
 
                                 TextInput::make('dashboard_logo_width')
                                     ->label('Dashboard logo genişliği (px)')
@@ -218,7 +223,12 @@ class DesignSettings extends \Filament\Pages\Page
                                     ->directory('images')
                                     ->maxFiles(1)
                                     ->acceptedFileTypes(['image/*', 'image/svg+xml'])
-                                    ->helperText('Public sitede (header/footer) kullanılacak logo (PNG, JPG, SVG). Dosya yolu public/images altında saklanır.'),
+                                    ->helperText('Public sitede (header/footer) kullanılacak logo (PNG, JPG, SVG). Dosya yolu public/images altında saklanır.')
+                                    ->afterStateUpdated(function (?array $state): void {
+                                        if (is_array($state) && count($state) > 1) {
+                                            $this->data['public_logo'] = array_slice(array_values($state), 0, 1);
+                                        }
+                                    }),
 
                                 TextInput::make('public_logo_width')
                                     ->label('Public logo genişliği (px)')
@@ -242,7 +252,12 @@ class DesignSettings extends \Filament\Pages\Page
                                     ->directory('images')
                                     ->maxFiles(1)
                                     ->acceptedFileTypes(['image/*', 'image/svg+xml', 'image/x-icon'])
-                                    ->helperText('Tarayıcı sekmesinde görünecek ikon (PNG, JPG, SVG, ICO). Dosya yolu public/images altında saklanır.'),
+                                    ->helperText('Tarayıcı sekmesinde görünecek ikon (PNG, JPG, SVG, ICO). Dosya yolu public/images altında saklanır.')
+                                    ->afterStateUpdated(function (?array $state): void {
+                                        if (is_array($state) && count($state) > 1) {
+                                            $this->data['favicon'] = array_slice(array_values($state), 0, 1);
+                                        }
+                                    }),
 
                                 TextInput::make('favicon_size')
                                     ->label('Favicon boyutu (px)')

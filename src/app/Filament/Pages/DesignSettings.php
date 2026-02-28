@@ -396,24 +396,30 @@ class DesignSettings extends \Filament\Pages\Page
 
         $dashboardLogoRaw = $data['dashboard_logo'] ?? null;
         $dashboardLogo = $this->toSingleFilePath(is_array($dashboardLogoRaw) ? array_slice($dashboardLogoRaw, 0, 1) : $dashboardLogoRaw);
-        $this->deleteSettingFileIfChanged('dashboard_logo', $dashboardLogo);
-        Setting::set('dashboard_logo', $dashboardLogo);
+        if ($dashboardLogo !== null && $dashboardLogo !== '') {
+            $this->deleteSettingFileIfChanged('dashboard_logo', $dashboardLogo);
+            Setting::set('dashboard_logo', $dashboardLogo);
+        }
 
         Setting::set('dashboard_logo_width', $data['dashboard_logo_width'] ?? 160);
         Setting::set('dashboard_logo_height', $data['dashboard_logo_height'] ?? 40);
 
         $publicLogoRaw = $data['public_logo'] ?? null;
         $publicLogo = $this->toSingleFilePath(is_array($publicLogoRaw) ? array_slice($publicLogoRaw, 0, 1) : $publicLogoRaw);
-        $this->deleteSettingFileIfChanged('public_logo', $publicLogo);
-        Setting::set('public_logo', $publicLogo);
+        if ($publicLogo !== null && $publicLogo !== '') {
+            $this->deleteSettingFileIfChanged('public_logo', $publicLogo);
+            Setting::set('public_logo', $publicLogo);
+        }
 
         Setting::set('public_logo_width', $data['public_logo_width'] ?? 160);
         Setting::set('public_logo_height', $data['public_logo_height'] ?? 40);
 
         $faviconRaw = $data['favicon'] ?? null;
         $favicon = $this->toSingleFilePath(is_array($faviconRaw) ? array_slice($faviconRaw, 0, 1) : $faviconRaw);
-        $this->deleteSettingFileIfChanged('favicon', $favicon);
-        Setting::set('favicon', $favicon);
+        if ($favicon !== null && $favicon !== '') {
+            $this->deleteSettingFileIfChanged('favicon', $favicon);
+            Setting::set('favicon', $favicon);
+        }
 
         Setting::set('favicon_size', $data['favicon_size'] ?? 32);
         Setting::set('seo_home_title', $data['seo_home_title'] ?? null);

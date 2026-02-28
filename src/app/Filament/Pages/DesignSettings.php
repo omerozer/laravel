@@ -185,6 +185,7 @@ class DesignSettings extends \Filament\Pages\Page
                                     ->disk('public_root')
                                     ->directory('images')
                                     ->acceptedFileTypes(['image/png', 'image/jpeg', 'image/webp', 'image/svg+xml'])
+                                    ->saveUploadedFileUsing(fn (TemporaryUploadedFile $file): ?string => $file->store('images', ['disk' => 'public_root']) ?: null)
                                     ->helperText('Yönetim panelinde kullanılacak logo (PNG, JPG, WebP, SVG).'),
 
                                 TextInput::make('dashboard_logo_width')
@@ -208,6 +209,7 @@ class DesignSettings extends \Filament\Pages\Page
                                     ->disk('public_root')
                                     ->directory('images')
                                     ->acceptedFileTypes(['image/png', 'image/jpeg', 'image/webp', 'image/svg+xml'])
+                                    ->saveUploadedFileUsing(fn (TemporaryUploadedFile $file): ?string => $file->store('images', ['disk' => 'public_root']) ?: null)
                                     ->helperText('Public sitede (header/footer) kullanılacak logo (PNG, JPG, WebP, SVG). Sadece ilk seçilen dosya kaydedilir.'),
 
                                 TextInput::make('public_logo_width')
@@ -231,6 +233,7 @@ class DesignSettings extends \Filament\Pages\Page
                                     ->disk('public_root')
                                     ->directory('images')
                                     ->acceptedFileTypes(['image/*', 'image/svg+xml', 'image/webp', 'image/x-icon'])
+                                    ->saveUploadedFileUsing(fn (TemporaryUploadedFile $file): ?string => $file->store('images', ['disk' => 'public_root']) ?: null)
                                     ->helperText('Tarayıcı sekmesinde görünecek ikon (PNG, JPG, WebP, SVG, ICO).'),
 
                                 TextInput::make('favicon_size')

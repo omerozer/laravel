@@ -44,7 +44,7 @@
 
 {{-- Sağdan kayan menü paneli --}}
 <div id="header-menu-overlay" class="fixed inset-0 z-40 bg-black/50 opacity-0 pointer-events-none transition-opacity duration-300" aria-hidden="true"></div>
-<aside id="header-menu-panel" class="fixed top-0 right-0 z-50 h-full w-full max-w-sm bg-gradient-to-br from-gray-50 to-purple-50/50 dark:from-[#2d2a4a] dark:to-[#1a1825] shadow-xl transform translate-x-full transition-transform duration-300 ease-out overflow-y-auto" aria-hidden="true">
+<aside id="header-menu-panel" class="fixed top-0 right-0 z-50 h-full w-full max-w-sm bg-gray-50 dark:bg-[#1a0f2e] shadow-xl transform translate-x-full transition-transform duration-300 ease-out overflow-y-auto" aria-hidden="true">
     <div class="p-6">
         <div class="flex items-center justify-between mb-8">
             <h2 class="text-lg font-semibold text-gray-900 dark:text-white lang-panel-title" data-lang-en="My Info" data-lang-tr="Bilgilerim">My Info</h2>
@@ -62,7 +62,7 @@
             <div>
                 <p class="text-sm font-medium text-gray-500 dark:text-zinc-500 mb-1 lang-panel-email" data-lang-en="Email" data-lang-tr="E-posta">Email</p>
                 @if($userPanelEmail ?? null)
-                <a href="mailto:{{ $userPanelEmail }}" class="text-[#a855f7] hover:underline">{{ $userPanelEmail }}</a>
+                <a href="mailto:{{ $userPanelEmail }}" class="text-[#0A66C2] hover:text-[#004182] hover:underline transition-colors">{{ $userPanelEmail }}</a>
                 @else
                 <span class="text-gray-500 dark:text-zinc-500">—</span>
                 @endif
@@ -70,7 +70,7 @@
             <div>
                 <p class="text-sm font-medium text-gray-500 dark:text-zinc-500 mb-1">LinkedIn</p>
                 @if($userPanelLinkedIn ?? null)
-                <a href="{{ $userPanelLinkedIn }}" target="_blank" rel="noopener noreferrer" class="text-[#a855f7] hover:underline">{{ preg_replace('#^https?://(www\.)?#', '', $userPanelLinkedIn) }}</a>
+                <a href="{{ $userPanelLinkedIn }}" target="_blank" rel="noopener noreferrer" class="text-[#0A66C2] hover:text-[#004182] hover:underline transition-colors">{{ preg_replace('#^https?://(www\.)?#', '', $userPanelLinkedIn) }}</a>
                 @else
                 <span class="text-gray-500 dark:text-zinc-500">—</span>
                 @endif

@@ -15,7 +15,7 @@
 
             {{-- Orta: site adı --}}
             <div class="absolute left-1/2 top-1/2 -translate-x-1/2 -translate-y-1/2 flex h-16 items-center pointer-events-auto">
-                <a href="{{ route('home') }}" class="flex items-center gap-2 text-xl font-semibold text-gray-900 dark:text-white hover:text-gray-700 dark:hover:text-zinc-200 transition-colors">
+                <a href="{{ route('home') }}" class="flex items-center gap-2 text-xl font-bold text-gray-900 dark:text-white hover:text-gray-700 dark:hover:text-zinc-200 transition-colors">
                     {{ $siteName ?? config('app.name') }}
                 </a>
             </div>

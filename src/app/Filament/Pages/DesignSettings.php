@@ -36,6 +36,27 @@ class DesignSettings extends \Filament\Pages\Page
         return 'settings';
     }
 
+    public function updatedDataPublicLogo(mixed $value): void
+    {
+        if (is_array($value) && count($value) > 1) {
+            $this->data['public_logo'] = array_slice(array_values($value), 0, 1);
+        }
+    }
+
+    public function updatedDataDashboardLogo(mixed $value): void
+    {
+        if (is_array($value) && count($value) > 1) {
+            $this->data['dashboard_logo'] = array_slice(array_values($value), 0, 1);
+        }
+    }
+
+    public function updatedDataFavicon(mixed $value): void
+    {
+        if (is_array($value) && count($value) > 1) {
+            $this->data['favicon'] = array_slice(array_values($value), 0, 1);
+        }
+    }
+
     public function mount(): void
     {
         $this->data = [
@@ -67,13 +88,17 @@ class DesignSettings extends \Filament\Pages\Page
 
     /**
      * FileUpload expects array state; DB stores single path as string.
+     * Always returns max 1 item to avoid "must not have more than 1 items" validation.
      */
     private function normalizeFileUploadState(mixed $value): array
     {
         if (is_array($value)) {
-            return $value;
+            return array_slice(array_values($value), 0, 1);
         }
-        return $value ? [$value] : [];
+        if (is_string($value) && $value !== '') {
+            return [$value];
+        }
+        return [];
     }
 
     /**
@@ -343,21 +368,24 @@ class DesignSettings extends \Filament\Pages\Page
 
         Setting::set('site_width', $data['site_width'] ?? 'max-w-7xl');
 
-        $dashboardLogo = $this->toSingleFilePath($data['dashboard_logo'] ?? null);
+        $dashboardLogoRaw = $data['dashboard_logo'] ?? null;
+        $dashboardLogo = $this->toSingleFilePath(is_array($dashboardLogoRaw) ? array_slice($dashboardLogoRaw, 0, 1) : $dashboardLogoRaw);
         $this->deleteSettingFileIfChanged('dashboard_logo', $dashboardLogo);
         Setting::set('dashboard_logo', $dashboardLogo);
 
         Setting::set('dashboard_logo_width', $data['dashboard_logo_width'] ?? 160);
         Setting::set('dashboard_logo_height', $data['dashboard_logo_height'] ?? 40);
 
-        $publicLogo = $this->toSingleFilePath($data['public_logo'] ?? null);
+        $publicLogoRaw = $data['public_logo'] ?? null;
+        $publicLogo = $this->toSingleFilePath(is_array($publicLogoRaw) ? array_slice($publicLogoRaw, 0, 1) : $publicLogoRaw);
         $this->deleteSettingFileIfChanged('public_logo', $publicLogo);
         Setting::set('public_logo', $publicLogo);
 
         Setting::set('public_logo_width', $data['public_logo_width'] ?? 160);
         Setting::set('public_logo_height', $data['public_logo_height'] ?? 40);
 
-        $favicon = $this->toSingleFilePath($data['favicon'] ?? null);
+        $faviconRaw = $data['favicon'] ?? null;
+        $favicon = $this->toSingleFilePath(is_array($faviconRaw) ? array_slice($faviconRaw, 0, 1) : $faviconRaw);
         $this->deleteSettingFileIfChanged('favicon', $favicon);
         Setting::set('favicon', $favicon);
 

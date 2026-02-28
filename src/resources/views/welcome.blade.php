@@ -142,43 +142,58 @@
 
     @php $contactModalOpen = session('contact_success') || session('contact_error') || $errors->any(); @endphp
     {{-- Contact modal --}}
-    <div id="contact-modal" class="fixed inset-0 z-50 items-center justify-center bg-black/50 p-4 {{ $contactModalOpen ? 'flex' : 'hidden' }}" aria-hidden="{{ $contactModalOpen ? 'false' : 'true' }}">
-        <div id="contact-modal-panel" class="relative w-full max-w-md rounded-2xl bg-white dark:bg-zinc-900 shadow-xl p-6 transition-all duration-200 {{ $contactModalOpen ? 'opacity-100 scale-100' : 'opacity-0 scale-95' }}">
+    <div id="contact-modal" class="fixed inset-0 z-50 flex items-center justify-center bg-black/70 backdrop-blur-md p-4 {{ $contactModalOpen ? '' : 'hidden' }}" aria-hidden="{{ $contactModalOpen ? 'false' : 'true' }}">
+        <div id="contact-modal-panel" class="relative w-full max-w-md rounded-2xl border border-white/10 bg-zinc-900/95 shadow-2xl shadow-black/50 p-6 backdrop-blur-xl transition-all duration-200 {{ $contactModalOpen ? 'opacity-100 scale-100' : 'opacity-0 scale-95' }}">
             <div class="flex items-center justify-between mb-6">
-                <h2 class="text-xl font-semibold text-gray-900 dark:text-white lang-modal-title" data-lang-en="Contact" data-lang-tr="İletişim">Contact</h2>
-                <button type="button" id="contact-close" class="p-2 text-gray-500 hover:text-gray-700 dark:hover:text-gray-300 rounded-lg hover:bg-gray-100 dark:hover:bg-white/5 transition-colors" aria-label="Close">
+                <h2 class="text-xl font-semibold text-white lang-modal-title" data-lang-en="Contact" data-lang-tr="İletişim">Contact</h2>
+                <button type="button" id="contact-close" class="rounded-lg p-2 text-zinc-400 transition-colors hover:bg-white/10 hover:text-white" aria-label="Close">
                     <svg class="h-5 w-5" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12" /></svg>
                 </button>
             </div>
             @if(session('contact_success'))
-                <p class="mb-4 text-sm text-green-600 dark:text-green-400">Message sent successfully.</p>
+                <p class="mb-4 text-sm text-green-400">Message sent successfully.</p>
             @endif
             @if(session('contact_error'))
-                <p class="mb-4 text-sm text-red-600 dark:text-red-400">{{ session('contact_error') }}</p>
+                <p class="mb-4 text-sm text-red-400">{{ session('contact_error') }}</p>
             @endif
             <form action="{{ route('contact.store') }}" method="POST" class="space-y-4">
                 @csrf
                 <div>
-                    <label for="contact-name" class="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-1 lang-modal-name" data-lang-en="Name" data-lang-tr="Ad">Name</label>
-                    <input type="text" id="contact-name" name="name" required
-                        class="w-full rounded-lg border border-gray-300 dark:border-zinc-600 bg-white dark:bg-zinc-800 px-4 py-2 text-gray-900 dark:text-white focus:ring-2 focus:ring-[#a855f7]/50 focus:border-[#a855f7]"
-                        value="{{ old('name') }}">
-                    @error('name')<p class="mt-1 text-sm text-red-600">{{ $message }}</p>@enderror
+                    <label for="contact-name" class="mb-1.5 block text-sm font-medium text-zinc-300 lang-modal-name" data-lang-en="Name" data-lang-tr="Ad">Name</label>
+                    <div class="relative">
+                        <span class="pointer-events-none absolute left-3 top-1/2 -translate-y-1/2 text-zinc-500">
+                            <svg class="h-5 w-5" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="1.5"><path stroke-linecap="round" stroke-linejoin="round" d="M15.75 6a3.75 3.75 0 1 1-7.5 0 3.75 3.75 0 0 1 7.5 0ZM4.501 20.118a7.5 7.5 0 0 1 14.998 0A17.933 17.933 0 0 1 12 21.75c-2.676 0-5.216-.584-7.499-1.632Z" /></svg>
+                        </span>
+                        <input type="text" id="contact-name" name="name" required placeholder="Adınız"
+                            class="w-full rounded-xl border border-white/10 bg-white/5 py-2.5 pl-11 pr-4 text-white placeholder-zinc-500 transition-colors focus:border-[#a855f7]/60 focus:bg-white/10 focus:outline-none focus:ring-2 focus:ring-[#a855f7]/30"
+                            value="{{ old('name') }}">
+                    </div>
+                    @error('name')<p class="mt-1 text-sm text-red-400">{{ $message }}</p>@enderror
                 </div>
                 <div>
-                    <label for="contact-email" class="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-1">Email</label>
-                    <input type="email" id="contact-email" name="email" required
-                        class="w-full rounded-lg border border-gray-300 dark:border-zinc-600 bg-white dark:bg-zinc-800 px-4 py-2 text-gray-900 dark:text-white focus:ring-2 focus:ring-[#a855f7]/50 focus:border-[#a855f7]"
-                        value="{{ old('email') }}">
-                    @error('email')<p class="mt-1 text-sm text-red-600">{{ $message }}</p>@enderror
+                    <label for="contact-email" class="mb-1.5 block text-sm font-medium text-zinc-300">Email</label>
+                    <div class="relative">
+                        <span class="pointer-events-none absolute left-3 top-1/2 -translate-y-1/2 text-zinc-500">
+                            <svg class="h-5 w-5" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="1.5"><path stroke-linecap="round" stroke-linejoin="round" d="M21.75 6.75v10.5a2.25 2.25 0 01-2.25 2.25h-15a2.25 2.25 0 01-2.25-2.25V6.75m19.5 0A2.25 2.25 0 0019.5 4.5h-15a2.25 2.25 0 00-2.25 2.25m19.5 0v.243a2.25 2.25 0 01-1.07 1.916l-7.5 4.615a2.25 2.25 0 01-2.36 0L3.32 8.91a2.25 2.25 0 01-1.07-1.916V6.75" /></svg>
+                        </span>
+                        <input type="email" id="contact-email" name="email" required placeholder="E-posta adresiniz"
+                            class="w-full rounded-xl border border-white/10 bg-white/5 py-2.5 pl-11 pr-4 text-white placeholder-zinc-500 transition-colors focus:border-[#a855f7]/60 focus:bg-white/10 focus:outline-none focus:ring-2 focus:ring-[#a855f7]/30"
+                            value="{{ old('email') }}">
+                    </div>
+                    @error('email')<p class="mt-1 text-sm text-red-400">{{ $message }}</p>@enderror
                 </div>
                 <div>
-                    <label for="contact-message" class="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-1 lang-modal-message" data-lang-en="Message" data-lang-tr="Mesaj">Message</label>
-                    <textarea id="contact-message" name="message" rows="4" required
-                        class="w-full rounded-lg border border-gray-300 dark:border-zinc-600 bg-white dark:bg-zinc-800 px-4 py-2 text-gray-900 dark:text-white focus:ring-2 focus:ring-[#a855f7]/50 focus:border-[#a855f7]">{{ old('message') }}</textarea>
-                    @error('message')<p class="mt-1 text-sm text-red-600">{{ $message }}</p>@enderror
+                    <label for="contact-message" class="mb-1.5 block text-sm font-medium text-zinc-300 lang-modal-message" data-lang-en="Message" data-lang-tr="Mesaj">Message</label>
+                    <div class="relative">
+                        <span class="pointer-events-none absolute left-3 top-4 text-zinc-500">
+                            <svg class="h-5 w-5" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="1.5"><path stroke-linecap="round" stroke-linejoin="round" d="M7.5 8.25h9m-9 3H12m-9.75 1.51c0 1.6 1.123 2.994 2.707 3.227 1.129.166 2.27.293 3.423.379.35.026.67.21.865.501L12 21l2.755-4.133a1.14 1.14 0 01.865-.501 48.172 48.172 0 003.423-.379c1.584-.233 2.707-1.626 2.707-3.228V6.741c0-1.602-1.123-2.995-2.707-3.228A48.394 48.394 0 0012 3c-2.392 0-4.744.175-7.043.513C3.373 3.746 2.25 5.14 2.25 6.741v6.018z" /></svg>
+                        </span>
+                        <textarea id="contact-message" name="message" rows="4" required placeholder="Mesajınız"
+                            class="w-full resize-none rounded-xl border border-white/10 bg-white/5 py-2.5 pl-11 pr-4 text-white placeholder-zinc-500 transition-colors focus:border-[#a855f7]/60 focus:bg-white/10 focus:outline-none focus:ring-2 focus:ring-[#a855f7]/30">{{ old('message') }}</textarea>
+                    </div>
+                    @error('message')<p class="mt-1 text-sm text-red-400">{{ $message }}</p>@enderror
                 </div>
-                <button type="submit" class="w-full rounded-lg bg-[#a855f7] px-4 py-3 text-base font-semibold text-white hover:bg-[#9333ea] transition-colors focus:outline-none focus:ring-2 focus:ring-[#a855f7]/50 lang-modal-send" data-lang-en="Send" data-lang-tr="Gönder">Send</button>
+                <button type="submit" class="lang-modal-send w-full rounded-xl bg-[#a855f7] px-4 py-3 text-base font-semibold text-white shadow-lg shadow-[#a855f7]/20 transition-all hover:bg-[#9333ea] hover:shadow-[#a855f7]/30 focus:outline-none focus:ring-2 focus:ring-[#a855f7]/50 focus:ring-offset-2 focus:ring-offset-zinc-900" data-lang-en="Send" data-lang-tr="Gönder">Send</button>
             </form>
         </div>
     </div>
@@ -219,10 +234,21 @@
             var contactClose = document.getElementById('contact-close');
             var contactPanel = document.getElementById('contact-modal-panel');
 
+            function lockScroll() {
+                var scrollbarWidth = window.innerWidth - document.documentElement.clientWidth;
+                document.body.style.paddingRight = scrollbarWidth + 'px';
+                document.body.style.overflow = 'hidden';
+            }
+
+            function unlockScroll() {
+                document.body.style.paddingRight = '';
+                document.body.style.overflow = '';
+            }
+
             function openContactModal() {
                 contactModal.classList.remove('hidden');
                 contactModal.classList.add('flex');
-                document.body.style.overflow = 'hidden';
+                lockScroll();
                 requestAnimationFrame(function () {
                     contactPanel.classList.remove('opacity-0', 'scale-95');
                     contactPanel.classList.add('opacity-100', 'scale-100');
@@ -235,7 +261,7 @@
                 setTimeout(function () {
                     contactModal.classList.add('hidden');
                     contactModal.classList.remove('flex');
-                    document.body.style.overflow = '';
+                    unlockScroll();
                 }, 200);
             }
 

@@ -44,7 +44,7 @@
 
 {{-- Sağdan kayan menü paneli --}}
 <div id="header-menu-overlay" class="fixed inset-0 z-40 bg-black/50 opacity-0 pointer-events-none transition-opacity duration-300" aria-hidden="true"></div>
-<aside id="header-menu-panel" class="fixed top-0 right-0 z-50 h-full w-full max-w-sm bg-gray-50 dark:bg-[#1a0f2e] shadow-xl transform translate-x-full transition-transform duration-300 ease-out overflow-y-auto" aria-hidden="true">
+<aside id="header-menu-panel" class="fixed top-0 right-0 z-50 h-full w-full max-w-sm bg-gray-50 dark:bg-[#060a12] shadow-xl transform translate-x-full transition-transform duration-300 ease-out overflow-y-auto" aria-hidden="true">
     <div class="p-6">
         <div class="flex items-center justify-between mb-8">
             <h2 class="text-lg font-semibold text-gray-900 dark:text-white lang-panel-title" data-lang-en="My Info" data-lang-tr="Bilgilerim">My Info</h2>
@@ -54,26 +54,41 @@
                 </svg>
             </button>
         </div>
-        <div class="space-y-6 text-gray-600 dark:text-zinc-400">
-            <div>
-                <p class="text-sm font-medium text-gray-500 dark:text-zinc-500 mb-1 lang-panel-profile" data-lang-en="Profile" data-lang-tr="Profil">Profile</p>
-                <p class="text-gray-900 dark:text-white">{{ $userPanelName ?? 'Ömer Soft' }}</p>
+        <div class="space-y-4 text-gray-600 dark:text-zinc-400">
+            <div class="flex gap-4 items-center p-4 rounded-xl bg-gradient-to-r from-[#0A66C2]/20 via-[#0A66C2]/10 to-transparent dark:from-[#0A66C2]/15 dark:via-[#0A66C2]/8 dark:to-transparent border border-gray-200/50 dark:border-white/5">
+                <div class="flex-shrink-0 w-10 h-10 rounded-lg bg-[#0A66C2]/20 flex items-center justify-center text-[#0A66C2]">
+                    <svg class="h-5 w-5" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="1.5"><path stroke-linecap="round" stroke-linejoin="round" d="M15.75 6a3.75 3.75 0 1 1-7.5 0 3.75 3.75 0 0 1 7.5 0ZM4.501 20.118a7.5 7.5 0 0 1 14.998 0A17.933 17.933 0 0 1 12 21.75c-2.676 0-5.216-.584-7.499-1.632Z" /></svg>
+                </div>
+                <div class="min-w-0 flex-1">
+                    <p class="text-xs font-medium text-gray-500 dark:text-zinc-500 mb-0.5 lang-panel-profile" data-lang-en="Profile" data-lang-tr="Profil">Profile</p>
+                    <p class="text-gray-900 dark:text-white font-medium truncate">{{ $userPanelName ?? 'Ömer Soft' }}</p>
+                </div>
             </div>
-            <div>
-                <p class="text-sm font-medium text-gray-500 dark:text-zinc-500 mb-1 lang-panel-email" data-lang-en="Email" data-lang-tr="E-posta">Email</p>
-                @if($userPanelEmail ?? null)
-                <a href="mailto:{{ $userPanelEmail }}" class="text-[#0A66C2] hover:text-[#004182] hover:underline transition-colors">{{ $userPanelEmail }}</a>
-                @else
-                <span class="text-gray-500 dark:text-zinc-500">—</span>
-                @endif
+            <div class="flex gap-4 items-center p-4 rounded-xl bg-gradient-to-r from-[#0A66C2]/20 via-[#0A66C2]/10 to-transparent dark:from-[#0A66C2]/15 dark:via-[#0A66C2]/8 dark:to-transparent border border-gray-200/50 dark:border-white/5">
+                <div class="flex-shrink-0 w-10 h-10 rounded-lg bg-[#0A66C2]/20 flex items-center justify-center text-[#0A66C2]">
+                    <svg class="h-5 w-5" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="1.5"><path stroke-linecap="round" stroke-linejoin="round" d="M21.75 6.75v10.5a2.25 2.25 0 01-2.25 2.25h-15a2.25 2.25 0 01-2.25-2.25V6.75m19.5 0A2.25 2.25 0 0019.5 4.5h-15a2.25 2.25 0 00-2.25 2.25m19.5 0v.243a2.25 2.25 0 01-1.07 1.916l-7.5 4.615a2.25 2.25 0 01-2.36 0L3.32 8.91a2.25 2.25 0 01-1.07-1.916V6.75" /></svg>
+                </div>
+                <div class="min-w-0 flex-1">
+                    <p class="text-xs font-medium text-gray-500 dark:text-zinc-500 mb-0.5 lang-panel-email" data-lang-en="Email" data-lang-tr="E-posta">Email</p>
+                    @if($userPanelEmail ?? null)
+                    <a href="mailto:{{ $userPanelEmail }}" class="text-[#0A66C2] hover:text-[#004182] hover:underline transition-colors truncate block">{{ $userPanelEmail }}</a>
+                    @else
+                    <span class="text-gray-500 dark:text-zinc-500">—</span>
+                    @endif
+                </div>
             </div>
-            <div>
-                <p class="text-sm font-medium text-gray-500 dark:text-zinc-500 mb-1">LinkedIn</p>
-                @if($userPanelLinkedIn ?? null)
-                <a href="{{ $userPanelLinkedIn }}" target="_blank" rel="noopener noreferrer" class="text-[#0A66C2] hover:text-[#004182] hover:underline transition-colors">{{ preg_replace('#^https?://(www\.)?#', '', $userPanelLinkedIn) }}</a>
-                @else
-                <span class="text-gray-500 dark:text-zinc-500">—</span>
-                @endif
+            <div class="flex gap-4 items-center p-4 rounded-xl bg-gradient-to-r from-[#0A66C2]/20 via-[#0A66C2]/10 to-transparent dark:from-[#0A66C2]/15 dark:via-[#0A66C2]/8 dark:to-transparent border border-gray-200/50 dark:border-white/5">
+                <div class="flex-shrink-0 w-10 h-10 rounded-lg bg-[#0A66C2]/20 flex items-center justify-center text-[#0A66C2]">
+                    <svg class="h-5 w-5" fill="currentColor" viewBox="0 0 24 24"><path d="M20.447 20.452h-3.554v-5.569c0-1.328-.027-3.037-1.852-3.037-1.853 0-2.136 1.445-2.136 2.939v5.667H9.351V9h3.414v1.561h.046c.477-.9 1.637-1.85 3.37-1.85 3.601 0 4.267 2.37 4.267 5.455v6.286zM5.337 7.433c-1.144 0-2.063-.926-2.063-2.065 0-1.138.92-2.063 2.063-2.063 1.14 0 2.064.925 2.064 2.063 0 1.139-.925 2.065-2.064 2.065zm1.782 13.019H3.555V9h3.564v11.452zM22.225 0H1.771C.792 0 0 .774 0 1.729v20.542C0 23.227.792 24 1.771 24h20.451C23.2 24 24 23.227 24 22.271V1.729C24 .774 23.2 0 22.222 0h.003z"/></svg>
+                </div>
+                <div class="min-w-0 flex-1">
+                    <p class="text-xs font-medium text-gray-500 dark:text-zinc-500 mb-0.5">LinkedIn</p>
+                    @if($userPanelLinkedIn ?? null)
+                    <a href="{{ $userPanelLinkedIn }}" target="_blank" rel="noopener noreferrer" class="text-[#0A66C2] hover:text-[#004182] hover:underline transition-colors truncate block">{{ preg_replace('#^https?://(www\.)?#', '', $userPanelLinkedIn) }}</a>
+                    @else
+                    <span class="text-gray-500 dark:text-zinc-500">—</span>
+                    @endif
+                </div>
             </div>
         </div>
     </div>
@@ -86,12 +101,23 @@ document.addEventListener('DOMContentLoaded', function () {
     var overlay = document.getElementById('header-menu-overlay');
     var panel = document.getElementById('header-menu-panel');
 
+    function lockScroll() {
+        var scrollbarWidth = window.innerWidth - document.documentElement.clientWidth;
+        document.body.style.paddingRight = scrollbarWidth + 'px';
+        document.body.style.overflow = 'hidden';
+    }
+
+    function unlockScroll() {
+        document.body.style.paddingRight = '';
+        document.body.style.overflow = '';
+    }
+
     function openMenu() {
         panel.classList.remove('translate-x-full');
         panel.setAttribute('aria-hidden', 'false');
         overlay.classList.remove('opacity-0', 'pointer-events-none');
         overlay.setAttribute('aria-hidden', 'false');
-        document.body.style.overflow = 'hidden';
+        lockScroll();
     }
 
     function closeMenu() {
@@ -99,7 +125,7 @@ document.addEventListener('DOMContentLoaded', function () {
         panel.setAttribute('aria-hidden', 'true');
         overlay.classList.add('opacity-0', 'pointer-events-none');
         overlay.setAttribute('aria-hidden', 'true');
-        document.body.style.overflow = '';
+        unlockScroll();
     }
 
     if (toggle) toggle.addEventListener('click', openMenu);

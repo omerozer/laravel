@@ -38,7 +38,9 @@ class AppServiceProvider extends ServiceProvider
             View::share('userPanelName', Setting::get('user_panel_name', 'Ömer Soft'));
             View::share('userPanelEmail', Setting::get('user_panel_email', 'iletisim@omersoft.com'));
             View::share('userPanelLinkedIn', Setting::get('user_panel_linkedin', 'https://www.linkedin.com/in/omerdesign/'));
-            View::share('footerText', Setting::get('footer_text', 'All rights reserved.'));
+            View::share('footerText', Setting::get('footer_text', '© {year} {app_name}. All rights reserved.'));
+            View::share('seoHomeTitle', Setting::get('seo_home_title'));
+            View::share('seoHomeDescription', Setting::get('seo_home_description'));
         } else {
             View::share('publicLogoPath', null);
             View::share('publicLogoWidth', 160);
@@ -46,7 +48,9 @@ class AppServiceProvider extends ServiceProvider
             View::share('userPanelName', 'Ömer Soft');
             View::share('userPanelEmail', 'iletisim@omersoft.com');
             View::share('userPanelLinkedIn', 'https://www.linkedin.com/in/omerdesign/');
-            View::share('footerText', 'All rights reserved.');
+            View::share('footerText', '© {year} {app_name}. All rights reserved.');
+            View::share('seoHomeTitle', null);
+            View::share('seoHomeDescription', null);
         }
     }
 }

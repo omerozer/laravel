@@ -61,7 +61,7 @@ class DesignSettings extends \Filament\Pages\Page
             'user_panel_name' => Setting::get('user_panel_name', 'Ömer Soft'),
             'user_panel_email' => Setting::get('user_panel_email', 'iletisim@omersoft.com'),
             'user_panel_linkedin' => Setting::get('user_panel_linkedin', 'https://www.linkedin.com/in/omerdesign/'),
-            'footer_text' => Setting::get('footer_text', 'All rights reserved.'),
+            'footer_text' => Setting::get('footer_text', '© {year} {app_name}. All rights reserved.'),
         ];
     }
 
@@ -246,8 +246,8 @@ class DesignSettings extends \Filament\Pages\Page
                                 Textarea::make('footer_text')
                                     ->label('Footer metni')
                                     ->rows(2)
-                                    ->placeholder('All rights reserved.')
-                                    ->helperText('Sayfa altında görünecek footer metni.'),
+                                    ->placeholder('© {year} {app_name}. All rights reserved.')
+                                    ->helperText('Sayfa altında görünecek tam footer metni. {year} ve {app_name} otomatik değiştirilir.'),
                             ]),
 
                         Tab::make('SEO')
@@ -369,7 +369,7 @@ class DesignSettings extends \Filament\Pages\Page
         Setting::set('user_panel_name', $data['user_panel_name'] ?? 'Ömer Soft');
         Setting::set('user_panel_email', $data['user_panel_email'] ?? '');
         Setting::set('user_panel_linkedin', $data['user_panel_linkedin'] ?? '');
-        Setting::set('footer_text', $data['footer_text'] ?? 'All rights reserved.');
+        Setting::set('footer_text', $data['footer_text'] ?? '© {year} {app_name}. All rights reserved.');
 
         Setting::set('smtp_host', $data['smtp_host'] ?? '');
         Setting::set('smtp_port', $data['smtp_port'] ?? 587);

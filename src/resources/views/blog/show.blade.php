@@ -35,7 +35,7 @@
 
                     {{-- Ana içerik (sadece içerik full width, sayfa layout'u aynı) --}}
                     <article class="min-w-0 flex-1 max-w-none">
-                        <nav class="breadcrumbs mb-6 rounded-lg px-3 py-2 bg-white dark:bg-white/5 border border-gray-200/60 dark:border-white/10 shadow-sm" aria-label="Breadcrumb">
+                        <nav class="breadcrumbs mb-6 rounded-xl px-3 py-2 border border-gray-200 dark:border-white/10 bg-white/50 dark:bg-white/5" aria-label="Breadcrumb">
                             <ol class="flex flex-wrap items-center gap-1.5 text-sm">
                                 <li>
                                     <a href="{{ route('blog.index') }}" class="text-gray-600 dark:text-zinc-400 hover:text-gray-900 dark:hover:text-white transition-colors">Blog</a>

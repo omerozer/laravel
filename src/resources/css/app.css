@@ -249,3 +249,23 @@ body {
 .dark .blog-post-content details > *:not(summary) {
     color: rgb(228 228 231);
 }
+
+/* Blog: figure/diagram container */
+.blog-post-content figure {
+    margin: 2rem 0;
+}
+
+.blog-post-content figure svg {
+    max-width: 100%;
+    height: auto;
+    display: block;
+}
+
+.blog-post-content figcaption {
+    font-size: 0.875rem;
+    color: rgb(107 114 128);
+}
+
+.dark .blog-post-content figcaption {
+    color: rgb(161 161 170);
+}

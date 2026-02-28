@@ -47,6 +47,8 @@ Route::get('build/assets/{path}', function (string $path): Response {
     return response()->file($fullPath, ['Content-Type' => $mime]);
 })->where('path', '.*')->name('vite.build.assets');
 
+Route::get('/sitemap.xml', [\App\Http\Controllers\SitemapController::class, 'index'])->name('sitemap');
+
 Route::get('/', [KisiController::class, 'index'])->name('home');
 Route::post('/contact', [ContactController::class, 'store'])->name('contact.store');
 Route::post('/kaydet', [KisiController::class, 'store'])->name('kisi.store');

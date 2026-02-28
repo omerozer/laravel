@@ -68,22 +68,24 @@ class DesignSettings extends \Filament\Pages\Page
 
     /**
      * FileUpload expects array state; DB stores single path as string.
-     * Always returns max 1 item to avoid "must not have more than 1 items" validation.
+     * DB stores "storage/images/xxx" for asset(); FileUpload (disk public) expects "images/xxx".
      */
     private function normalizeFileUploadState(mixed $value): array
     {
         if (is_array($value)) {
-            return array_slice(array_values($value), 0, 1);
+            $arr = array_slice(array_values($value), 0, 1);
+            return array_map(fn ($v) => is_string($v) && str_starts_with($v, 'storage/') ? substr($v, 8) : $v, $arr);
         }
         if (is_string($value) && $value !== '') {
-            return [$value];
+            $path = str_starts_with($value, 'storage/') ? substr($value, 8) : $value;
+            return [$path];
         }
         return [];
     }
 
     /**
      * Persist single file path from FileUpload state (array or string).
-     * Handles TemporaryUploadedFile by storing to public_root/images and returning path.
+     * Uses 'public' disk (storage/app/public) like KisiController - path for asset() is storage/xxx.
      */
     private function toSingleFilePath(mixed $value): ?string
     {
@@ -96,11 +98,14 @@ class DesignSettings extends \Filament\Pages\Page
         }
 
         if ($item instanceof TemporaryUploadedFile) {
-            $path = $item->store('images', ['disk' => 'public_root']);
-            return $path !== false ? $path : null;
+            $path = $item->store('images', ['disk' => 'public']);
+            if ($path === false) {
+                return null;
+            }
+            return 'storage/' . $path;
         }
         if (is_string($item) && $item !== '') {
-            return $item;
+            return str_starts_with($item, 'storage/') ? $item : 'storage/' . $item;
         }
         return $item !== null && $item !== '' ? (string) $item : null;
     }
@@ -182,7 +187,7 @@ class DesignSettings extends \Filament\Pages\Page
                                     ->label('Dashboard logosu')
                                     ->image()
                                     ->imagePreviewHeight('80')
-                                    ->disk('public_root')
+                                    ->disk('public')
                                     ->directory('images')
                                     ->acceptedFileTypes(['image/png', 'image/jpeg', 'image/webp', 'image/svg+xml'])
                                     ->helperText('Yönetim panelinde kullanılacak logo (PNG, JPG, WebP, SVG).'),
@@ -205,7 +210,7 @@ class DesignSettings extends \Filament\Pages\Page
                                     ->label('Public site logosu')
                                     ->image()
                                     ->imagePreviewHeight('80')
-                                    ->disk('public_root')
+                                    ->disk('public')
                                     ->directory('images')
                                     ->acceptedFileTypes(['image/png', 'image/jpeg', 'image/webp', 'image/svg+xml'])
                                     ->helperText('Public sitede (header/footer) kullanılacak logo (PNG, JPG, WebP, SVG). Sadece ilk seçilen dosya kaydedilir.'),
@@ -228,7 +233,7 @@ class DesignSettings extends \Filament\Pages\Page
                                     ->label('Favicon')
                                     ->image()
                                     ->imagePreviewHeight('40')
-                                    ->disk('public_root')
+                                    ->disk('public')
                                     ->directory('images')
                                     ->acceptedFileTypes(['image/*', 'image/svg+xml', 'image/webp', 'image/x-icon'])
                                     ->helperText('Tarayıcı sekmesinde görünecek ikon (PNG, JPG, WebP, SVG, ICO).'),

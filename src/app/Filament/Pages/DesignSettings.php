@@ -171,7 +171,6 @@ class DesignSettings extends \Filament\Pages\Page
                                     ->imagePreviewHeight('80')
                                     ->disk('public_root')
                                     ->directory('images')
-                                    ->maxFiles(1)
                                     ->acceptedFileTypes(['image/png', 'image/jpeg', 'image/webp', 'image/svg+xml'])
                                     ->helperText('Yönetim panelinde kullanılacak logo (PNG, JPG, WebP, SVG).'),
 
@@ -195,9 +194,8 @@ class DesignSettings extends \Filament\Pages\Page
                                     ->imagePreviewHeight('80')
                                     ->disk('public_root')
                                     ->directory('images')
-                                    ->maxFiles(1)
                                     ->acceptedFileTypes(['image/png', 'image/jpeg', 'image/webp', 'image/svg+xml'])
-                                    ->helperText('Public sitede (header/footer) kullanılacak logo (PNG, JPG, WebP, SVG).'),
+                                    ->helperText('Public sitede (header/footer) kullanılacak logo (PNG, JPG, WebP, SVG). Sadece ilk seçilen dosya kaydedilir.'),
 
                                 TextInput::make('public_logo_width')
                                     ->label('Public logo genişliği (px)')
@@ -219,7 +217,6 @@ class DesignSettings extends \Filament\Pages\Page
                                     ->imagePreviewHeight('40')
                                     ->disk('public_root')
                                     ->directory('images')
-                                    ->maxFiles(1)
                                     ->acceptedFileTypes(['image/*', 'image/svg+xml', 'image/webp', 'image/x-icon'])
                                     ->helperText('Tarayıcı sekmesinde görünecek ikon (PNG, JPG, WebP, SVG, ICO).'),
 

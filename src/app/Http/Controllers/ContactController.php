@@ -20,6 +20,7 @@ class ContactController extends Controller
 
         $host = Setting::get('smtp_host');
         if ($host) {
+            Config::set('mail.default', 'smtp');
             Config::set('mail.mailers.smtp', [
                 'transport' => 'smtp',
                 'host' => $host,

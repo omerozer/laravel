@@ -53,6 +53,40 @@
         .hero-avatar-group:hover .hero-avatar-img {
             filter: grayscale(0);
         }
+        @keyframes online-ring {
+            0% { transform: scale(1); opacity: 0.6; }
+            70% { transform: scale(2.2); opacity: 0; }
+            100% { transform: scale(2.2); opacity: 0; }
+        }
+        .hero-online-dot {
+            position: absolute;
+            top: 10px;
+            right: 10px;
+            width: 18px;
+            height: 18px;
+            background: #22c55e;
+            border-radius: 50%;
+            border: 2px solid white;
+            box-shadow: 0 0 0 1px rgba(34, 197, 94, 0.3);
+            z-index: 10;
+        }
+        .hero-online-dot::before {
+            content: '';
+            position: absolute;
+            inset: -3px;
+            border-radius: 50%;
+            border: 2px solid rgba(34, 197, 94, 0.6);
+            animation: online-ring 1.8s ease-out infinite;
+        }
+        .dark .hero-online-dot::before {
+            border-color: rgba(34, 197, 94, 0.5);
+        }
+        @media (min-width: 640px) {
+            .hero-online-dot { width: 20px; height: 20px; top: 12px; right: 12px; }
+        }
+        @media (min-width: 1024px) {
+            .hero-online-dot { width: 22px; height: 22px; top: 14px; right: 14px; }
+        }
     </style>
 </head>
 <body class="h-full bg-gray-50 dark:bg-[linear-gradient(135deg,#1e1b4b_0%,#0f0a1e_35%,#020617_70%,#1e1b4b_100%)] dark:bg-fixed font-sans antialiased text-gray-900 dark:text-white">
@@ -64,8 +98,8 @@
             <section class="relative overflow-hidden">
                 <div class="mx-auto {{ $siteWidth ?? 'max-w-7xl' }} px-4 sm:px-6 lg:px-8 pt-20 pb-24 sm:pt-32 sm:pb-32 lg:pt-40 lg:pb-40 relative">
                     <div class="text-center w-full">
-                        <div class="hero-avatar-group hero-avatar-wrapper mb-8 mx-auto inline-flex opacity-0 animate-fade-in-up">
-                            <div class="hero-avatar-ring-inner flex items-center justify-center shrink-0">
+                        <div class="hero-avatar-group hero-avatar-wrapper mb-8 mx-auto inline-flex opacity-0 animate-fade-in-up relative">
+                            <div class="hero-avatar-ring-inner flex items-center justify-center shrink-0 relative">
                                 <img
                                     src="{{ asset('images/omer.jpeg') }}"
                                     alt="Ömer"
@@ -73,6 +107,7 @@
                                     loading="eager"
                                 >
                             </div>
+                            <span class="hero-online-dot" aria-hidden="true" title="Online"></span>
                         </div>
                         <h1 class="text-4xl sm:text-5xl lg:text-6xl font-bold tracking-tight opacity-0 animate-fade-in-up animate-delay-100">
                             <span class="block">
@@ -142,59 +177,55 @@
 
     @php $contactModalOpen = session('contact_success') || session('contact_error') || $errors->any(); @endphp
     {{-- Contact modal --}}
-    <div id="contact-modal" class="fixed inset-0 z-50 flex items-center justify-center bg-black/70 backdrop-blur-md p-4 {{ $contactModalOpen ? '' : 'hidden' }}" aria-hidden="{{ $contactModalOpen ? 'false' : 'true' }}">
-        <div id="contact-modal-panel" class="relative w-full max-w-md rounded-2xl border border-white/10 bg-zinc-900/95 shadow-2xl shadow-black/50 p-6 backdrop-blur-xl transition-all duration-200 {{ $contactModalOpen ? 'opacity-100 scale-100' : 'opacity-0 scale-95' }}">
-            <div class="flex items-center justify-between mb-6">
-                <h2 class="text-xl font-semibold text-white lang-modal-title" data-lang-en="Contact" data-lang-tr="İletişim">Contact</h2>
-                <button type="button" id="contact-close" class="rounded-lg p-2 text-zinc-400 transition-colors hover:bg-white/10 hover:text-white" aria-label="Close">
-                    <svg class="h-5 w-5" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12" /></svg>
-                </button>
-            </div>
-            @if(session('contact_success'))
-                <p class="mb-4 text-sm text-green-400">Message sent successfully.</p>
-            @endif
-            @if(session('contact_error'))
-                <p class="mb-4 text-sm text-red-400">{{ session('contact_error') }}</p>
-            @endif
-            <form action="{{ route('contact.store') }}" method="POST" class="space-y-4">
-                @csrf
-                <div>
-                    <label for="contact-name" class="mb-1.5 block text-sm font-medium text-zinc-300 lang-modal-name" data-lang-en="Name" data-lang-tr="Ad">Name</label>
-                    <div class="relative">
-                        <span class="pointer-events-none absolute left-3 top-1/2 -translate-y-1/2 text-zinc-500">
-                            <svg class="h-5 w-5" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="1.5"><path stroke-linecap="round" stroke-linejoin="round" d="M15.75 6a3.75 3.75 0 1 1-7.5 0 3.75 3.75 0 0 1 7.5 0ZM4.501 20.118a7.5 7.5 0 0 1 14.998 0A17.933 17.933 0 0 1 12 21.75c-2.676 0-5.216-.584-7.499-1.632Z" /></svg>
-                        </span>
-                        <input type="text" id="contact-name" name="name" required placeholder="Adınız"
-                            class="w-full rounded-xl border border-white/10 bg-white/5 py-2.5 pl-11 pr-4 text-white placeholder-zinc-500 transition-colors focus:border-[#a855f7]/60 focus:bg-white/10 focus:outline-none focus:ring-2 focus:ring-[#a855f7]/30"
+    <div id="contact-modal" class="fixed inset-0 z-50 flex items-center justify-center p-4 {{ $contactModalOpen ? '' : 'hidden' }}" aria-hidden="{{ $contactModalOpen ? 'false' : 'true' }}">
+        <div id="contact-backdrop" class="absolute inset-0 bg-gray-900/60 dark:bg-black/80 backdrop-blur-sm transition-opacity duration-200 cursor-pointer" aria-hidden="true"></div>
+        <div id="contact-modal-panel" class="relative w-full max-w-md rounded-3xl overflow-hidden shadow-2xl transition-all duration-300 {{ $contactModalOpen ? 'opacity-100 scale-100 translate-y-0' : 'opacity-0 scale-[0.96] translate-y-4' }}">
+            {{-- Gradient header strip --}}
+            <div class="h-1.5 bg-gradient-to-r from-[#a855f7] via-[#7c3aed] to-[#6366f1]"></div>
+            <div class="bg-white dark:bg-zinc-900/95 dark:border dark:border-white/5 p-6 sm:p-8">
+                <div class="flex items-start justify-between gap-4 mb-6">
+                    <div>
+                        <h2 class="text-2xl font-bold text-gray-900 dark:text-white lang-modal-title" data-lang-en="Contact" data-lang-tr="İletişim">Contact</h2>
+                        <p class="mt-1 text-sm text-gray-500 dark:text-zinc-400 lang-modal-subtitle" data-lang-en="Send a message, I'll get back to you." data-lang-tr="Mesajınızı bırakın, size geri döneceğim.">Send a message, I'll get back to you.</p>
+                    </div>
+                    <button type="button" id="contact-close" class="rounded-full p-2.5 text-gray-400 dark:text-zinc-500 transition-colors hover:bg-gray-100 dark:hover:bg-white/10 hover:text-gray-600 dark:hover:text-white" aria-label="Close">
+                        <svg class="h-5 w-5" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2"><path stroke-linecap="round" stroke-linejoin="round" d="M6 18L18 6M6 6l12 12" /></svg>
+                    </button>
+                </div>
+                @if(session('contact_success'))
+                    <div class="mb-4 flex items-center gap-2 rounded-xl bg-emerald-50 dark:bg-emerald-500/10 px-4 py-3 text-sm text-emerald-700 dark:text-emerald-400">
+                        <svg class="h-5 w-5 flex-shrink-0" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7" /></svg>
+                        <span class="lang-success" data-lang-en="Message sent successfully." data-lang-tr="Mesajınız başarıyla gönderildi.">Message sent successfully.</span>
+                    </div>
+                @endif
+                @if(session('contact_error'))
+                    <div class="mb-4 flex items-center gap-2 rounded-xl bg-red-50 dark:bg-red-500/10 px-4 py-3 text-sm text-red-700 dark:text-red-400">{{ session('contact_error') }}</div>
+                @endif
+                <form action="{{ route('contact.store') }}" method="POST" class="space-y-5">
+                    @csrf
+                    <div>
+                        <label for="contact-name" class="mb-2 block text-sm font-medium text-gray-700 dark:text-zinc-300 lang-modal-name" data-lang-en="Name" data-lang-tr="Ad">Name</label>
+                        <input type="text" id="contact-name" name="name" required placeholder="Your name" data-placeholder-en="Your name" data-placeholder-tr="Adınız"
+                            class="block w-full rounded-xl border border-gray-200 dark:border-white/10 bg-gray-50/50 dark:bg-white/5 px-4 py-3 text-gray-900 dark:text-white placeholder-gray-400 dark:placeholder-zinc-500 transition-colors focus:border-[#a855f7] focus:bg-white dark:focus:bg-white/10 focus:ring-2 focus:ring-[#a855f7]/20 focus:outline-none"
                             value="{{ old('name') }}">
+                        @error('name')<p class="mt-1.5 text-sm text-red-600 dark:text-red-400">{{ $message }}</p>@enderror
                     </div>
-                    @error('name')<p class="mt-1 text-sm text-red-400">{{ $message }}</p>@enderror
-                </div>
-                <div>
-                    <label for="contact-email" class="mb-1.5 block text-sm font-medium text-zinc-300">Email</label>
-                    <div class="relative">
-                        <span class="pointer-events-none absolute left-3 top-1/2 -translate-y-1/2 text-zinc-500">
-                            <svg class="h-5 w-5" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="1.5"><path stroke-linecap="round" stroke-linejoin="round" d="M21.75 6.75v10.5a2.25 2.25 0 01-2.25 2.25h-15a2.25 2.25 0 01-2.25-2.25V6.75m19.5 0A2.25 2.25 0 0019.5 4.5h-15a2.25 2.25 0 00-2.25 2.25m19.5 0v.243a2.25 2.25 0 01-1.07 1.916l-7.5 4.615a2.25 2.25 0 01-2.36 0L3.32 8.91a2.25 2.25 0 01-1.07-1.916V6.75" /></svg>
-                        </span>
-                        <input type="email" id="contact-email" name="email" required placeholder="E-posta adresiniz"
-                            class="w-full rounded-xl border border-white/10 bg-white/5 py-2.5 pl-11 pr-4 text-white placeholder-zinc-500 transition-colors focus:border-[#a855f7]/60 focus:bg-white/10 focus:outline-none focus:ring-2 focus:ring-[#a855f7]/30"
+                    <div>
+                        <label for="contact-email" class="mb-2 block text-sm font-medium text-gray-700 dark:text-zinc-300">Email</label>
+                        <input type="email" id="contact-email" name="email" required placeholder="Your email address" data-placeholder-en="Your email address" data-placeholder-tr="E-posta adresiniz"
+                            class="block w-full rounded-xl border border-gray-200 dark:border-white/10 bg-gray-50/50 dark:bg-white/5 px-4 py-3 text-gray-900 dark:text-white placeholder-gray-400 dark:placeholder-zinc-500 transition-colors focus:border-[#a855f7] focus:bg-white dark:focus:bg-white/10 focus:ring-2 focus:ring-[#a855f7]/20 focus:outline-none"
                             value="{{ old('email') }}">
+                        @error('email')<p class="mt-1.5 text-sm text-red-600 dark:text-red-400">{{ $message }}</p>@enderror
                     </div>
-                    @error('email')<p class="mt-1 text-sm text-red-400">{{ $message }}</p>@enderror
-                </div>
-                <div>
-                    <label for="contact-message" class="mb-1.5 block text-sm font-medium text-zinc-300 lang-modal-message" data-lang-en="Message" data-lang-tr="Mesaj">Message</label>
-                    <div class="relative">
-                        <span class="pointer-events-none absolute left-3 top-4 text-zinc-500">
-                            <svg class="h-5 w-5" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="1.5"><path stroke-linecap="round" stroke-linejoin="round" d="M7.5 8.25h9m-9 3H12m-9.75 1.51c0 1.6 1.123 2.994 2.707 3.227 1.129.166 2.27.293 3.423.379.35.026.67.21.865.501L12 21l2.755-4.133a1.14 1.14 0 01.865-.501 48.172 48.172 0 003.423-.379c1.584-.233 2.707-1.626 2.707-3.228V6.741c0-1.602-1.123-2.995-2.707-3.228A48.394 48.394 0 0012 3c-2.392 0-4.744.175-7.043.513C3.373 3.746 2.25 5.14 2.25 6.741v6.018z" /></svg>
-                        </span>
-                        <textarea id="contact-message" name="message" rows="4" required placeholder="Mesajınız"
-                            class="w-full resize-none rounded-xl border border-white/10 bg-white/5 py-2.5 pl-11 pr-4 text-white placeholder-zinc-500 transition-colors focus:border-[#a855f7]/60 focus:bg-white/10 focus:outline-none focus:ring-2 focus:ring-[#a855f7]/30">{{ old('message') }}</textarea>
+                    <div>
+                        <label for="contact-message" class="mb-2 block text-sm font-medium text-gray-700 dark:text-zinc-300 lang-modal-message" data-lang-en="Message" data-lang-tr="Mesaj">Message</label>
+                        <textarea id="contact-message" name="message" rows="4" required placeholder="Your message" data-placeholder-en="Your message" data-placeholder-tr="Mesajınız"
+                            class="block w-full resize-none rounded-xl border border-gray-200 dark:border-white/10 bg-gray-50/50 dark:bg-white/5 px-4 py-3 text-gray-900 dark:text-white placeholder-gray-400 dark:placeholder-zinc-500 transition-colors focus:border-[#a855f7] focus:bg-white dark:focus:bg-white/10 focus:ring-2 focus:ring-[#a855f7]/20 focus:outline-none">{{ old('message') }}</textarea>
+                        @error('message')<p class="mt-1.5 text-sm text-red-600 dark:text-red-400">{{ $message }}</p>@enderror
                     </div>
-                    @error('message')<p class="mt-1 text-sm text-red-400">{{ $message }}</p>@enderror
-                </div>
-                <button type="submit" class="lang-modal-send w-full rounded-xl bg-[#a855f7] px-4 py-3 text-base font-semibold text-white shadow-lg shadow-[#a855f7]/20 transition-all hover:bg-[#9333ea] hover:shadow-[#a855f7]/30 focus:outline-none focus:ring-2 focus:ring-[#a855f7]/50 focus:ring-offset-2 focus:ring-offset-zinc-900" data-lang-en="Send" data-lang-tr="Gönder">Send</button>
-            </form>
+                    <button type="submit" class="lang-modal-send w-full rounded-xl bg-gradient-to-r from-[#a855f7] to-[#7c3aed] px-4 py-3.5 text-base font-semibold text-white shadow-lg shadow-purple-500/25 transition-all hover:shadow-purple-500/40 hover:opacity-95 focus:outline-none focus:ring-2 focus:ring-[#a855f7] focus:ring-offset-2 dark:focus:ring-offset-zinc-900" data-lang-en="Send" data-lang-tr="Gönder">Send</button>
+                </form>
+            </div>
         </div>
     </div>
 
@@ -211,6 +242,9 @@
                 localStorage.setItem('lang', lang);
                 document.querySelectorAll('[data-lang-en][data-lang-tr]').forEach(function (el) {
                     el.textContent = el.getAttribute('data-lang-' + lang);
+                });
+                document.querySelectorAll('[data-placeholder-en][data-placeholder-tr]').forEach(function (el) {
+                    el.placeholder = el.getAttribute('data-placeholder-' + lang);
                 });
                 if (langEn) {
                     langEn.setAttribute('aria-current', l === 'en' ? 'page' : 'false');
@@ -250,14 +284,14 @@
                 contactModal.classList.add('flex');
                 lockScroll();
                 requestAnimationFrame(function () {
-                    contactPanel.classList.remove('opacity-0', 'scale-95');
-                    contactPanel.classList.add('opacity-100', 'scale-100');
+                    contactPanel.classList.remove('opacity-0', 'scale-[0.96]', 'translate-y-4');
+                    contactPanel.classList.add('opacity-100', 'scale-100', 'translate-y-0');
                 });
             }
 
             function closeContactModal() {
-                contactPanel.classList.add('opacity-0', 'scale-95');
-                contactPanel.classList.remove('opacity-100', 'scale-100');
+                contactPanel.classList.add('opacity-0', 'scale-[0.96]', 'translate-y-4');
+                contactPanel.classList.remove('opacity-100', 'scale-100', 'translate-y-0');
                 setTimeout(function () {
                     contactModal.classList.add('hidden');
                     contactModal.classList.remove('flex');
@@ -267,7 +301,8 @@
 
             if (contactOpen) contactOpen.addEventListener('click', openContactModal);
             if (contactClose) contactClose.addEventListener('click', closeContactModal);
-            if (contactModal) contactModal.addEventListener('click', function (e) { if (e.target === contactModal) closeContactModal(); });
+            var contactBackdrop = document.getElementById('contact-backdrop');
+            if (contactModal) contactModal.addEventListener('click', function (e) { if (e.target === contactModal || e.target === contactBackdrop) closeContactModal(); });
             document.addEventListener('keydown', function (e) { if (e.key === 'Escape' && contactModal && !contactModal.classList.contains('hidden')) closeContactModal(); });
         });
     </script>

@@ -52,7 +52,6 @@
                         </nav>
 
                         <h1 class="text-4xl font-bold tracking-tight text-gray-900 dark:text-white sm:text-5xl">{{ $post->title }}</h1>
-                        <p class="mt-3 text-sm text-gray-500 dark:text-zinc-500">{{ $post->published_at?->format('d F Y') }} · {{ $post->author->name ?? '' }} · {{ $post->view_count }} görüntülenme</p>
 
                         @if($post->image)
                             <img src="{{ '/storage/'.$post->image }}" alt="" class="mt-8 w-full rounded-xl object-cover max-h-[28rem]">

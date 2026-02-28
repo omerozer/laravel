@@ -22,27 +22,21 @@ return new class extends Migration
             ['name' => 'Web Yazılım']
         );
 
-        $title = 'Vue.js Rehberi: Hayattan Örneklerle Komponent Mimarisi ve Reaktivite';
-        $slug = 'vuejs-rehberi-komponent-mimarisi-reaktivite-hayattan-ornekler';
+        $title = 'Vue.js Rehberi: Komponent Mimarisi ve Reaktivite';
+        $slug = 'vuejs-rehberi-komponent-mimarisi-reaktivite';
 
         $content = <<<'HTML'
 <h2 id="vuejs-nedir">Vue.js Nedir ve Neden Öğrenmelisin?</h2>
 
 <p>Vue.js, 2014'te Evan You tarafından geliştirilen, ilerleyen şekilde benimsenebilen (progressive) bir JavaScript framework'üdür. Basit bir butondan başlayıp tam teşekküllü tek sayfa uygulamalarına (SPA) kadar ölçeklenebilir. Vue, öğrenmesi kolay, dokümantasyonu güçlü ve topluluk desteği geniş bir araçtır.</p>
 
-<p><strong>Hayattan örnek:</strong> Vue'yu bir <em>LEGO seti</em> gibi düşünün. Küçük parçalarla (komponentler) başlarsınız, istediğinizde daha karmaşık modeller (uygulamalar) inşa edersiniz. Her parça kendi başına çalışır ama bir araya gelince anlamlı bütünler oluşturur.</p>
-
 <h2 id="reaktivite">Reaktivite: Veri Değişince Ekran Güncellenir</h2>
 
-<p>Vue'nun en güçlü özelliklerinden biri <strong>reaktivite</strong>dir. Veri değiştiğinde, ekrandaki ilgili kısımlar otomatik güncellenir. Manuel DOM manipülasyonu yapmanıza gerek kalmaz.</p>
-
-<p><strong>Hayattan örnek:</strong> Evinizdeki <em>akıllı termostat</em> gibi. Sıcaklığı değiştirdiğinizde, klima otomatik devreye girer. Siz sadece "22 derece olsun" dersiniz; sistem geri kalanını halleder. Vue'da da <code>count</code> değişkenini artırdığınızda, ekrandaki sayaç kendiliğinden güncellenir.</p>
+<p>Vue'nun en güçlü özelliklerinden biri <strong>reaktivite</strong>dir. Veri değiştiğinde, ekrandaki ilgili kısımlar otomatik güncellenir. Manuel DOM manipülasyonu yapmanıza gerek kalmaz. Örneğin <code>count</code> değişkenini artırdığınızda, ekrandaki sayaç kendiliğinden güncellenir.</p>
 
 <h2 id="komponent-mimarisi">Komponent Mimarisi: Parçalara Bölünmüş Arayüz</h2>
 
-<p>Vue uygulamaları komponentlerden oluşur. Her komponent kendi template'i, mantığı ve stilini içerir. Böylece kod tekrarı azalır, bakım kolaylaşır ve ekipler paralel çalışabilir.</p>
-
-<p><strong>Hayattan örnek:</strong> Bir <em>restoran menüsü</em> düşünün. Her yemek kartı (başlık, fiyat, açıklama) aynı şablona uyar. Siz tek bir kartı değiştirdiğinizde diğerleri etkilenmez. Vue'da da <code>ProductCard</code>, <code>UserAvatar</code> gibi komponentler tekrar kullanılabilir bloklardır.</p>
+<p>Vue uygulamaları komponentlerden oluşur. Her komponent kendi template'i, mantığı ve stilini içerir. Böylece kod tekrarı azalır, bakım kolaylaşır ve ekipler paralel çalışabilir. <code>ProductCard</code>, <code>UserAvatar</code> gibi komponentler tekrar kullanılabilir bloklardır.</p>
 
 <h2 id="vue-mimarisi">Vue Uygulama Mimarisi ve Veri Akışı</h2>
 
@@ -129,21 +123,17 @@ return new class extends Migration
 
 <h2 id="vue-router">Vue Router: Sayfalar Arasında Gezinme</h2>
 
-<p>Vue Router, tek sayfa uygulamalarında URL'e göre farklı sayfa komponentlerini göstermenizi sağlar. "/" ana sayfayı, "/sepet" sepet sayfasını açar.</p>
-
-<p><strong>Hayattan örnek:</strong> Bir <em>alışveriş merkezi planı</em> gibi düşünün. Girişte hangi mağazaya gideceğinize karar verirsiniz. Plan üzerindeki her nokta bir "rota". Vue Router, tıkladığınızda doğru "mağaza" (sayfa komponenti) açılmasını sağlar—ama aslında hepsi aynı binada.</p>
+<p>Vue Router, tek sayfa uygulamalarında URL'e göre farklı sayfa komponentlerini göstermenizi sağlar. "/" ana sayfayı, "/sepet" sepet sayfasını açar. Her rota bir sayfa komponentine karşılık gelir.</p>
 
 <h2 id="pinia-state">Pinia ile State Yönetimi</h2>
 
-<p>Pinia, Vue'nun resmi state yönetim aracıdır. Birden fazla komponentin ihtiyaç duyduğu verileri (sepet, kullanıcı bilgisi, tema) merkezi bir store'da tutar.</p>
+<p>Pinia, Vue'nun resmi state yönetim aracıdır. Birden fazla komponentin ihtiyaç duyduğu verileri (sepet, kullanıcı bilgisi, tema) merkezi bir store'da tutar. Sepet store'u güncellenince Header'daki sepet ikonu ve Sepet sayfası aynı anda güncellenir.</p>
 
-<p><strong>Hayattan örnek:</strong> Evdeki <em>ortak beyaz tahta</em> gibi. Aile fertleri alışveriş listesi, randevular gibi bilgileri oraya yazar. Herkes güncel bilgiye erişir. Vue'da da sepet store'u güncellenince Header'daki sepet ikonu ve Sepet sayfası aynı anda güncellenir.</p>
-
-<h2 id="hayattan-kullanim">Hayattan Kullanım Örnekleri</h2>
+<h2 id="kullanim-ornekleri">Kullanım Örnekleri</h2>
 
 <p><strong>E-ticaret sitesi:</strong> Ürün kartları (<code>ProductCard</code>), filtre (<code>SearchBar</code>), sepet widget'ı (<code>CartWidget</code>), ödeme adımları (wizard komponenti). Her biri ayrı komponent, birlikte tam deneyim.</p>
 
-<p><strong>Yönetim paneli:</strong> Sidebar menü, tablo, grafik, form modal'ları. Vue ile modüler dashboard'lar hızlıca inşa edilir. Veri değişince grafikler otomatik yenilenir—tıpkı canlı borsa ekranı gibi.</p>
+<p><strong>Yönetim paneli:</strong> Sidebar menü, tablo, grafik, form modal'ları. Vue ile modüler dashboard'lar hızlıca inşa edilir. Veri değişince grafikler reaktivite sayesinde otomatik yenilenir.</p>
 
 <p><strong>Form sihirbazı:</strong> Adım adım kayıt veya sipariş süreci. Her adım bir komponent, Vue Router adımlar arasında geçişi yönetir. Sihirbaz mantığı tek yerde toplanır, adım içerikleri değiştirilebilir.</p>
 
@@ -151,11 +141,9 @@ return new class extends Migration
 
 <p>Vue 3 ile gelen Composition API, benzer mantığı <code>composable</code> fonksiyonlarda toplamanızı sağlar. Örneğin <code>useCounter</code>, <code>useFetch</code> gibi fonksiyonlar farklı komponentlerde tekrar kullanılabilir.</p>
 
-<p><strong>Hayattan örnek:</strong> Bir <em>mutfak tarifi</em> gibi. "Sos nasıl yapılır" bölümü birçok yemekte ortaktır. Tarif defterinde bu bölümü referans verirsiniz; her yemekte sıfırdan yazmazsınız. Composition API de bu "tarif parçalarını" yeniden kullanmanızı sağlar.</p>
-
 <h2 id="sonuc">Sonuç</h2>
 
-<p>Vue.js, öğrenmesi kolay, ölçeklenebilir ve hayattaki benzerliklerle anlaşılması zevkli bir framework'tür. Komponent mimarisi, reaktivite ve ekosistemi (Router, Pinia) ile hem küçük projelerde hem kurumsal uygulamalarda güvenle kullanılabilir. Gerçek dünya örnekleriyle düşünmek, Vue konseptlerini somutlaştırır ve hatırlamayı kolaylaştırır.</p>
+<p>Vue.js, öğrenmesi kolay ve ölçeklenebilir bir framework'tür. Komponent mimarisi, reaktivite ve ekosistemi (Router, Pinia) ile hem küçük projelerde hem kurumsal uygulamalarda güvenle kullanılabilir.</p>
 HTML;
 
         BlogPost::updateOrCreate(
@@ -165,13 +153,13 @@ HTML;
                 'blog_category_id' => $category->id,
                 'title' => $title,
                 'slug' => $slug,
-                'excerpt' => 'Vue.js nedir? Komponent mimarisi, reaktivite, Vue Router ve Pinia\'yı hayattan örneklerle anlatan rehber: LEGO, termostat, restoran menüsü, AVM planı ve daha fazlası.',
+                'excerpt' => 'Vue.js nedir? Komponent mimarisi, reaktivite, Vue Router ve Pinia ile SPA geliştirme rehberi.',
                 'content' => trim($content),
                 'image' => null,
                 'status' => 'published',
                 'published_at' => now(),
-                'meta_title' => 'Vue.js Rehberi: Hayattan Örneklerle Komponent ve Reaktivite',
-                'meta_description' => 'Vue.js komponent mimarisi, reaktivite, Router ve Pinia. LEGO, termostat, restoran menüsü gibi hayattan örneklerle Vue nasıl çalışır?',
+                'meta_title' => 'Vue.js Rehberi: Komponent Mimarisi ve Reaktivite',
+                'meta_description' => 'Vue.js komponent mimarisi, reaktivite, Router ve Pinia ile tek sayfa uygulama geliştirme.',
             ]
         );
     }
@@ -181,6 +169,6 @@ HTML;
      */
     public function down(): void
     {
-        BlogPost::where('slug', 'vuejs-rehberi-komponent-mimarisi-reaktivite-hayattan-ornekler')->delete();
+        BlogPost::where('slug', 'vuejs-rehberi-komponent-mimarisi-reaktivite')->delete();
     }
 };

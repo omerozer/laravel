@@ -36,38 +36,6 @@ class DesignSettings extends \Filament\Pages\Page
         return 'settings';
     }
 
-    public function updatedDataPublicLogo(mixed $value): void
-    {
-        if (is_array($value) && count($value) > 1) {
-            $this->data['public_logo'] = array_slice(array_values($value), 0, 1);
-        }
-    }
-
-    public function updatedDataDashboardLogo(mixed $value): void
-    {
-        if (is_array($value) && count($value) > 1) {
-            $this->data['dashboard_logo'] = array_slice(array_values($value), 0, 1);
-        }
-    }
-
-    public function updatedDataFavicon(mixed $value): void
-    {
-        if (is_array($value) && count($value) > 1) {
-            $this->data['favicon'] = array_slice(array_values($value), 0, 1);
-        }
-    }
-
-    public function hydrate(): void
-    {
-        $keys = ['dashboard_logo', 'public_logo', 'favicon'];
-        foreach ($keys as $key) {
-            $val = $this->data[$key] ?? null;
-            if (is_array($val) && count($val) > 1) {
-                $this->data[$key] = array_slice(array_values($val), 0, 1);
-            }
-        }
-    }
-
     public function mount(): void
     {
         $this->data = [
@@ -204,13 +172,8 @@ class DesignSettings extends \Filament\Pages\Page
                                     ->disk('public_root')
                                     ->directory('images')
                                     ->maxFiles(1)
-                                    ->acceptedFileTypes(['image/*', 'image/svg+xml', 'image/webp'])
-                                    ->helperText('Yönetim panelinde kullanılacak logo (PNG, JPG, WebP, SVG). Dosya yolu public/images altında saklanır.')
-                                    ->afterStateUpdated(function (mixed $state): void {
-                                        if (is_array($state) && count($state) > 1) {
-                                            $this->data['dashboard_logo'] = array_slice(array_values($state), 0, 1);
-                                        }
-                                    }),
+                                    ->acceptedFileTypes(['image/png', 'image/jpeg', 'image/webp', 'image/svg+xml'])
+                                    ->helperText('Yönetim panelinde kullanılacak logo (PNG, JPG, WebP, SVG).'),
 
                                 TextInput::make('dashboard_logo_width')
                                     ->label('Dashboard logo genişliği (px)')
@@ -233,13 +196,8 @@ class DesignSettings extends \Filament\Pages\Page
                                     ->disk('public_root')
                                     ->directory('images')
                                     ->maxFiles(1)
-                                    ->acceptedFileTypes(['image/*', 'image/svg+xml', 'image/webp'])
-                                    ->helperText('Public sitede (header/footer) kullanılacak logo (PNG, JPG, WebP, SVG). Dosya yolu public/images altında saklanır.')
-                                    ->afterStateUpdated(function (mixed $state): void {
-                                        if (is_array($state) && count($state) > 1) {
-                                            $this->data['public_logo'] = array_slice(array_values($state), 0, 1);
-                                        }
-                                    }),
+                                    ->acceptedFileTypes(['image/png', 'image/jpeg', 'image/webp', 'image/svg+xml'])
+                                    ->helperText('Public sitede (header/footer) kullanılacak logo (PNG, JPG, WebP, SVG).'),
 
                                 TextInput::make('public_logo_width')
                                     ->label('Public logo genişliği (px)')
@@ -263,12 +221,7 @@ class DesignSettings extends \Filament\Pages\Page
                                     ->directory('images')
                                     ->maxFiles(1)
                                     ->acceptedFileTypes(['image/*', 'image/svg+xml', 'image/webp', 'image/x-icon'])
-                                    ->helperText('Tarayıcı sekmesinde görünecek ikon (PNG, JPG, WebP, SVG, ICO). Dosya yolu public/images altında saklanır.')
-                                    ->afterStateUpdated(function (mixed $state): void {
-                                        if (is_array($state) && count($state) > 1) {
-                                            $this->data['favicon'] = array_slice(array_values($state), 0, 1);
-                                        }
-                                    }),
+                                    ->helperText('Tarayıcı sekmesinde görünecek ikon (PNG, JPG, WebP, SVG, ICO).'),
 
                                 TextInput::make('favicon_size')
                                     ->label('Favicon boyutu (px)')
@@ -396,9 +349,9 @@ class DesignSettings extends \Filament\Pages\Page
 
         $dashboardLogoRaw = $data['dashboard_logo'] ?? null;
         $dashboardLogo = $this->toSingleFilePath(is_array($dashboardLogoRaw) ? array_slice($dashboardLogoRaw, 0, 1) : $dashboardLogoRaw);
-        if ($dashboardLogo !== null && $dashboardLogo !== '') {
-            $this->deleteSettingFileIfChanged('dashboard_logo', $dashboardLogo);
-            Setting::set('dashboard_logo', $dashboardLogo);
+        $dashboardLogoToSave = ($dashboardLogo !== null && $dashboardLogo !== '') ? $dashboardLogo : Setting::get('dashboard_logo');
+        if ($dashboardLogoToSave !== null && $dashboardLogoToSave !== '') {
+            Setting::set('dashboard_logo', $dashboardLogoToSave);
         }
 
         Setting::set('dashboard_logo_width', $data['dashboard_logo_width'] ?? 160);
@@ -406,9 +359,9 @@ class DesignSettings extends \Filament\Pages\Page
 
         $publicLogoRaw = $data['public_logo'] ?? null;
         $publicLogo = $this->toSingleFilePath(is_array($publicLogoRaw) ? array_slice($publicLogoRaw, 0, 1) : $publicLogoRaw);
-        if ($publicLogo !== null && $publicLogo !== '') {
-            $this->deleteSettingFileIfChanged('public_logo', $publicLogo);
-            Setting::set('public_logo', $publicLogo);
+        $publicLogoToSave = ($publicLogo !== null && $publicLogo !== '') ? $publicLogo : Setting::get('public_logo');
+        if ($publicLogoToSave !== null && $publicLogoToSave !== '') {
+            Setting::set('public_logo', $publicLogoToSave);
         }
 
         Setting::set('public_logo_width', $data['public_logo_width'] ?? 160);
@@ -416,9 +369,9 @@ class DesignSettings extends \Filament\Pages\Page
 
         $faviconRaw = $data['favicon'] ?? null;
         $favicon = $this->toSingleFilePath(is_array($faviconRaw) ? array_slice($faviconRaw, 0, 1) : $faviconRaw);
-        if ($favicon !== null && $favicon !== '') {
-            $this->deleteSettingFileIfChanged('favicon', $favicon);
-            Setting::set('favicon', $favicon);
+        $faviconToSave = ($favicon !== null && $favicon !== '') ? $favicon : Setting::get('favicon');
+        if ($faviconToSave !== null && $faviconToSave !== '') {
+            Setting::set('favicon', $faviconToSave);
         }
 
         Setting::set('favicon_size', $data['favicon_size'] ?? 32);

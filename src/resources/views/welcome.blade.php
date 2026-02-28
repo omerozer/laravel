@@ -133,14 +133,6 @@
                                 <span>LinkedIn</span>
                             </a>
                         </div>
-                        <div class="mt-10 flex justify-center opacity-0 animate-fade-in-up animate-delay-300">
-                            <img
-                                src="{{ asset('images/tech.png') }}"
-                                alt="CRM solutions overview"
-                                class="w-full max-w-3xl rounded-3xl shadow-2xl"
-                                loading="lazy"
-                            >
-                        </div>
                     </div>
                 </div>
             </section>

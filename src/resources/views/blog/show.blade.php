@@ -88,10 +88,15 @@
 
             sidebar.classList.remove('hidden');
 
+            function slugify(text) {
+                return text.toLowerCase()
+                    .replace(/ğ/g,'g').replace(/ü/g,'u').replace(/ş/g,'s').replace(/ı/g,'i').replace(/ö/g,'o').replace(/ç/g,'c')
+                    .replace(/[^a-z0-9]+/g, '-').replace(/^-|-$/g, '') || 'section';
+            }
             var items = [];
             h2s.forEach(function(h2, i) {
-                var id = 'section-' + i;
-                h2.id = id;
+                var id = h2.id || slugify(h2.textContent.trim()) || 'section-' + i;
+                if (!h2.id) h2.id = id;
                 h2.setAttribute('data-toc-id', id);
                 var text = h2.textContent.trim();
                 var link = document.createElement('a');
@@ -121,6 +126,14 @@
             }, { rootMargin: '-100px 0px -60% 0px', threshold: 0 });
 
             items.forEach(function(item) { observer.observe(item.el); });
+
+            if (location.hash) {
+                setTimeout(function() {
+                    var hash = location.hash.slice(1);
+                    var el = document.getElementById(hash) || document.querySelector('[id^="' + hash + '"]');
+                    if (el) el.scrollIntoView({ behavior: 'smooth', block: 'start' });
+                }, 100);
+            }
         });
     </script>
 </body>

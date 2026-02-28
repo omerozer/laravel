@@ -132,6 +132,19 @@ body {
     color: white !important;
 }
 
+.blog-post-content blockquote {
+    border-left: 4px solid rgb(209 213 219);
+    padding-left: 1rem;
+    margin: 1.5rem 0;
+    color: rgb(75 85 99);
+    font-style: italic;
+}
+
+.dark .blog-post-content blockquote {
+    border-left-color: rgba(255, 255, 255, 0.3);
+    color: rgb(161 161 170);
+}
+
 /* TOC sidebar: aktif link hover benzeri arka plan */
 .toc-link-active {
     background: rgb(243 244 246) !important; /* gray-100 */
@@ -177,4 +190,62 @@ body {
 
 .breadcrumbs li[aria-current] {
     color: inherit;
+}
+
+/* Blog: details/summary (accordion) - light + dark mode */
+.blog-post-content details {
+    margin-top: 1rem;
+    margin-bottom: 1rem;
+    border: 1px solid rgb(229 231 235);
+    border-radius: 0.5rem;
+    background: rgb(249 250 251);
+}
+
+.dark .blog-post-content details {
+    border-color: rgba(255, 255, 255, 0.1);
+    background: rgba(255, 255, 255, 0.03);
+}
+
+.blog-post-content summary {
+    padding: 0.75rem 1rem;
+    font-weight: 600;
+    color: rgb(17 24 39);
+    cursor: pointer;
+    list-style: none;
+    user-select: none;
+}
+
+.blog-post-content summary::-webkit-details-marker { display: none; }
+
+.blog-post-content summary::before {
+    content: '▸ ';
+    display: inline-block;
+    margin-right: 0.5rem;
+    transition: transform 0.2s;
+}
+
+.blog-post-content details[open] summary::before {
+    transform: rotate(90deg);
+}
+
+.dark .blog-post-content summary {
+    color: white;
+}
+
+.blog-post-content details[open] summary {
+    border-bottom: 1px solid rgb(229 231 235);
+}
+
+.dark .blog-post-content details[open] summary {
+    border-bottom-color: rgba(255, 255, 255, 0.1);
+}
+
+.blog-post-content details > *:not(summary) {
+    padding: 1rem;
+    color: rgb(31 41 55);
+    line-height: 1.75;
+}
+
+.dark .blog-post-content details > *:not(summary) {
+    color: rgb(228 228 231);
 }

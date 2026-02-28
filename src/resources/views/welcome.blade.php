@@ -4,6 +4,9 @@
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <meta name="csrf-token" content="{{ csrf_token() }}">
+    @if($faviconPath ?? null)
+        <link rel="icon" href="{{ asset($faviconPath) }}" @if($faviconSize ?? null) sizes="{{ $faviconSize }}x{{ $faviconSize }}" @endif>
+    @endif
     <title>{{ $seoHomeTitle ?? config('app.name') }}</title>
     @if($seoHomeDescription ?? null)
         <meta name="description" content="{{ $seoHomeDescription }}">

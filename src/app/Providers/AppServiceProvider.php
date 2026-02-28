@@ -37,6 +37,8 @@ class AppServiceProvider extends ServiceProvider
         View::share('siteName', $siteName);
 
         if (Schema::hasTable('settings')) {
+            View::share('faviconPath', Setting::get('favicon'));
+            View::share('faviconSize', (int) Setting::get('favicon_size', 32));
             View::share('userPanelName', Setting::get('user_panel_name', 'Ömer Soft'));
             View::share('userPanelEmail', Setting::get('user_panel_email', 'iletisim@omersoft.com'));
             View::share('userPanelLinkedIn', Setting::get('user_panel_linkedin', 'https://www.linkedin.com/in/omerdesign/'));
@@ -44,6 +46,8 @@ class AppServiceProvider extends ServiceProvider
             View::share('seoHomeTitle', Setting::get('seo_home_title'));
             View::share('seoHomeDescription', Setting::get('seo_home_description'));
         } else {
+            View::share('faviconPath', null);
+            View::share('faviconSize', 32);
             View::share('userPanelName', 'Ömer Soft');
             View::share('userPanelEmail', 'iletisim@omersoft.com');
             View::share('userPanelLinkedIn', 'https://www.linkedin.com/in/omerdesign/');

@@ -25,9 +25,10 @@ class SitemapController extends Controller
         ]);
 
         // Blog index
+        $blogLastmod = BlogPost::query()->max('updated_at');
         $urls->push([
             'loc' => $baseUrl . '/blog',
-            'lastmod' => BlogPost::query()->max('updated_at')?->toIso8601String() ?? now()->toIso8601String(),
+            'lastmod' => $blogLastmod ? \Carbon\Carbon::parse($blogLastmod)->toIso8601String() : now()->toIso8601String(),
             'changefreq' => 'daily',
             'priority' => '0.9',
         ]);

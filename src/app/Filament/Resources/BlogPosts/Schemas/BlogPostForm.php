@@ -35,11 +35,38 @@ class BlogPostForm
                             ->label('Özet')
                             ->rows(2)
                             ->columnSpanFull(),
-                        Textarea::make('content')
+                        \Filament\Forms\Components\RichEditor::make('content')
                             ->label('İçerik')
                             ->required()
-                            ->rows(10)
-                            ->columnSpanFull(),
+                            ->columnSpanFull()
+                            ->toolbarButtons([
+                                'bold',
+                                'italic',
+                                'underline',
+                                'strike',
+                                'link',
+                                'h2',
+                                'h3',
+                                'bulletList',
+                                'orderedList',
+                                'blockquote',
+                                'codeBlock',
+                                'table',
+                            ])
+                            ->resizableImages(),
+                                'bold',
+                                'italic',
+                                'underline',
+                                'strike',
+                                'link',
+                                'h2',
+                                'h3',
+                                'bulletList',
+                                'orderedList',
+                                'blockquote',
+                                'codeBlock',
+                                'table',
+                            ]),
                         Select::make('blog_category_id')
                             ->label('Kategori')
                             ->relationship('category', 'name')

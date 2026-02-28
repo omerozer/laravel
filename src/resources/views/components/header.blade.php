@@ -17,7 +17,7 @@
             <div class="absolute left-1/2 top-1/2 -translate-x-1/2 -translate-y-1/2 flex h-16 items-center pointer-events-auto">
                 <a href="{{ route('home') }}" class="flex items-center gap-2 text-xl font-semibold text-gray-900 dark:text-white hover:text-gray-700 dark:hover:text-zinc-200 transition-colors">
                     @if($publicLogoPath ?? null)
-                        <img src="{{ asset($publicLogoPath) }}" alt="{{ config('app.name') }}" width="{{ $publicLogoWidth ?? 160 }}" height="{{ $publicLogoHeight ?? 40 }}" class="h-8 w-auto object-contain" />
+                        <img src="{{ asset($publicLogoPath) }}" alt="{{ config('app.name') }}" width="{{ $publicLogoWidth ?? 160 }}" height="{{ $publicLogoHeight ?? 40 }}" style="height: {{ $publicLogoHeight ?? 40 }}px; width: auto;" class="object-contain dark:brightness-0 dark:invert dark:sepia-0" />
                     @else
                         {{ config('app.name') }}
                     @endif

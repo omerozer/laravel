@@ -18,6 +18,7 @@ use Filament\Schemas\Components\Tabs;
 use Filament\Schemas\Components\Tabs\Tab;
 use Filament\Schemas\Schema;
 use Filament\Forms\Components\Select;
+use Livewire\Features\SupportFileUploads\TemporaryUploadedFile;
 
 class DesignSettings extends \Filament\Pages\Page
 {
@@ -82,14 +83,26 @@ class DesignSettings extends \Filament\Pages\Page
 
     /**
      * Persist single file path from FileUpload state (array or string).
+     * Handles TemporaryUploadedFile by storing to public_root/images and returning path.
      */
     private function toSingleFilePath(mixed $value): ?string
     {
+        $item = null;
         if (is_array($value)) {
             $first = reset($value);
-            return $first !== false ? (string) $first : null;
+            $item = $first !== false ? $first : null;
+        } else {
+            $item = $value;
         }
-        return $value !== null && $value !== '' ? (string) $value : null;
+
+        if ($item instanceof TemporaryUploadedFile) {
+            $path = $item->store('images', ['disk' => 'public_root']);
+            return $path !== false ? $path : null;
+        }
+        if (is_string($item) && $item !== '') {
+            return $item;
+        }
+        return $item !== null && $item !== '' ? (string) $item : null;
     }
 
     private function deleteSettingFileIfChanged(string $key, ?string $newPath): void
@@ -344,7 +357,8 @@ class DesignSettings extends \Filament\Pages\Page
 
         Setting::set('site_width', $data['site_width'] ?? 'max-w-7xl');
 
-        $dashboardLogoRaw = $data['dashboard_logo'] ?? null;
+        // FileUpload state - use $this->data (Livewire) as getState() may not include file paths
+        $dashboardLogoRaw = $this->data['dashboard_logo'] ?? $data['dashboard_logo'] ?? null;
         $dashboardLogo = $this->toSingleFilePath(is_array($dashboardLogoRaw) ? array_slice($dashboardLogoRaw, 0, 1) : $dashboardLogoRaw);
         $dashboardLogoToSave = ($dashboardLogo !== null && $dashboardLogo !== '') ? $dashboardLogo : Setting::get('dashboard_logo');
         if ($dashboardLogoToSave !== null && $dashboardLogoToSave !== '') {
@@ -354,7 +368,7 @@ class DesignSettings extends \Filament\Pages\Page
         Setting::set('dashboard_logo_width', $data['dashboard_logo_width'] ?? 160);
         Setting::set('dashboard_logo_height', $data['dashboard_logo_height'] ?? 40);
 
-        $publicLogoRaw = $data['public_logo'] ?? null;
+        $publicLogoRaw = $this->data['public_logo'] ?? $data['public_logo'] ?? null;
         $publicLogo = $this->toSingleFilePath(is_array($publicLogoRaw) ? array_slice($publicLogoRaw, 0, 1) : $publicLogoRaw);
         $publicLogoToSave = ($publicLogo !== null && $publicLogo !== '') ? $publicLogo : Setting::get('public_logo');
         if ($publicLogoToSave !== null && $publicLogoToSave !== '') {
@@ -364,7 +378,7 @@ class DesignSettings extends \Filament\Pages\Page
         Setting::set('public_logo_width', $data['public_logo_width'] ?? 160);
         Setting::set('public_logo_height', $data['public_logo_height'] ?? 40);
 
-        $faviconRaw = $data['favicon'] ?? null;
+        $faviconRaw = $this->data['favicon'] ?? $data['favicon'] ?? null;
         $favicon = $this->toSingleFilePath(is_array($faviconRaw) ? array_slice($faviconRaw, 0, 1) : $faviconRaw);
         $faviconToSave = ($favicon !== null && $favicon !== '') ? $favicon : Setting::get('favicon');
         if ($faviconToSave !== null && $faviconToSave !== '') {

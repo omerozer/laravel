@@ -43,7 +43,6 @@ class DesignSettings extends \Filament\Pages\Page
             'site_name' => Setting::get('site_name', config('app.name')),
             'site_width' => Setting::get('site_width', 'max-w-7xl'),
             'dashboard_logo' => $this->normalizeFileUploadState(Setting::get('dashboard_logo')),
-            'dashboard_logo_width' => Setting::get('dashboard_logo_width', 160),
             'dashboard_logo_height' => Setting::get('dashboard_logo_height', 40),
             'favicon' => $this->normalizeFileUploadState(Setting::get('favicon')),
             'favicon_size' => Setting::get('favicon_size', 32),
@@ -192,13 +191,6 @@ class DesignSettings extends \Filament\Pages\Page
                                     ->fetchFileInformation(false)
                                     ->saveUploadedFileUsing(fn (TemporaryUploadedFile $file): ?string => $file->store('images', ['disk' => 'public_root']) ?: null)
                                     ->helperText('Yönetim panelinde kullanılacak logo (PNG, JPG, WebP, SVG).'),
-
-                                TextInput::make('dashboard_logo_width')
-                                    ->label('Dashboard logo genişliği (px)')
-                                    ->numeric()
-                                    ->minValue(16)
-                                    ->maxValue(512)
-                                    ->suffix('px'),
 
                                 TextInput::make('dashboard_logo_height')
                                     ->label('Dashboard logo yüksekliği (px)')
@@ -351,7 +343,6 @@ class DesignSettings extends \Filament\Pages\Page
             Setting::set('dashboard_logo', $dashboardLogoToSave);
         }
 
-        Setting::set('dashboard_logo_width', $data['dashboard_logo_width'] ?? 160);
         Setting::set('dashboard_logo_height', $data['dashboard_logo_height'] ?? 40);
 
         $faviconRaw = $this->data['favicon'] ?? $data['favicon'] ?? null;

@@ -69,11 +69,10 @@ class AdminPanelProvider extends PanelProvider
             return null;
         }
         $url = asset($path);
-        $w = (int) Setting::get('dashboard_logo_width', 160);
         $h = (int) Setting::get('dashboard_logo_height', 40);
 
         return new HtmlString(
-            '<img src="' . e($url) . '" alt="Logo" width="' . $w . '" height="' . $h . '" class="fi-logo h-8 w-auto object-contain" />'
+            '<img src="' . e($url) . '" alt="Logo" height="' . $h . '" class="fi-logo w-auto object-contain" style="height:' . $h . 'px" />'
         );
     }
 }

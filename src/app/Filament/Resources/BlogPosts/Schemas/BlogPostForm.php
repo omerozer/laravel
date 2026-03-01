@@ -71,7 +71,7 @@ class BlogPostForm
                         DateTimePicker::make('published_at')
                             ->label('Yayın Tarihi')
                             ->nullable()
-                            ->helperText('Yayında seçiliyse ve boş bırakılırsa şimdi kullanılır.'),
+                            ->helperText('Yayında seçiliyse ve boş bırakılırsa şimdi kullanılır. Gelecek tarih seçerseniz post o zamana kadar sitede görünmez.'),
                         FileUpload::make('image')
                             ->label('Görsel')
                             ->image()

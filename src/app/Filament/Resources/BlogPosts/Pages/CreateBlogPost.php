@@ -15,7 +15,7 @@ class CreateBlogPost extends CreateRecord
         $data['user_id'] = $data['user_id'] ?? auth()->id();
 
         // blog_category_id boş string → null (nullable FK)
-        if (array_key_exists('blog_category_id') && $data['blog_category_id'] === '') {
+        if (array_key_exists('blog_category_id', $data) && $data['blog_category_id'] === '') {
             $data['blog_category_id'] = null;
         }
 

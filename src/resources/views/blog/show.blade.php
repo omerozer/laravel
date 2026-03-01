@@ -13,7 +13,9 @@
     @if($post->meta_description)
         <meta name="description" content="{{ $post->meta_description }}">
     @endif
+    @if(file_exists(public_path('build/manifest.json')))
     @vite(['resources/css/app.css', 'resources/js/app.js'])
+@endif
     <style>html { scroll-behavior: smooth; }</style>
 </head>
 <body class="h-full bg-gray-50 dark:bg-[linear-gradient(135deg,#1e1b4b_0%,#0f0a1e_35%,#020617_70%,#1e1b4b_100%)] dark:bg-fixed font-sans antialiased text-gray-900 dark:text-white">

@@ -5,21 +5,10 @@ namespace App\Filament\Resources\BlogPosts\Pages;
 use App\Filament\Resources\BlogPosts\BlogPostResource;
 use App\Models\BlogPost;
 use Filament\Resources\Pages\CreateRecord;
-use Illuminate\Database\Eloquent\Model;
 
 class CreateBlogPost extends CreateRecord
 {
     protected static string $resource = BlogPostResource::class;
-
-    protected function handleRecordCreation(array $data): Model
-    {
-        // Sadece fillable alanları geçir (ekstra anahtarlar hata verebilir)
-        $model = new BlogPost;
-        $fillable = array_flip($model->getFillable());
-        $filtered = array_intersect_key($data, $fillable);
-
-        return parent::handleRecordCreation($filtered);
-    }
 
     protected function mutateFormDataBeforeCreate(array $data): array
     {
@@ -30,13 +19,15 @@ class CreateBlogPost extends CreateRecord
             $data['blog_category_id'] = null;
         }
 
-        // Slug benzersizliği: varsa -1, -2 ... ekle
-        $slug = $data['slug'] ?? \Illuminate\Support\Str::slug($data['title'] ?? '');
-        if ($slug && BlogPost::where('slug', $slug)->exists()) {
-            $base = $slug;
-            $n = 1;
-            while (BlogPost::where('slug', $slug)->exists()) {
-                $slug = $base . '-' . $n++;
+        // Slug: boşsa başlıktan oluştur, varsa benzersiz yap
+        $slug = !empty(trim($data['slug'] ?? '')) ? trim($data['slug']) : \Illuminate\Support\Str::slug($data['title'] ?? '');
+        if ($slug) {
+            if (BlogPost::where('slug', $slug)->exists()) {
+                $base = $slug;
+                $n = 1;
+                while (BlogPost::where('slug', $slug)->exists()) {
+                    $slug = $base . '-' . $n++;
+                }
             }
             $data['slug'] = $slug;
         }

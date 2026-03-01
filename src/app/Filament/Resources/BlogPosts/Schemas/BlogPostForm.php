@@ -71,7 +71,8 @@ class BlogPostForm
                             ->required(),
                         DateTimePicker::make('published_at')
                             ->label('Yayın Tarihi')
-                            ->nullable(),
+                            ->nullable()
+                            ->helperText('Yayında seçiliyse ve boş bırakılırsa şimdi kullanılır.'),
                         FileUpload::make('image')
                             ->label('Görsel')
                             ->image()

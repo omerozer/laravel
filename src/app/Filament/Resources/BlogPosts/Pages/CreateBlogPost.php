@@ -12,6 +12,17 @@ class CreateBlogPost extends CreateRecord
     protected function mutateFormDataBeforeCreate(array $data): array
     {
         $data['user_id'] = $data['user_id'] ?? auth()->id();
+
+        // Yayında + tarih boşsa şimdiye ayarla (DateTimePicker boş bırakıldığında)
+        if (($data['status'] ?? '') === 'published' && blank($data['published_at'] ?? null)) {
+            $data['published_at'] = now();
+        }
+
+        // Boş string → null (model cast uyumu)
+        if (isset($data['published_at']) && $data['published_at'] === '') {
+            $data['published_at'] = null;
+        }
+
         return $data;
     }
 }

@@ -50,13 +50,15 @@ class BlogPost extends Model
 
     public function isPublished(): bool
     {
-        return $this->status === 'published' && $this->published_at?->isPast();
+        return $this->status === 'published' && ($this->published_at === null || $this->published_at->isPast());
     }
 
     public function scopePublished($query)
     {
         return $query->where('status', 'published')
-            ->whereNotNull('published_at')
-            ->where('published_at', '<=', now());
+            ->where(function ($q) {
+                $q->whereNull('published_at')
+                    ->orWhere('published_at', '<=', now());
+            });
     }
 }

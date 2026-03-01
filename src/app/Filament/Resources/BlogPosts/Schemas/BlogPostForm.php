@@ -25,11 +25,13 @@ class BlogPostForm
                             ->required()
                             ->maxLength(255)
                             ->live(onBlur: true)
-                            ->afterStateUpdated(fn ($state, callable $set) => $set('slug', Str::slug($state))),
+                            ->afterStateUpdated(fn ($state, callable $set) => $set('slug', Str::slug($state)))
+                            ->columnSpan(2),
                         TextInput::make('slug')
                             ->label('Slug')
                             ->maxLength(255)
-                            ->helperText('Boş bırakılırsa başlıktan otomatik oluşturulur'),
+                            ->helperText('Boş bırakılırsa başlıktan otomatik oluşturulur')
+                            ->columnSpan(2),
                         Textarea::make('excerpt')
                             ->label('Özet')
                             ->rows(2)
@@ -59,7 +61,8 @@ class BlogPostForm
                             ->relationship('category', 'name')
                             ->searchable()
                             ->preload()
-                            ->nullable(),
+                            ->nullable()
+                            ->columnSpan(1),
                         Select::make('status')
                             ->label('Durum')
                             ->options([
@@ -67,27 +70,30 @@ class BlogPostForm
                                 'published' => 'Yayında',
                             ])
                             ->default('published')
-                            ->required(),
+                            ->required()
+                            ->columnSpan(1),
                         DateTimePicker::make('published_at')
                             ->label('Yayın Tarihi')
                             ->nullable()
-                            ->helperText('Yayında seçiliyse ve boş bırakılırsa şimdi kullanılır. Gelecek tarih seçerseniz post o zamana kadar sitede görünmez.'),
+                            ->helperText('Yayında seçiliyse ve boş bırakılırsa şimdi kullanılır. Gelecek tarih seçerseniz post o zamana kadar sitede görünmez.')
+                            ->columnSpan(1),
                         FileUpload::make('image')
                             ->label('Görsel')
                             ->image()
                             ->directory('blog')
                             ->disk('public')
-                            ->nullable(),
+                            ->nullable()
+                            ->columnSpan(1),
                         TextInput::make('meta_title')
                             ->label('Meta Başlık (SEO)')
                             ->maxLength(255)
-                            ->columnSpanFull(),
+                            ->columnSpan(2),
                         Textarea::make('meta_description')
                             ->label('Meta Açıklama (SEO)')
                             ->rows(2)
-                            ->columnSpanFull(),
+                            ->columnSpan(2),
                     ])
-                    ->columns(1)
+                    ->columns(4)
                     ->columnSpanFull(),
             ]);
     }

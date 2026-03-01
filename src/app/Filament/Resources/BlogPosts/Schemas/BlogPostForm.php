@@ -63,10 +63,10 @@ class BlogPostForm
                         Select::make('status')
                             ->label('Durum')
                             ->options([
-                                'draft' => 'Taslak',
+                                'draft' => 'Taslak (sitede görünmez)',
                                 'published' => 'Yayında',
                             ])
-                            ->default('draft')
+                            ->default('published')
                             ->required(),
                         DateTimePicker::make('published_at')
                             ->label('Yayın Tarihi')

@@ -78,15 +78,17 @@ class BlogPostForm
                             ->directory('blog')
                             ->disk('public')
                             ->nullable(),
-                    ])
-                    ->columns(2),
-                Section::make('SEO')
-                    ->schema([
-                        TextInput::make('meta_title')->label('Meta Başlık')->maxLength(255),
-                        Textarea::make('meta_description')->label('Meta Açıklama')->rows(2)->columnSpanFull(),
+                        TextInput::make('meta_title')
+                            ->label('Meta Başlık (SEO)')
+                            ->maxLength(255)
+                            ->columnSpanFull(),
+                        Textarea::make('meta_description')
+                            ->label('Meta Açıklama (SEO)')
+                            ->rows(2)
+                            ->columnSpanFull(),
                     ])
                     ->columns(1)
-                    ->collapsed(),
+                    ->columnSpanFull(),
             ]);
     }
 }

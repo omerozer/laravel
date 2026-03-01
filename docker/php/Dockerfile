@@ -25,4 +25,10 @@ RUN sed -i 's/listen = 127.0.0.1:9000/listen = 9000/' /usr/local/etc/php-fpm.d/w
 # Composer kurulumu
 COPY --from=composer:latest /usr/bin/composer /usr/bin/composer
 
+# Entrypoint: vendor yoksa otomatik composer install (clone sonrası)
+COPY docker/php/entrypoint.sh /usr/local/bin/entrypoint.sh
+RUN chmod +x /usr/local/bin/entrypoint.sh
+ENTRYPOINT ["/usr/local/bin/entrypoint.sh"]
+CMD ["php-fpm"]
+
 WORKDIR /var/www/html

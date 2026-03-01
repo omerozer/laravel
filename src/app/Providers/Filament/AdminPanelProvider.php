@@ -30,11 +30,11 @@ class AdminPanelProvider extends PanelProvider
             ->id('admin')
             ->path('dashboard')
             ->maxContentWidth('full')
-            ->login()
+            ->login(\App\Filament\Pages\Auth\Login::class)
             ->brandLogo(fn () => static::brandLogoHtml())
             ->brandLogoHeight(fn () => (string) (Setting::get('dashboard_logo_height', 40) . 'px'))
             ->colors([
-                'primary' => Color::Amber,
+                'primary' => Color::Purple,
             ])
             ->discoverResources(in: app_path('Filament/Resources'), for: 'App\Filament\Resources')
             ->discoverPages(in: app_path('Filament/Pages'), for: 'App\Filament\Pages')
@@ -64,7 +64,7 @@ class AdminPanelProvider extends PanelProvider
 
     private static function brandLogoHtml(): ?HtmlString
     {
-        $path = Setting::get('dashboard_logo');
+        $path = Setting::get('dashboard_logo') ?? Setting::get('favicon');
         if (!$path) {
             return null;
         }

@@ -26,6 +26,11 @@ class AppServiceProvider extends ServiceProvider
     {
         $this->app->bind(LoginResponseContract::class, LoginResponse::class);
 
+        // Dashboard login ve panel Türkçe
+        if (request()->is('dashboard*')) {
+            app()->setLocale('tr');
+        }
+
         $siteWidth = Schema::hasTable('settings')
             ? Setting::get('site_width', 'max-w-7xl')
             : 'max-w-7xl';

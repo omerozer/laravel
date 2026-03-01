@@ -14,6 +14,12 @@ if [ ! -f "src/composer.json" ]; then
   echo "✅ Laravel kuruldu."
 else
   echo "✅ Laravel zaten kurulu."
+  # GitHub/clone sonrası: vendor yoksa composer install (vendor .gitignore'da)
+  if [ ! -d "src/vendor" ]; then
+    echo "📦 Composer bağımlılıkları yükleniyor (vendor repo'da yok)..."
+    docker compose run --rm -w /var/www/html app composer install --no-interaction
+    echo "✅ Bağımlılıklar kuruldu."
+  fi
 fi
 
 # .env dosyasını güncelle (DB ayarları)

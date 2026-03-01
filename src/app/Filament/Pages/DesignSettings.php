@@ -14,6 +14,7 @@ use Filament\Forms\Components\Textarea;
 use Filament\Schemas\Components\Actions;
 use Filament\Schemas\Components\EmbeddedSchema;
 use Filament\Schemas\Components\Form;
+use Filament\Schemas\Components\Section;
 use Filament\Schemas\Components\Tabs;
 use Filament\Schemas\Components\Tabs\Tab;
 use Filament\Schemas\Schema;
@@ -163,134 +164,161 @@ class DesignSettings extends \Filament\Pages\Page
                     ->tabs([
                         Tab::make('Genel Ayarlar')
                             ->schema([
-                                TextInput::make('site_name')
-                                    ->label('Site adı')
-                                    ->placeholder(config('app.name'))
-                                    ->maxLength(255)
-                                    ->helperText('Header\'da ve footer\'da görünen site adı (varsayılan: Laravel).'),
+                                Section::make('Site')
+                                    ->schema([
+                                        TextInput::make('site_name')
+                                            ->label('Site adı')
+                                            ->placeholder(config('app.name'))
+                                            ->maxLength(255)
+                                            ->helperText('Header ve footer\'da görünen site adı.'),
 
-                                Select::make('site_width')
-                                    ->label('Public site genişliği')
-                                    ->options([
-                                        'max-w-4xl' => 'Dar (896px)',
-                                        'max-w-5xl' => 'Orta (1024px)',
-                                        'max-w-6xl' => 'Geniş (1152px)',
-                                        'max-w-7xl' => 'Çok Geniş (1280px)',
-                                        'full' => 'Tam Genişlik',
+                                        Select::make('site_width')
+                                            ->label('Site genişliği')
+                                            ->options([
+                                                'max-w-4xl' => 'Dar (896px)',
+                                                'max-w-5xl' => 'Orta (1024px)',
+                                                'max-w-6xl' => 'Geniş (1152px)',
+                                                'max-w-7xl' => 'Çok Geniş (1280px)',
+                                                'full' => 'Tam Genişlik',
+                                            ])
+                                            ->default('max-w-7xl')
+                                            ->helperText('İçerik container genişliği.'),
                                     ])
-                                    ->default('max-w-7xl')
-                                    ->helperText('Ana sayfa, blog ve yazı sayfalarındaki içerik container genişliği.'),
+                                    ->columns(2),
 
-                                FileUpload::make('dashboard_logo')
-                                    ->label('Dashboard logosu')
-                                    ->image()
-                                    ->imagePreviewHeight('80')
-                                    ->disk('public_root')
-                                    ->directory('images')
-                                    ->acceptedFileTypes(['image/png', 'image/jpeg', 'image/webp', 'image/svg+xml'])
-                                    ->fetchFileInformation(false)
-                                    ->saveUploadedFileUsing(fn (TemporaryUploadedFile $file): ?string => $file->store('images', ['disk' => 'public_root']) ?: null)
-                                    ->helperText('Yönetim panelinde kullanılacak logo (PNG, JPG, WebP, SVG).'),
+                                Section::make('Logolar')
+                                    ->schema([
+                                        FileUpload::make('dashboard_logo')
+                                            ->label('Dashboard logosu')
+                                            ->image()
+                                            ->imagePreviewHeight('80')
+                                            ->disk('public_root')
+                                            ->directory('images')
+                                            ->acceptedFileTypes(['image/png', 'image/jpeg', 'image/webp', 'image/svg+xml'])
+                                            ->fetchFileInformation(false)
+                                            ->saveUploadedFileUsing(fn (TemporaryUploadedFile $file): ?string => $file->store('images', ['disk' => 'public_root']) ?: null)
+                                            ->helperText('Panel login ve header logosu.'),
 
-                                TextInput::make('dashboard_logo_height')
-                                    ->label('Dashboard logo yüksekliği (px)')
-                                    ->numeric()
-                                    ->minValue(16)
-                                    ->maxValue(256)
-                                    ->suffix('px'),
+                                        TextInput::make('dashboard_logo_height')
+                                            ->label('Logo yüksekliği (px)')
+                                            ->numeric()
+                                            ->minValue(16)
+                                            ->maxValue(256)
+                                            ->suffix('px'),
 
-                                FileUpload::make('favicon')
-                                    ->label('Favicon')
-                                    ->image()
-                                    ->imagePreviewHeight('40')
-                                    ->disk('public_root')
-                                    ->directory('images')
-                                    ->acceptedFileTypes(['image/*', 'image/svg+xml', 'image/webp', 'image/x-icon'])
-                                    ->fetchFileInformation(false)
-                                    ->saveUploadedFileUsing(fn (TemporaryUploadedFile $file): ?string => $file->store('images', ['disk' => 'public_root']) ?: null)
-                                    ->helperText('Tarayıcı sekmesinde görünecek ikon (PNG, JPG, WebP, SVG, ICO).'),
+                                        FileUpload::make('favicon')
+                                            ->label('Favicon')
+                                            ->image()
+                                            ->imagePreviewHeight('40')
+                                            ->disk('public_root')
+                                            ->directory('images')
+                                            ->acceptedFileTypes(['image/*', 'image/svg+xml', 'image/webp', 'image/x-icon'])
+                                            ->fetchFileInformation(false)
+                                            ->saveUploadedFileUsing(fn (TemporaryUploadedFile $file): ?string => $file->store('images', ['disk' => 'public_root']) ?: null)
+                                            ->helperText('Tarayıcı sekmesinde görünecek ikon.'),
 
-                                TextInput::make('favicon_size')
-                                    ->label('Favicon boyutu (px)')
-                                    ->numeric()
-                                    ->minValue(16)
-                                    ->maxValue(256)
-                                    ->suffix('px'),
+                                        TextInput::make('favicon_size')
+                                            ->label('Favicon boyutu (px)')
+                                            ->numeric()
+                                            ->minValue(16)
+                                            ->maxValue(256)
+                                            ->suffix('px'),
+                                    ])
+                                    ->columns(2),
 
-                                TextInput::make('user_panel_name')
-                                    ->label('Profil Adı (Header panel)')
-                                    ->placeholder('Ömer Soft')
-                                    ->helperText('Sağ üst menü panelinde görünecek profil adı.'),
+                                Section::make('Profil')
+                                    ->schema([
+                                        TextInput::make('user_panel_name')
+                                            ->label('Profil adı')
+                                            ->placeholder('Ömer Soft')
+                                            ->helperText('Sağ üst menü panelinde.'),
 
-                                TextInput::make('user_panel_email')
-                                    ->label('Profil E-posta')
-                                    ->email()
-                                    ->placeholder('iletisim@omersoft.com')
-                                    ->helperText('Sağ üst menü panelinde görünecek e-posta adresi.'),
+                                        TextInput::make('user_panel_email')
+                                            ->label('Profil e-posta')
+                                            ->email()
+                                            ->placeholder('iletisim@omersoft.com'),
 
-                                TextInput::make('user_panel_linkedin')
-                                    ->label('LinkedIn URL')
-                                    ->url()
-                                    ->placeholder('https://www.linkedin.com/in/omerdesign/')
-                                    ->helperText('Profil panelinde görünecek LinkedIn bağlantısı.'),
+                                        TextInput::make('user_panel_linkedin')
+                                            ->label('LinkedIn URL')
+                                            ->url()
+                                            ->placeholder('https://www.linkedin.com/in/omerdesign/'),
+                                    ])
+                                    ->columns(2),
 
-                                Textarea::make('footer_text')
-                                    ->label('Footer metni')
-                                    ->rows(2)
-                                    ->placeholder('© {year} {app_name}. All rights reserved.')
-                                    ->helperText('Sayfa altında görünecek tam footer metni. {year} ve {app_name} otomatik değiştirilir.'),
+                                Section::make('Footer')
+                                    ->schema([
+                                        Textarea::make('footer_text')
+                                            ->label('Footer metni')
+                                            ->rows(2)
+                                            ->placeholder('© {year} {app_name}. All rights reserved.')
+                                            ->helperText('{year} ve {app_name} otomatik değiştirilir.'),
+                                    ])
+                                    ->columns(1),
                             ]),
 
                         Tab::make('SEO')
                             ->schema([
-                                TextInput::make('seo_home_title')
-                                    ->label('Anasayfa Title')
-                                    ->maxLength(255)
-                                    ->helperText('Tarayıcı sekmesinde ve arama sonuçlarında gösterilecek başlık.'),
+                                Section::make('Anasayfa SEO')
+                                    ->schema([
+                                        TextInput::make('seo_home_title')
+                                            ->label('Title')
+                                            ->maxLength(255)
+                                            ->helperText('Tarayıcı sekmesinde ve arama sonuçlarında.'),
 
-                                Textarea::make('seo_home_description')
-                                    ->label('Anasayfa Description')
-                                    ->rows(4)
-                                    ->maxLength(500)
-                                    ->helperText('Arama motoru snippet\'i için kısa açıklama.'),
+                                        TextInput::make('seo_home_keywords')
+                                            ->label('Keywords')
+                                            ->helperText('Virgülle ayrılmış anahtar kelimeler.'),
 
-                                TextInput::make('seo_home_keywords')
-                                    ->label('Anasayfa Keywords')
-                                    ->helperText('Virgülle ayrılmış anahtar kelimeler (opsiyonel).'),
+                                        Textarea::make('seo_home_description')
+                                            ->label('Description')
+                                            ->rows(4)
+                                            ->maxLength(500)
+                                            ->helperText('Arama motoru snippet\'i için kısa açıklama.'),
+                                    ])
+                                    ->columns(2),
                             ]),
 
                         Tab::make('SMTP Ayarları')
                             ->schema([
-                                TextInput::make('smtp_host')
-                                    ->label('SMTP Host')
-                                    ->placeholder('smtp.example.com'),
-                                TextInput::make('smtp_port')
-                                    ->label('SMTP Port')
-                                    ->numeric()
-                                    ->default(587)
-                                    ->placeholder('587'),
-                                TextInput::make('smtp_username')
-                                    ->label('SMTP Kullanıcı Adı')
-                                    ->placeholder('user@example.com'),
-                                TextInput::make('smtp_password')
-                                    ->label('SMTP Şifre')
-                                    ->password()
-                                    ->placeholder('••••••••'),
-                                Select::make('smtp_encryption')
-                                    ->label('Şifreleme')
-                                    ->options([
-                                        'tls' => 'TLS',
-                                        'ssl' => 'SSL',
-                                        '' => 'Yok',
+                                Section::make('SMTP Sunucu')
+                                    ->schema([
+                                        TextInput::make('smtp_host')
+                                            ->label('Host')
+                                            ->placeholder('smtp.example.com'),
+                                        TextInput::make('smtp_port')
+                                            ->label('Port')
+                                            ->numeric()
+                                            ->default(587)
+                                            ->placeholder('587'),
+                                        TextInput::make('smtp_username')
+                                            ->label('Kullanıcı Adı')
+                                            ->placeholder('user@example.com'),
+                                        TextInput::make('smtp_password')
+                                            ->label('Şifre')
+                                            ->password()
+                                            ->placeholder('••••••••'),
+                                        Select::make('smtp_encryption')
+                                            ->label('Şifreleme')
+                                            ->options([
+                                                'tls' => 'TLS',
+                                                'ssl' => 'SSL',
+                                                '' => 'Yok',
+                                            ])
+                                            ->default('tls'),
                                     ])
-                                    ->default('tls'),
-                                TextInput::make('mail_from_address')
-                                    ->label('Gönderen E-posta')
-                                    ->email()
-                                    ->placeholder('noreply@example.com'),
-                                TextInput::make('mail_from_name')
-                                    ->label('Gönderen Adı')
-                                    ->placeholder('Site Adı'),
+                                    ->columns(2),
+
+                                Section::make('Gönderen Bilgileri')
+                                    ->schema([
+                                        TextInput::make('mail_from_address')
+                                            ->label('E-posta')
+                                            ->email()
+                                            ->placeholder('noreply@example.com'),
+                                        TextInput::make('mail_from_name')
+                                            ->label('Ad')
+                                            ->placeholder('Site Adı'),
+                                    ])
+                                    ->columns(2),
                             ]),
                     ]),
             ]);

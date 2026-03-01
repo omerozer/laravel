@@ -29,8 +29,7 @@ class BlogPostForm
                         TextInput::make('slug')
                             ->label('Slug')
                             ->required()
-                            ->maxLength(255)
-                            ->unique(ignoreRecord: true),
+                            ->maxLength(255),
                         Textarea::make('excerpt')
                             ->label('Özet')
                             ->rows(2)

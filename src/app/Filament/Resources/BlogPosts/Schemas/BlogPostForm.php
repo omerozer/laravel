@@ -39,6 +39,7 @@ class BlogPostForm
                             ->label('İçerik')
                             ->required()
                             ->columnSpanFull()
+                            ->extraInputAttributes(['style' => 'min-height: 20rem;'])
                             ->toolbarButtons([
                                 'bold',
                                 'italic',

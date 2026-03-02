@@ -95,6 +95,23 @@
         @media (min-width: 1024px) {
             .hero-online-dot { width: 22px; height: 22px; top: 14px; right: 14px; }
         }
+        .exp-badge {
+            background: linear-gradient(135deg, rgba(168, 85, 247, 0.15), rgba(124, 58, 237, 0.1));
+            border: 1px solid rgba(168, 85, 247, 0.3);
+        }
+        .dark .exp-badge {
+            background: linear-gradient(135deg, rgba(168, 85, 247, 0.2), rgba(124, 58, 237, 0.15));
+            border-color: rgba(168, 85, 247, 0.4);
+        }
+        .exp-card {
+            opacity: 0;
+            transform: translateY(24px);
+            transition: opacity 0.5s ease, transform 0.5s cubic-bezier(0.22, 1, 0.36, 1);
+        }
+        .exp-card.exp-visible {
+            opacity: 1;
+            transform: translateY(0);
+        }
     </style>
 </head>
 <body class="h-full bg-gray-50 dark:bg-[linear-gradient(135deg,#1e1b4b_0%,#0f0a1e_35%,#020617_70%,#1e1b4b_100%)] dark:bg-fixed font-sans antialiased text-gray-900 dark:text-white">
@@ -145,13 +162,16 @@
             {{-- Deneyimler - Timeline --}}
             <section id="deneyimler" class="border-t border-gray-200 dark:border-white/5">
                 <div class="mx-auto {{ $siteWidth ?? 'max-w-7xl' }} px-4 sm:px-6 lg:px-8 py-20 lg:py-24">
-                    <h2 class="text-3xl sm:text-4xl font-bold text-center text-gray-900 dark:text-white mb-16 opacity-0 animate-fade-in-up" data-lang-en="Experience" data-lang-tr="Deneyimler">Deneyimler</h2>
+                    <div class="flex flex-col sm:flex-row items-center justify-center gap-4 sm:gap-6 mb-16">
+                        <h2 class="text-3xl sm:text-4xl font-bold text-center text-gray-900 dark:text-white opacity-0 animate-fade-in-up" data-lang-en="Experience" data-lang-tr="Deneyimler">Deneyimler</h2>
+                        <span class="exp-badge inline-flex items-center gap-1.5 px-4 py-2 rounded-full text-sm font-semibold text-[#7c3aed] dark:text-[#a78bfa] opacity-0 animate-fade-in-up" style="animation-delay: 80ms" data-lang-en="15+ years" data-lang-tr="15+ yıl">15+ yıl</span>
+                    </div>
                     <div class="relative max-w-3xl mx-auto">
                         {{-- Vertical timeline line --}}
                         <div class="absolute left-4 sm:left-6 top-0 bottom-0 w-0.5 bg-gradient-to-b from-[#a855f7] via-[#7c3aed] to-transparent dark:from-[#a855f7] dark:via-[#7c3aed] dark:to-transparent"></div>
                         <div class="space-y-0">
                             @foreach($experiences ?? [] as $index => $exp)
-                            <div class="relative flex gap-6 sm:gap-8 pb-12 last:pb-0 opacity-0 animate-fade-in-up" style="animation-delay: {{ 100 + $index * 80 }}ms">
+                            <div class="exp-card relative flex gap-6 sm:gap-8 pb-12 last:pb-0" data-exp-index="{{ $index }}" style="transition-delay: {{ $index * 80 }}ms">
                                 {{-- Timeline node --}}
                                 <div class="relative z-10 flex-shrink-0 w-8 h-8 sm:w-10 sm:h-10 rounded-full bg-white dark:bg-zinc-800 border-2 border-[#a855f7] shadow-lg shadow-purple-500/20 flex items-center justify-center">
                                     <div class="w-2 h-2 sm:w-2.5 sm:h-2.5 rounded-full bg-[#a855f7]"></div>
@@ -323,6 +343,18 @@
             var contactBackdrop = document.getElementById('contact-backdrop');
             if (contactModal) contactModal.addEventListener('click', function (e) { if (e.target === contactModal || e.target === contactBackdrop) closeContactModal(); });
             document.addEventListener('keydown', function (e) { if (e.key === 'Escape' && contactModal && !contactModal.classList.contains('hidden')) closeContactModal(); });
+
+            var expCards = document.querySelectorAll('.exp-card');
+            if (expCards.length && 'IntersectionObserver' in window) {
+                var expObs = new IntersectionObserver(function (entries) {
+                    entries.forEach(function (entry) {
+                        if (entry.isIntersecting) {
+                            entry.target.classList.add('exp-visible');
+                        }
+                    });
+                }, { rootMargin: '0px 0px -60px 0px', threshold: 0.1 });
+                expCards.forEach(function (el) { expObs.observe(el); });
+            }
         });
     </script>
 </body>

@@ -186,9 +186,16 @@
                         {{-- Teknolojiler --}}
                         <div class="mt-14 opacity-0 animate-fade-in-up animate-delay-300 max-w-xl mx-auto">
                             <div class="rounded-2xl border border-gray-200 dark:border-white/10 bg-white dark:bg-white/[0.02] p-5 sm:p-6 hover:border-[#a855f7]/30 hover:shadow-lg hover:shadow-purple-500/5 transition-all duration-300">
-                                <p class="text-sm font-bold tracking-widest text-gray-500 dark:text-zinc-400 mb-4 lang-tech-label" data-lang-en="TECHNOLOGIES" data-lang-tr="TEKNOLOJİLER">TEKNOLOJİLER</p>
+                                <p class="text-sm font-bold tracking-widest text-gray-500 dark:text-zinc-400 mb-2 lang-tech-label" data-lang-en="TECHNOLOGIES" data-lang-tr="TEKNOLOJİLER">TEKNOLOJİLER</p>
+                                <div class="flex items-center justify-center gap-1 mb-4 text-[#a855f7]/60 dark:text-[#a78bfa]/50">
+                                    <span class="text-xs">★</span>
+                                    <span class="text-sm">✦</span>
+                                    <span class="text-base">★</span>
+                                    <span class="text-sm">✦</span>
+                                    <span class="text-xs">★</span>
+                                </div>
                                 <div class="flex flex-wrap items-center justify-center gap-2">
-                                    <span class="tech-pill">Vue 3</span>
+                                    <span class="tech-pill">VueJS</span>
                                     <span class="tech-pill">Next.js</span>
                                     <span class="tech-pill">Laravel</span>
                                     <span class="tech-pill">NestJS</span>

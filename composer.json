@@ -5,8 +5,7 @@
         "post-install-cmd": [
         "@composer install --working-dir=src --no-dev --optimize-autoloader --no-interaction --no-scripts",
         "@php deploy-setup.php",
-        "@php deploy-artisan.php",
-        "@php -r \"if (!file_exists('storage') && file_exists('src/storage/app/public')) { symlink('src/storage/app/public', 'storage'); }\""
+        "@php deploy-artisan.php"
     ]
     },
     "require": {}

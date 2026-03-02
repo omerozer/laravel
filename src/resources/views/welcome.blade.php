@@ -168,7 +168,7 @@
                             </span>
                             <span class="block mt-1">
                                 <span class="lang-h1b dark:hidden bg-gradient-to-r from-[#a855f7] to-black bg-clip-text text-transparent" data-lang-en="Operations" data-lang-tr="Özel Yazılımlar">Operations</span>
-                                <span class="lang-h1b hidden dark:block text-[#a855f7]" data-lang-en="Operations" data-lang-tr="Özel Yazılımlar">Operations</span>
+                                <span class="lang-h1b hidden dark:block text-[#7c3aed]" data-lang-en="Operations" data-lang-tr="Özel Yazılımlar">Operations</span>
                             </span>
                         </h1>
                         <p class="mt-6 text-lg sm:text-xl text-gray-600 dark:text-zinc-400 max-w-2xl mx-auto lang-subtitle opacity-0 animate-fade-in-up animate-delay-200" data-lang-en="I build internal systems that automate daily work and keep your operations running without constant supervision." data-lang-tr="İşlerin kişilere bağlı kalmadan düzenli ilerlemesini sağlayan özel sistemler tasarlıyorum.">I build internal systems that automate daily work and keep your operations running without constant supervision.</p>
@@ -188,8 +188,8 @@
                             <div class="rounded-2xl border border-gray-200 dark:border-white/10 bg-white dark:bg-white/[0.02] p-5 sm:p-6 hover:border-[#a855f7]/30 hover:shadow-lg hover:shadow-purple-500/5 transition-all duration-300">
                                 <p class="text-sm font-bold tracking-widest text-gray-500 dark:text-zinc-400 mb-2 lang-tech-label" data-lang-en="TECHNOLOGIES" data-lang-tr="TEKNOLOJİLER">TEKNOLOJİLER</p>
                                 <div class="flex flex-col items-center mb-4">
-                                    <div class="w-px h-6 bg-[#a855f7]/50 dark:bg-[#a78bfa]/40"></div>
-                                    <svg class="w-4 h-4 -mt-0.5 text-[#a855f7]/60 dark:text-[#a78bfa]/50" fill="currentColor" viewBox="0 0 24 24"><path d="M7 10l5 5 5-5z"/></svg>
+                                    <div class="w-[1px] h-10 bg-gradient-to-b from-[#a855f7]/40 to-[#a855f7]/20 dark:from-[#a78bfa]/35 dark:to-[#a78bfa]/15"></div>
+                                    <svg class="w-3 h-3 -mt-px text-[#a855f7]/50 dark:text-[#a78bfa]/45" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" viewBox="0 0 24 24"><path d="M12 5v14M19 12l-7 7-7-7"/></svg>
                                 </div>
                                 <div class="flex flex-wrap items-center justify-center gap-2">
                                     <span class="tech-pill">VueJS</span>

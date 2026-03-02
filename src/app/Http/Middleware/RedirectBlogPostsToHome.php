@@ -4,6 +4,7 @@ namespace App\Http\Middleware;
 
 use Closure;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Config;
 use Symfony\Component\HttpFoundation\Response;
 
 class RedirectBlogPostsToHome
@@ -15,7 +16,11 @@ class RedirectBlogPostsToHome
         }
 
         if (str_starts_with($request->path(), 'post/')) {
-            return redirect('/');
+            $slug = substr($request->path(), 5);
+            $redirectSlugs = Config::get('redirect_posts.slugs', []);
+            if (in_array($slug, $redirectSlugs, true)) {
+                return redirect('/');
+            }
         }
 
         return $next($request);

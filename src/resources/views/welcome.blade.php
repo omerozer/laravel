@@ -185,7 +185,7 @@
 
                         {{-- Teknolojiler --}}
                         <div class="mt-14 opacity-0 animate-fade-in-up animate-delay-300">
-                            <p class="text-xs font-medium uppercase tracking-widest text-gray-400 dark:text-zinc-500 mb-4 lang-tech-label" data-lang-en="Technologies" data-lang-tr="Teknolojiler">Teknolojiler</p>
+                            <p class="text-sm font-bold uppercase tracking-widest text-gray-500 dark:text-zinc-400 mb-4 lang-tech-label" data-lang-en="Technologies" data-lang-tr="Teknolojiler">Teknolojiler</p>
                             <div class="flex flex-wrap items-center justify-center gap-2 max-w-xl mx-auto">
                                 <span class="tech-pill">Vue 3</span>
                                 <span class="tech-pill">Next.js</span>

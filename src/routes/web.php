@@ -58,7 +58,5 @@ Route::view('/component', 'components')->name('components.gallery');
 
 Route::get('/blog', [BlogController::class, 'index'])->name('blog.index');
 Route::get('/blog/kategori/{slug}', [BlogController::class, 'category'])->name('blog.category');
-Route::redirect('/post/{slug}', '/')->where('slug', '.*');
-Route::get('/blog/{slug}', function (string $slug) {
-    return redirect()->route('blog.show', ['slug' => $slug], 301);
-})->name('blog.show.redirect');
+Route::redirect('/post/{slug}', '/')->where('slug', '.*')->name('blog.show');
+Route::get('/blog/{slug}', fn (string $slug) => redirect('/'))->name('blog.show.redirect');

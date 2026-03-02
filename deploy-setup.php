@@ -1,6 +1,6 @@
 <?php
 /**
- * Deployment setup: copy .env and generate APP_KEY.
+ * Deployment setup: copy .env, generate APP_KEY, write deploy timestamp.
  */
 try {
     $baseDir = __DIR__;
@@ -21,6 +21,12 @@ try {
             }
             file_put_contents($envPath, $env);
         }
+    }
+
+    // Deploy timestamp - kontrol: https://omersoft.com/deploy-time.txt
+    $publicDir = $baseDir . '/src/public';
+    if (is_dir($publicDir)) {
+        file_put_contents($publicDir . '/deploy-time.txt', date('Y-m-d H:i:s') . ' UTC');
     }
 } catch (Throwable $e) {
     // continue

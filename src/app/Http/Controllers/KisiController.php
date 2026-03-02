@@ -10,7 +10,8 @@ class KisiController extends Controller
 {
     public function index()
     {
-        return view('welcome');
+        $experiences = config('experiences.items', []);
+        return view('welcome', compact('experiences'));
     }
 
     public function store(Request $request)

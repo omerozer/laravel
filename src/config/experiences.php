@@ -1,0 +1,62 @@
+<?php
+
+return [
+    'items' => [
+        [
+            'title' => 'Digital Craftsman',
+            'company' => 'Tureks Uluslararası Fuarcılık A.Ş.',
+            'type' => 'Tam zamanlı',
+            'date_start' => 'Eyl 2024',
+            'date_end' => 'Halen',
+            'duration' => '1 yıl 7 ay',
+            'location' => 'İstanbul, Türkiye',
+            'work_mode' => 'Ofisten',
+        ],
+        [
+            'title' => 'Freelancer',
+            'company' => 'Freelance Developer',
+            'type' => 'Serbest çalışan',
+            'date_start' => 'Ara 2023',
+            'date_end' => 'Eyl 2024',
+            'duration' => '10 ay',
+            'location' => 'İstanbul, Türkiye',
+            'work_mode' => 'Uzaktan',
+        ],
+        [
+            'title' => 'Art Director',
+            'company' => 'HairNeva Hair Transplant',
+            'type' => 'Tam zamanlı',
+            'date_start' => 'Nis 2017',
+            'date_end' => 'Ara 2023',
+            'duration' => '6 yıl 9 ay',
+            'location' => 'İstanbul, Türkiye',
+        ],
+        [
+            'title' => 'Web Design & Development Specialist',
+            'company' => 'TESAN İletişim',
+            'type' => null,
+            'date_start' => '2013',
+            'date_end' => 'Şub 2017',
+            'duration' => '4 yıl 2 ay',
+            'location' => 'İstanbul, Türkiye',
+        ],
+        [
+            'title' => 'Web Interface Designer',
+            'company' => 'Daynex E-Ticaret ve Web Çözümleri',
+            'type' => null,
+            'date_start' => '2012',
+            'date_end' => '2013',
+            'duration' => '1 yıl',
+            'location' => 'İstanbul, Türkiye',
+        ],
+        [
+            'title' => 'Web Design Specialist',
+            'company' => 'BTPAR Bilgi Teknolojileri',
+            'type' => 'Tam zamanlı',
+            'date_start' => 'Oca 2009',
+            'date_end' => 'Oca 2012',
+            'duration' => '3 yıl 1 ay',
+            'location' => 'İstanbul, Türkiye',
+        ],
+    ],
+];

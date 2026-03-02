@@ -142,6 +142,47 @@
                 </div>
             </section>
 
+            {{-- Deneyimler - Timeline --}}
+            <section id="deneyimler" class="border-t border-gray-200 dark:border-white/5">
+                <div class="mx-auto {{ $siteWidth ?? 'max-w-7xl' }} px-4 sm:px-6 lg:px-8 py-20 lg:py-24">
+                    <h2 class="text-3xl sm:text-4xl font-bold text-center text-gray-900 dark:text-white mb-16 opacity-0 animate-fade-in-up" data-lang-en="Experience" data-lang-tr="Deneyimler">Deneyimler</h2>
+                    <div class="relative max-w-3xl mx-auto">
+                        {{-- Vertical timeline line --}}
+                        <div class="absolute left-4 sm:left-6 top-0 bottom-0 w-0.5 bg-gradient-to-b from-[#a855f7] via-[#7c3aed] to-transparent dark:from-[#a855f7] dark:via-[#7c3aed] dark:to-transparent"></div>
+                        <div class="space-y-0">
+                            @foreach($experiences ?? [] as $index => $exp)
+                            <div class="relative flex gap-6 sm:gap-8 pb-12 last:pb-0 opacity-0 animate-fade-in-up" style="animation-delay: {{ 100 + $index * 80 }}ms">
+                                {{-- Timeline node --}}
+                                <div class="relative z-10 flex-shrink-0 w-8 h-8 sm:w-10 sm:h-10 rounded-full bg-white dark:bg-zinc-800 border-2 border-[#a855f7] shadow-lg shadow-purple-500/20 flex items-center justify-center">
+                                    <div class="w-2 h-2 sm:w-2.5 sm:h-2.5 rounded-full bg-[#a855f7]"></div>
+                                </div>
+                                {{-- Content card --}}
+                                <div class="flex-1 min-w-0 pt-0.5">
+                                    <div class="rounded-2xl border border-gray-200 dark:border-white/10 bg-white dark:bg-white/[0.02] p-5 sm:p-6 hover:border-[#a855f7]/30 hover:shadow-lg hover:shadow-purple-500/5 transition-all duration-300">
+                                        <div class="flex flex-col sm:flex-row sm:items-start sm:justify-between gap-2">
+                                            <div>
+                                                <h3 class="text-lg font-bold text-gray-900 dark:text-white">{{ $exp['title'] }}</h3>
+                                                <p class="text-sm text-gray-600 dark:text-zinc-400 mt-0.5">{{ $exp['company'] }}@if(!empty($exp['type'])) · {{ $exp['type'] }}@endif</p>
+                                            </div>
+                                            <div class="text-xs sm:text-sm text-gray-500 dark:text-zinc-500 whitespace-nowrap">
+                                                {{ $exp['date_start'] }} – {{ $exp['date_end'] }} · {{ $exp['duration'] }}
+                                            </div>
+                                        </div>
+                                        @if(!empty($exp['location']))
+                                        <p class="mt-3 text-sm text-gray-500 dark:text-zinc-500 flex items-center gap-1.5">
+                                            <svg class="w-4 h-4 flex-shrink-0" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="1.5"><path stroke-linecap="round" stroke-linejoin="round" d="M15 10.5a3 3 0 11-6 0 3 3 0 016 0z" /><path stroke-linecap="round" stroke-linejoin="round" d="M19.5 10.5c0 7.142-7.5 11.25-7.5 11.25S4.5 17.642 4.5 10.5a7.5 7.5 0 1115 0z" /></svg>
+                                            {{ $exp['location'] }}@if(!empty($exp['work_mode'])) · {{ $exp['work_mode'] }}@endif
+                                        </p>
+                                        @endif
+                                    </div>
+                                </div>
+                            </div>
+                            @endforeach
+                        </div>
+                    </div>
+                </div>
+            </section>
+
             {{-- Feature cards (Next.js style) --}}
             <section class="border-t border-gray-200 dark:border-white/5">
                 <div class="mx-auto {{ $siteWidth ?? 'max-w-7xl' }} px-4 sm:px-6 lg:px-8 py-20 lg:py-24">

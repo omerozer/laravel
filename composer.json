@@ -3,7 +3,7 @@
     "description": "Laravel deployment wrapper for Hostinger shared hosting",
     "scripts": {
         "post-install-cmd": [
-        "@composer install --working-dir=src --no-dev --optimize-autoloader --no-interaction --no-scripts","@php -r \"file_exists('src/.env') || copy('src/.env.example', 'src/.env');\"","@php src/artisan key:generate --ansi",
+        "@composer install --working-dir=src --no-dev --optimize-autoloader --no-interaction --no-scripts","@php -r \"file_exists('src/.env') || copy('src/.env.example', 'src/.env');\"","@php src/artisan key:generate --force --ansi",
         "@php src/artisan package:discover --ansi","@php src/artisan filament:upgrade --ansi","@php src/artisan migrate --force",
         "@php src/artisan storage:link",
         "@php -r \"if (!file_exists('storage') && file_exists('src/storage/app/public')) { symlink('src/storage/app/public', 'storage'); }\""

@@ -112,6 +112,33 @@
             opacity: 1;
             transform: translateY(0);
         }
+        .tech-pill {
+            display: inline-flex;
+            align-items: center;
+            padding: 0.35rem 0.75rem;
+            font-size: 0.8125rem;
+            font-weight: 500;
+            color: rgb(107 114 128);
+            background: rgb(243 244 246);
+            border: 1px solid rgb(229 231 235);
+            border-radius: 9999px;
+            transition: all 0.2s ease;
+        }
+        .tech-pill:hover {
+            color: rgb(124 58 237);
+            background: rgba(168, 85, 247, 0.08);
+            border-color: rgba(168, 85, 247, 0.25);
+        }
+        .dark .tech-pill {
+            color: rgb(161 161 170);
+            background: rgba(255, 255, 255, 0.05);
+            border-color: rgba(255, 255, 255, 0.08);
+        }
+        .dark .tech-pill:hover {
+            color: rgb(196 181 253);
+            background: rgba(168, 85, 247, 0.15);
+            border-color: rgba(168, 85, 247, 0.3);
+        }
     </style>
 </head>
 <body class="h-full bg-gray-50 dark:bg-[linear-gradient(135deg,#1e1b4b_0%,#0f0a1e_35%,#020617_70%,#1e1b4b_100%)] dark:bg-fixed font-sans antialiased text-gray-900 dark:text-white">
@@ -154,6 +181,24 @@
                                 <svg class="h-5 w-5" fill="currentColor" viewBox="0 0 24 24" aria-hidden="true"><path d="M20.447 20.452h-3.554v-5.569c0-1.328-.027-3.037-1.852-3.037-1.853 0-2.136 1.445-2.136 2.939v5.667H9.351V9h3.414v1.561h.046c.477-.9 1.637-1.85 3.37-1.85 3.601 0 4.267 2.37 4.267 5.455v6.286zM5.337 7.433c-1.144 0-2.063-.926-2.063-2.065 0-1.138.92-2.063 2.063-2.063 1.14 0 2.064.925 2.064 2.063 0 1.139-.925 2.065-2.064 2.065zm1.782 13.019H3.555V9h3.564v11.452zM22.225 0H1.771C.792 0 0 .774 0 1.729v20.542C0 23.227.792 24 1.771 24h20.451C23.2 24 24 23.227 24 22.271V1.729C24 .774 23.2 0 22.222 0h.003z"/></svg>
                                 <span>LinkedIn</span>
                             </a>
+                        </div>
+
+                        {{-- Teknolojiler --}}
+                        <div class="mt-14 opacity-0 animate-fade-in-up animate-delay-300">
+                            <p class="text-xs font-medium uppercase tracking-widest text-gray-400 dark:text-zinc-500 mb-4 lang-tech-label" data-lang-en="Technologies" data-lang-tr="Teknolojiler">Teknolojiler</p>
+                            <div class="flex flex-wrap items-center justify-center gap-2 max-w-xl mx-auto">
+                                <span class="tech-pill">Vue 3</span>
+                                <span class="tech-pill">Next.js</span>
+                                <span class="tech-pill">Laravel</span>
+                                <span class="tech-pill">NestJS</span>
+                                <span class="tech-pill">PostgreSQL</span>
+                                <span class="tech-pill">MySQL</span>
+                                <span class="tech-pill">SQLite</span>
+                                <span class="tech-pill">Figma</span>
+                                <span class="tech-pill">Auth</span>
+                                <span class="tech-pill">REST API</span>
+                                <span class="tech-pill">TypeScript</span>
+                            </div>
                         </div>
                     </div>
                 </div>

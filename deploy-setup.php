@@ -1,6 +1,6 @@
 <?php
 /**
- * Deployment setup: copy .env and generate APP_KEY without artisan.
+ * Deployment setup: copy .env, generate APP_KEY, run migrations.
  * Run from project root: php deploy-setup.php
  */
 $baseDir = __DIR__;
@@ -27,4 +27,11 @@ if (!file_put_contents($envPath, $env)) {
     exit(1);
 }
 
-echo "APP_KEY generated successfully.\n";
+// Run migrations
+$artisan = $baseDir . '/src/artisan';
+if (file_exists($artisan)) {
+    $cmd = 'cd ' . escapeshellarg($baseDir . '/src') . ' && php artisan migrate --force 2>&1';
+    exec($cmd, $out, $code);
+}
+
+exit(0);

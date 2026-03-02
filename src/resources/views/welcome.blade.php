@@ -55,11 +55,11 @@
             background: #0f0a1e;
         }
         .hero-avatar-img {
-            filter: grayscale(100%);
+            filter: grayscale(0);
             transition: filter 0.4s ease;
         }
         .hero-avatar-group:hover .hero-avatar-img {
-            filter: grayscale(0);
+            filter: grayscale(100%);
         }
         @keyframes online-ring {
             0% { transform: scale(1); opacity: 0.6; }

@@ -61,6 +61,9 @@ class DesignSettings extends \Filament\Pages\Page
             'user_panel_email' => Setting::get('user_panel_email', 'iletisim@omersoft.com'),
             'user_panel_linkedin' => Setting::get('user_panel_linkedin', 'https://www.linkedin.com/in/omerdesign/'),
             'footer_text' => Setting::get('footer_text', '© {year} {app_name}. All rights reserved.'),
+            'social_linkedin' => Setting::get('social_linkedin') ?: Setting::get('user_panel_linkedin', 'https://www.linkedin.com/in/omerdesign/'),
+            'social_behance' => Setting::get('social_behance', ''),
+            'social_github' => Setting::get('social_github', ''),
         ];
     }
 
@@ -252,6 +255,19 @@ class DesignSettings extends \Filament\Pages\Page
                                             ->rows(2)
                                             ->placeholder('© {year} {app_name}. All rights reserved.')
                                             ->helperText('{year} ve {app_name} otomatik değiştirilir.'),
+
+                                        TextInput::make('social_linkedin')
+                                            ->label('LinkedIn URL (footer)')
+                                            ->url()
+                                            ->placeholder('https://www.linkedin.com/in/...'),
+                                        TextInput::make('social_behance')
+                                            ->label('Behance URL')
+                                            ->url()
+                                            ->placeholder('https://www.behance.net/...'),
+                                        TextInput::make('social_github')
+                                            ->label('GitHub URL')
+                                            ->url()
+                                            ->placeholder('https://github.com/...'),
                                     ])
                                     ->columns(1),
                             ]),
@@ -389,6 +405,9 @@ class DesignSettings extends \Filament\Pages\Page
         Setting::set('user_panel_email', $data['user_panel_email'] ?? '');
         Setting::set('user_panel_linkedin', $data['user_panel_linkedin'] ?? '');
         Setting::set('footer_text', $data['footer_text'] ?? '© {year} {app_name}. All rights reserved.');
+        Setting::set('social_linkedin', $data['social_linkedin'] ?? '');
+        Setting::set('social_behance', $data['social_behance'] ?? '');
+        Setting::set('social_github', $data['social_github'] ?? '');
 
         Setting::set('smtp_host', $data['smtp_host'] ?? '');
         Setting::set('smtp_port', $data['smtp_port'] ?? 587);

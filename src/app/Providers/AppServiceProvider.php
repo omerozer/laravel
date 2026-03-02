@@ -48,6 +48,9 @@ class AppServiceProvider extends ServiceProvider
             View::share('userPanelEmail', Setting::get('user_panel_email', 'iletisim@omersoft.com'));
             View::share('userPanelLinkedIn', Setting::get('user_panel_linkedin', 'https://www.linkedin.com/in/omerdesign/'));
             View::share('footerText', Setting::get('footer_text', '© {year} {app_name}. All rights reserved.'));
+            View::share('socialLinkedin', Setting::get('social_linkedin') ?: Setting::get('user_panel_linkedin', ''));
+            View::share('socialBehance', Setting::get('social_behance', ''));
+            View::share('socialGithub', Setting::get('social_github', ''));
             View::share('seoHomeTitle', Setting::get('seo_home_title'));
             View::share('seoHomeDescription', Setting::get('seo_home_description'));
         } else {
@@ -57,6 +60,9 @@ class AppServiceProvider extends ServiceProvider
             View::share('userPanelEmail', 'iletisim@omersoft.com');
             View::share('userPanelLinkedIn', 'https://www.linkedin.com/in/omerdesign/');
             View::share('footerText', '© {year} {app_name}. All rights reserved.');
+            View::share('socialLinkedin', '');
+            View::share('socialBehance', '');
+            View::share('socialGithub', '');
             View::share('seoHomeTitle', null);
             View::share('seoHomeDescription', null);
         }

@@ -3,7 +3,7 @@
 return [
     'items' => [
         [
-            'title' => 'Digital Craftsman',
+            'title' => 'Fullstack Developer',
             'company' => 'Tureks Uluslararası Fuarcılık A.Ş.',
             'type' => 'Tam zamanlı',
             'date_start' => 'Eyl 2024',
@@ -13,8 +13,8 @@ return [
             'work_mode' => 'Ofisten',
         ],
         [
-            'title' => 'Freelancer',
-            'company' => 'Freelance Developer',
+            'title' => 'Backend & Frontend Developer',
+            'company' => 'Freelance',
             'type' => 'Serbest çalışan',
             'date_start' => 'Ara 2023',
             'date_end' => 'Eyl 2024',

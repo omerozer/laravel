@@ -2,9 +2,9 @@
 
 namespace App\Http\Middleware;
 
-use App\Models\BlogPost;
 use Closure;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Config;
 use Symfony\Component\HttpFoundation\Response;
 
 class RedirectBlogPostsToHome
@@ -16,8 +16,9 @@ class RedirectBlogPostsToHome
         }
 
         if (str_starts_with($request->path(), 'post/')) {
-            $slug = substr($request->path(), 5); // "post/" = 5 chars
-            if (BlogPost::where('slug', $slug)->where('redirect_to_home', true)->exists()) {
+            $slug = substr($request->path(), 5);
+            $redirectSlugs = Config::get('redirect_posts.slugs', []);
+            if (in_array($slug, $redirectSlugs, true)) {
                 return redirect('/');
             }
         }

@@ -5,6 +5,7 @@
         "post-install-cmd": [
         "@composer install --working-dir=src --no-dev --optimize-autoloader --no-interaction --no-scripts",
         "@php deploy-setup.php",
+        "@php deploy-migrate.php",
         "@php deploy-artisan.php"
     ]
     },

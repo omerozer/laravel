@@ -183,34 +183,6 @@
                 </div>
             </section>
 
-            {{-- Feature cards (Next.js style) --}}
-            <section class="border-t border-gray-200 dark:border-white/5">
-                <div class="mx-auto {{ $siteWidth ?? 'max-w-7xl' }} px-4 sm:px-6 lg:px-8 py-20 lg:py-24">
-                    <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 lg:gap-8">
-                        <div class="group rounded-2xl border border-gray-200 dark:border-white/5 bg-white dark:bg-white/[0.02] p-6 lg:p-8 hover:border-[#a855f7]/40 hover:-translate-y-1 transition-all duration-300 shadow-sm dark:shadow-none opacity-0 animate-fade-in-up animate-delay-200">
-                            <div class="flex h-10 w-10 items-center justify-center rounded-lg bg-[#a855f7]/10 text-[#a855f7]">
-                                <svg class="h-5 w-5" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="1.5"><path stroke-linecap="round" stroke-linejoin="round" d="M20.25 7.5l-.625 10.632a2.25 2.25 0 01-2.247 2.118H6.622a2.25 2.25 0 01-2.247-2.118L3.75 7.5M10 11.25h4M3.375 7.5h17.25c.621 0 1.125-.504 1.125-1.125v-1.5c0-.621-.504-1.125-1.125-1.125H3.375c-.621 0-1.125.504-1.125 1.125v1.5c0 .621.504 1.125 1.125 1.125z" /></svg>
-                            </div>
-                            <h3 class="mt-4 text-lg font-semibold text-gray-900 dark:text-white lang-card1-title" data-lang-en="When Orders Start Falling Through the Cracks" data-lang-tr="Siparişler Karışıyorsa">When Orders Start Falling Through the Cracks</h3>
-                            <p class="mt-2 text-sm text-gray-600 dark:text-zinc-400 lang-card1-desc" data-lang-en="Orders from forms, email, or WhatsApp are captured automatically and tracked in one place. Every request is recorded — no manual entry and no missed orders." data-lang-tr="Farklı kanallardan gelen siparişlerin kaybolmasını ve yanlış işlenmesini önleyen tek akış kurulur. Her kayıt otomatik oluşur, kimse birbirine sormak zorunda kalmaz.">Orders from forms, email, or WhatsApp are captured automatically and tracked in one place. Every request is recorded — no manual entry and no missed orders.</p>
-                        </div>
-                        <div class="group rounded-2xl border border-gray-200 dark:border-white/5 bg-white dark:bg-white/[0.02] p-6 lg:p-8 hover:border-[#a855f7]/40 hover:-translate-y-1 transition-all duration-300 shadow-sm dark:shadow-none opacity-0 animate-fade-in-up animate-delay-300">
-                            <div class="flex h-10 w-10 items-center justify-center rounded-lg bg-[#a855f7]/10 text-[#a855f7]">
-                                <svg class="h-5 w-5" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="1.5"><path stroke-linecap="round" stroke-linejoin="round" d="M15 19.128a9.38 9.38 0 002.625.372 9.337 9.337 0 004.121-.952 4.125 4.125 0 00-7.533-2.493M15 19.128v-.003c0-1.113-.285-2.16-.786-3.07M15 19.128v.106A12.318 12.318 0 018.624 21c-2.331 0-4.512-.645-6.374-1.766l-.001-.109a6.375 6.375 0 0111.964-3.07M12 6.375a3.375 3.375 0 11-6.75 0 3.375 3.375 0 016.75 0zm8.25 2.25a2.625 2.625 0 11-5.25 0 2.625 2.625 0 015.25 0z" /></svg>
-                            </div>
-                            <h3 class="mt-4 text-lg font-semibold text-gray-900 dark:text-white lang-card2-title" data-lang-en="When Customer Information Is Scattered" data-lang-tr="Müşteri Bilgileri Dağınıksa">When Customer Information Is Scattered</h3>
-                            <p class="mt-2 text-sm text-gray-600 dark:text-zinc-400 lang-card2-desc" data-lang-en="Customer records from phone, WhatsApp, and spreadsheets are centralized in one system. Conversations and quotes are always available to your team." data-lang-tr="Telefon, WhatsApp ve Excel arasında dolaşan müşteri kayıtları tek yerde toplanır. Geçmiş görüşmeler ve teklifler her zaman ulaşılabilir olur.">Customer records from phone, WhatsApp, and spreadsheets are centralized in one system. Conversations and quotes are always available to your team.</p>
-                        </div>
-                        <div class="group rounded-2xl border border-gray-200 dark:border-white/5 bg-white dark:bg-white/[0.02] p-6 lg:p-8 hover:border-[#a855f7]/40 hover:-translate-y-1 transition-all duration-300 shadow-sm dark:shadow-none opacity-0 animate-fade-in-up animate-delay-400">
-                            <div class="flex h-10 w-10 items-center justify-center rounded-lg bg-[#a855f7]/10 text-[#a855f7]">
-                                <svg class="h-5 w-5" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="1.5"><path stroke-linecap="round" stroke-linejoin="round" d="M9 12.75L11.25 15 15 9.75M21 12a9 9 0 11-18 0 9 9 0 0118 0z" /></svg>
-                            </div>
-                            <h3 class="mt-4 text-lg font-semibold text-gray-900 dark:text-white lang-card3-title" data-lang-en="If You Have to Constantly Check the Business" data-lang-tr="Sürekli Kontrol Etmek Zorundaysanız">If You Have to Constantly Check the Business</h3>
-                            <p class="mt-2 text-sm text-gray-600 dark:text-zinc-400 lang-card3-desc" data-lang-en="The system sends reminders, updates statuses, and generates reports automatically — even when you are not actively checking it." data-lang-tr="İşlerin ilerlemesi kişilerden bağımsız hale gelir. Siz takip etmeseniz bile sistem hatırlatır, ilerletir ve raporlar.">The system sends reminders, updates statuses, and generates reports automatically — even when you are not actively checking it.</p>
-                        </div>
-                    </div>
-                </div>
-            </section>
         </main>
 
         <x-footer />

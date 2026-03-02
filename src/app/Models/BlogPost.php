@@ -20,6 +20,7 @@ class BlogPost extends Model
         'meta_title',
         'meta_description',
         'view_count',
+        'redirect_to_home',
     ];
 
     protected function casts(): array

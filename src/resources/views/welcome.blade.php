@@ -161,17 +161,23 @@
                                     <div class="rounded-2xl border border-gray-200 dark:border-white/10 bg-white dark:bg-white/[0.02] p-5 sm:p-6 hover:border-[#a855f7]/30 hover:shadow-lg hover:shadow-purple-500/5 transition-all duration-300">
                                         <div class="flex flex-col sm:flex-row sm:items-start sm:justify-between gap-2">
                                             <div>
-                                                <h3 class="text-lg font-bold text-gray-900 dark:text-white">{{ $exp['title'] }}</h3>
-                                                <p class="text-sm text-gray-600 dark:text-zinc-400 mt-0.5">{{ $exp['company'] }}@if(!empty($exp['type'])) · {{ $exp['type'] }}@endif</p>
+                                                <h3 class="text-lg font-bold text-gray-900 dark:text-white exp-title" data-lang-en="{{ $exp['title_en'] ?? $exp['title'] }}" data-lang-tr="{{ $exp['title'] }}">{{ $exp['title'] }}</h3>
+                                                @php
+                                                    $companyTr = $exp['company'] . (!empty($exp['type']) ? ' · ' . $exp['type'] : '');
+                                                    $companyEn = ($exp['company_en'] ?? $exp['company']) . (!empty($exp['type_en']) ? ' · ' . $exp['type_en'] : '');
+                                                @endphp
+                                                <p class="text-sm text-gray-600 dark:text-zinc-400 mt-0.5 exp-company" data-lang-en="{{ $companyEn }}" data-lang-tr="{{ $companyTr }}">{{ $companyTr }}</p>
                                             </div>
-                                            <div class="text-xs sm:text-sm text-gray-500 dark:text-zinc-500 whitespace-nowrap">
-                                                {{ $exp['date_start'] }} – {{ $exp['date_end'] }} · {{ $exp['duration'] }}
-                                            </div>
+                                            <div class="text-xs sm:text-sm text-gray-500 dark:text-zinc-500 whitespace-nowrap exp-dates" data-lang-en="{{ ($exp['date_start_en'] ?? $exp['date_start']) }} – {{ ($exp['date_end_en'] ?? $exp['date_end']) }} · {{ ($exp['duration_en'] ?? $exp['duration']) }}" data-lang-tr="{{ $exp['date_start'] }} – {{ $exp['date_end'] }} · {{ $exp['duration'] }}">{{ $exp['date_start'] }} – {{ $exp['date_end'] }} · {{ $exp['duration'] }}</div>
                                         </div>
                                         @if(!empty($exp['location']))
+                                        @php
+                                            $locationTr = $exp['location'] . (!empty($exp['work_mode']) ? ' · ' . $exp['work_mode'] : '');
+                                            $locationEn = ($exp['location_en'] ?? $exp['location']) . (!empty($exp['work_mode_en']) ? ' · ' . $exp['work_mode_en'] : '');
+                                        @endphp
                                         <p class="mt-3 text-sm text-gray-500 dark:text-zinc-500 flex items-center gap-1.5">
                                             <svg class="w-4 h-4 flex-shrink-0" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="1.5"><path stroke-linecap="round" stroke-linejoin="round" d="M15 10.5a3 3 0 11-6 0 3 3 0 016 0z" /><path stroke-linecap="round" stroke-linejoin="round" d="M19.5 10.5c0 7.142-7.5 11.25-7.5 11.25S4.5 17.642 4.5 10.5a7.5 7.5 0 1115 0z" /></svg>
-                                            {{ $exp['location'] }}@if(!empty($exp['work_mode'])) · {{ $exp['work_mode'] }}@endif
+                                            <span class="exp-location" data-lang-en="{{ $locationEn }}" data-lang-tr="{{ $locationTr }}">{{ $locationTr }}</span>
                                         </p>
                                         @endif
                                     </div>

@@ -28,10 +28,10 @@
                     </svg>
                 </button>
                 <button type="button" id="lang-en" class="flex items-center justify-center w-9 h-9 rounded-lg hover:bg-gray-100 dark:hover:bg-white/5 transition-colors" title="English" aria-label="English">
-                    <span class="text-lg" role="img" aria-hidden="true">🇬🇧</span>
+                    <img src="https://flagcdn.com/w40/gb.png" alt="English" class="w-6 h-4 object-cover rounded-sm" width="24" height="16" loading="lazy">
                 </button>
                 <button type="button" id="lang-tr" class="flex items-center justify-center w-9 h-9 rounded-lg hover:bg-gray-100 dark:hover:bg-white/5 transition-colors" title="Türkçe" aria-label="Türkçe">
-                    <span class="text-lg" role="img" aria-hidden="true">🇹🇷</span>
+                    <img src="https://flagcdn.com/w40/tr.png" alt="Türkçe" class="w-6 h-4 object-cover rounded-sm" width="24" height="16" loading="lazy">
                 </button>
             </div>
         </div>

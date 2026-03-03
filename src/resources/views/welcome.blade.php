@@ -109,6 +109,22 @@
             opacity: 1;
             transform: translateY(0);
         }
+        @keyframes tech-slide-left {
+            from { opacity: 0; transform: translateX(-24px); }
+            to { opacity: 1; transform: translateX(0); }
+        }
+        @keyframes tech-slide-right {
+            from { opacity: 0; transform: translateX(24px); }
+            to { opacity: 1; transform: translateX(0); }
+        }
+        @keyframes tech-slide-top {
+            from { opacity: 0; transform: translateY(-16px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+        @keyframes tech-slide-bottom {
+            from { opacity: 0; transform: translateY(16px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
         .tech-pill {
             display: inline-flex;
             align-items: center;
@@ -120,7 +136,13 @@
             border: 1px solid rgb(229 231 235);
             border-radius: 9999px;
             transition: all 0.2s ease;
+            opacity: 0;
+            animation-fill-mode: forwards;
         }
+        .tech-pill.tech-from-left { animation: tech-slide-left 0.5s cubic-bezier(0.22, 1, 0.36, 1) forwards; }
+        .tech-pill.tech-from-right { animation: tech-slide-right 0.5s cubic-bezier(0.22, 1, 0.36, 1) forwards; }
+        .tech-pill.tech-from-top { animation: tech-slide-top 0.5s cubic-bezier(0.22, 1, 0.36, 1) forwards; }
+        .tech-pill.tech-from-bottom { animation: tech-slide-bottom 0.5s cubic-bezier(0.22, 1, 0.36, 1) forwards; }
         .tech-pill:hover {
             color: rgb(124 58 237);
             background: rgba(168, 85, 247, 0.08);
@@ -188,17 +210,18 @@
                                     <div class="w-[1px] h-10 bg-gradient-to-b from-[#a855f7]/40 to-[#a855f7]/20 dark:from-[#a78bfa]/35 dark:to-[#a78bfa]/15"></div>
                                 </div>
                                 <div class="flex flex-wrap items-center justify-center gap-2">
-                                    <span class="tech-pill">VueJS</span>
-                                    <span class="tech-pill">Next.js</span>
-                                    <span class="tech-pill">Laravel</span>
-                                    <span class="tech-pill">NestJS</span>
-                                    <span class="tech-pill">PostgreSQL</span>
-                                    <span class="tech-pill">MySQL</span>
-                                    <span class="tech-pill">SQLite</span>
-                                    <span class="tech-pill">Figma</span>
-                                    <span class="tech-pill">Auth</span>
-                                    <span class="tech-pill">REST API</span>
-                                    <span class="tech-pill">TypeScript</span>
+                                    <span class="tech-pill tech-from-left" style="animation-delay: 0ms">TypeScript</span>
+                                    <span class="tech-pill tech-from-right" style="animation-delay: 50ms">VueJS</span>
+                                    <span class="tech-pill tech-from-top" style="animation-delay: 100ms">Next.js</span>
+                                    <span class="tech-pill tech-from-bottom" style="animation-delay: 150ms">Laravel</span>
+                                    <span class="tech-pill tech-from-left" style="animation-delay: 200ms">NestJS</span>
+                                    <span class="tech-pill tech-from-right" style="animation-delay: 250ms">PostgreSQL</span>
+                                    <span class="tech-pill tech-from-top" style="animation-delay: 300ms">MySQL</span>
+                                    <span class="tech-pill tech-from-bottom" style="animation-delay: 350ms">SQLite</span>
+                                    <span class="tech-pill tech-from-left" style="animation-delay: 400ms">Auth</span>
+                                    <span class="tech-pill tech-from-right" style="animation-delay: 450ms">REST API</span>
+                                    <span class="tech-pill tech-from-top" style="animation-delay: 500ms">Figma</span>
+                                    <span class="tech-pill tech-from-bottom" style="animation-delay: 550ms">WordPress</span>
                                 </div>
                             </div>
                         </div>

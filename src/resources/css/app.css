@@ -1,4 +1,3 @@
-@import url('https://fonts.googleapis.com/css2?family=Geist:wght@100..900&display=swap');
 @import 'tailwindcss';
 
 /* Dark mode: .dark class ile (tema butonu) — varsayılan media yerine class kullan */
@@ -10,7 +9,7 @@
 @source '../**/*.js';
 
 @theme {
-    --font-sans: 'Geist', sans-serif;
+    --font-sans: -apple-system, BlinkMacSystemFont, 'Segoe UI', system-ui, sans-serif;
     --color-accent: #00ff99;
     --color-accent-300: #6bffb8;
     --color-accent-400: #2dffa3;
@@ -20,9 +19,9 @@
     --color-accent-800: #00996b;
 }
 
-/* Public sitede tek font: Geist */
+/* Apple system font (SF Pro on Mac/iOS) */
 html, body {
-    font-family: 'Geist', sans-serif !important;
+    font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', system-ui, sans-serif !important;
 }
 
 /* Blog post content: h2, h3, h4 başlıkları belirgin */

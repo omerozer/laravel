@@ -205,7 +205,7 @@
                                 <span class="lang-h1b hidden dark:block text-[#7c3aed]" data-lang-en="{{ $heroTitle2En ?? 'Operations' }}" data-lang-tr="{{ $heroTitle2Tr ?? 'Özel Yazılımlar' }}">{{ $heroTitle2En ?? 'Operations' }}</span>
                             </span>
                         </h1>
-                        <p class="mt-6 {{ $heroSubtitleClasses }} text-gray-600 dark:text-zinc-400 max-w-2xl mx-auto lang-subtitle opacity-0 animate-fade-in-up animate-delay-200" data-lang-en="{{ $heroSubtitleEn ?? 'I build internal systems that automate daily work and keep your operations running without constant supervision.' }}" data-lang-tr="{{ $heroSubtitleTr ?? 'İşlerin kişilere bağlı kalmadan düzenli ilerlemesini sağlayan özel sistemler tasarlıyorum.' }}">{{ $heroSubtitleEn ?? 'I build internal systems that automate daily work and keep your operations running without constant supervision.' }}</p>
+                        <p class="mt-6 {{ $heroSubtitleClasses }} text-gray-600 dark:text-zinc-400 max-w-2xl mx-auto lang-subtitle opacity-0 animate-fade-in-up animate-delay-200" data-lang-en="{{ $heroSubtitleEn ?? 'I build internal systems that automate daily work and keep your operations running without constant supervision.' }}" data-lang-tr="{{ $heroSubtitleTr ?? 'İşlerin kişilere bağlı kalmadan düzenli ilerlemesini sağlayan özel sistemler tasarlıyorum.' }}" data-lang-html="true">{!! $heroSubtitleEn ?? 'I build internal systems that automate daily work and keep your operations running without constant supervision.' !!}</p>
                         <div class="mt-8 flex flex-row items-center justify-center gap-4 opacity-0 animate-fade-in-up animate-delay-200">
                             <button type="button" id="contact-open" class="inline-flex items-center justify-center gap-2 rounded-lg border border-gray-300 dark:border-zinc-600 px-6 py-3 text-base font-semibold text-gray-900 dark:text-white hover:bg-gray-100 dark:hover:bg-white/5 transition-colors focus:outline-none focus:ring-2 focus:ring-[#a855f7]/50 focus:ring-offset-2 dark:focus:ring-offset-transparent">
                                 <svg class="h-5 w-5" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="1.5"><path stroke-linecap="round" stroke-linejoin="round" d="M21.75 6.75v10.5a2.25 2.25 0 01-2.25 2.25h-15a2.25 2.25 0 01-2.25-2.25V6.75m19.5 0A2.25 2.25 0 0019.5 4.5h-15a2.25 2.25 0 00-2.25 2.25m19.5 0v.243a2.25 2.25 0 01-1.07 1.916l-7.5 4.615a2.25 2.25 0 01-2.36 0L3.32 8.91a2.25 2.25 0 01-1.07-1.916V6.75" /></svg>
@@ -365,7 +365,12 @@
                 lang = l;
                 localStorage.setItem('lang', lang);
                 document.querySelectorAll('[data-lang-en][data-lang-tr]').forEach(function (el) {
-                    el.textContent = el.getAttribute('data-lang-' + lang);
+                    var val = el.getAttribute('data-lang-' + lang);
+                    if (el.getAttribute('data-lang-html') === 'true') {
+                        el.innerHTML = val || '';
+                    } else {
+                        el.textContent = val || '';
+                    }
                 });
                 document.querySelectorAll('[data-placeholder-en][data-placeholder-tr]').forEach(function (el) {
                     el.placeholder = el.getAttribute('data-placeholder-' + lang);

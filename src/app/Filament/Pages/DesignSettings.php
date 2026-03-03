@@ -235,13 +235,15 @@ class DesignSettings extends \Filament\Pages\Page
                                             ->label('Alt başlık (İngilizce)')
                                             ->rows(3)
                                             ->placeholder('I build internal systems...')
-                                            ->maxLength(500),
+                                            ->maxLength(500)
+                                            ->helperText('Satır kırmak için <br> kullanabilirsiniz.'),
 
                                         Textarea::make('hero_subtitle_tr')
                                             ->label('Alt başlık (Türkçe)')
                                             ->rows(3)
-                                            ->placeholder('İşlerin kişilere bağlı kalmadan...')
-                                            ->maxLength(500),
+                                            ->placeholder('İşlerin kişilere bağlı kalmadan düzenli ilerlemesini sağlayan<br> özel sistemler tasarlıyorum.')
+                                            ->maxLength(500)
+                                            ->helperText('Satır kırmak için <br> kullanabilirsiniz.'),
 
                                         Select::make('hero_title_size')
                                             ->label('Başlık boyutu')

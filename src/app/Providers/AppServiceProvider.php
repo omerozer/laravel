@@ -51,6 +51,8 @@ class AppServiceProvider extends ServiceProvider
             View::share('heroTitle2Tr', Setting::get('hero_title_2_tr', 'Özel Yazılımlar'));
             View::share('heroSubtitleEn', Setting::get('hero_subtitle_en', 'I build internal systems that automate daily work and keep your operations running without constant supervision.'));
             View::share('heroSubtitleTr', Setting::get('hero_subtitle_tr', 'İşlerin kişilere bağlı kalmadan düzenli ilerlemesini sağlayan özel sistemler tasarlıyorum.'));
+            View::share('heroTitleSize', Setting::get('hero_title_size', 'md'));
+            View::share('heroSubtitleSize', Setting::get('hero_subtitle_size', 'md'));
             View::share('userPanelName', Setting::get('user_panel_name', 'Ömer Soft'));
             View::share('userPanelEmail', Setting::get('user_panel_email', 'iletisim@omersoft.com'));
             View::share('userPanelLinkedIn', Setting::get('user_panel_linkedin', 'https://www.linkedin.com/in/omerdesign/'));
@@ -70,6 +72,8 @@ class AppServiceProvider extends ServiceProvider
             View::share('heroTitle2Tr', 'Özel Yazılımlar');
             View::share('heroSubtitleEn', 'I build internal systems that automate daily work and keep your operations running without constant supervision.');
             View::share('heroSubtitleTr', 'İşlerin kişilere bağlı kalmadan düzenli ilerlemesini sağlayan özel sistemler tasarlıyorum.');
+            View::share('heroTitleSize', 'md');
+            View::share('heroSubtitleSize', 'md');
             View::share('userPanelName', 'Ömer Soft');
             View::share('userPanelEmail', 'iletisim@omersoft.com');
             View::share('userPanelLinkedIn', 'https://www.linkedin.com/in/omerdesign/');

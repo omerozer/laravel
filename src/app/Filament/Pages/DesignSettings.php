@@ -49,6 +49,8 @@ class DesignSettings extends \Filament\Pages\Page
             'hero_title_2_tr' => Setting::get('hero_title_2_tr', 'Özel Yazılımlar'),
             'hero_subtitle_en' => Setting::get('hero_subtitle_en', 'I build internal systems that automate daily work and keep your operations running without constant supervision.'),
             'hero_subtitle_tr' => Setting::get('hero_subtitle_tr', 'İşlerin kişilere bağlı kalmadan düzenli ilerlemesini sağlayan özel sistemler tasarlıyorum.'),
+            'hero_title_size' => Setting::get('hero_title_size', 'md'),
+            'hero_subtitle_size' => Setting::get('hero_subtitle_size', 'md'),
             'hero_avatar' => $this->normalizeFileUploadState(Setting::get('hero_avatar', 'images/omer.jpeg')),
             'dashboard_logo' => $this->normalizeFileUploadState(Setting::get('dashboard_logo')),
             'dashboard_logo_height' => Setting::get('dashboard_logo_height', 40),
@@ -240,6 +242,27 @@ class DesignSettings extends \Filament\Pages\Page
                                             ->rows(3)
                                             ->placeholder('İşlerin kişilere bağlı kalmadan...')
                                             ->maxLength(500),
+
+                                        Select::make('hero_title_size')
+                                            ->label('Başlık boyutu')
+                                            ->options([
+                                                'sm' => 'Küçük',
+                                                'md' => 'Orta (varsayılan)',
+                                                'lg' => 'Büyük',
+                                                'xl' => 'Çok Büyük',
+                                            ])
+                                            ->default('md')
+                                            ->helperText('Ana başlık font boyutu.'),
+
+                                        Select::make('hero_subtitle_size')
+                                            ->label('Açıklama boyutu')
+                                            ->options([
+                                                'sm' => 'Küçük',
+                                                'md' => 'Orta (varsayılan)',
+                                                'lg' => 'Büyük',
+                                            ])
+                                            ->default('md')
+                                            ->helperText('Alt başlık / açıklama font boyutu.'),
                                     ])
                                     ->columns(2)
                                     ->collapsible(),
@@ -446,6 +469,8 @@ class DesignSettings extends \Filament\Pages\Page
         Setting::set('hero_title_2_tr', $data['hero_title_2_tr'] ?? 'Özel Yazılımlar');
         Setting::set('hero_subtitle_en', $data['hero_subtitle_en'] ?? '');
         Setting::set('hero_subtitle_tr', $data['hero_subtitle_tr'] ?? '');
+        Setting::set('hero_title_size', $data['hero_title_size'] ?? 'md');
+        Setting::set('hero_subtitle_size', $data['hero_subtitle_size'] ?? 'md');
 
         // FileUpload state - use $this->data (Livewire) as getState() may not include file paths
         $dashboardLogoRaw = $this->data['dashboard_logo'] ?? $data['dashboard_logo'] ?? null;

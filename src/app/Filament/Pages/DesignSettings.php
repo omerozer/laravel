@@ -40,9 +40,16 @@ class DesignSettings extends \Filament\Pages\Page
 
     public function mount(): void
     {
-        $this->data = [
+            $this->data = [
             'site_name' => Setting::get('site_name', config('app.name')),
             'site_width' => Setting::get('site_width', 'max-w-7xl'),
+            'hero_title_1_en' => Setting::get('hero_title_1_en', 'Software That Runs Your'),
+            'hero_title_1_tr' => Setting::get('hero_title_1_tr', 'İşlerinizi Yöneten'),
+            'hero_title_2_en' => Setting::get('hero_title_2_en', 'Operations'),
+            'hero_title_2_tr' => Setting::get('hero_title_2_tr', 'Özel Yazılımlar'),
+            'hero_subtitle_en' => Setting::get('hero_subtitle_en', 'I build internal systems that automate daily work and keep your operations running without constant supervision.'),
+            'hero_subtitle_tr' => Setting::get('hero_subtitle_tr', 'İşlerin kişilere bağlı kalmadan düzenli ilerlemesini sağlayan özel sistemler tasarlıyorum.'),
+            'hero_avatar' => $this->normalizeFileUploadState(Setting::get('hero_avatar', 'images/omer.jpeg')),
             'dashboard_logo' => $this->normalizeFileUploadState(Setting::get('dashboard_logo')),
             'dashboard_logo_height' => Setting::get('dashboard_logo_height', 40),
             'favicon' => $this->normalizeFileUploadState(Setting::get('favicon')),
@@ -188,6 +195,54 @@ class DesignSettings extends \Filament\Pages\Page
                                             ->helperText('İçerik container genişliği.'),
                                     ])
                                     ->columns(2),
+
+                                Section::make('Hero (Anasayfa)')
+                                    ->schema([
+                                        FileUpload::make('hero_avatar')
+                                            ->label('Profil görseli')
+                                            ->image()
+                                            ->imagePreviewHeight('120')
+                                            ->disk('public_root')
+                                            ->directory('images')
+                                            ->acceptedFileTypes(['image/png', 'image/jpeg', 'image/webp'])
+                                            ->fetchFileInformation(false)
+                                            ->saveUploadedFileUsing(fn (TemporaryUploadedFile $file): ?string => $file->store('images', ['disk' => 'public_root']) ?: null)
+                                            ->helperText('Anasayfa hero bölümündeki profil fotoğrafı.'),
+
+                                        TextInput::make('hero_title_1_en')
+                                            ->label('Başlık 1 (İngilizce)')
+                                            ->placeholder('Software That Runs Your')
+                                            ->maxLength(100),
+
+                                        TextInput::make('hero_title_1_tr')
+                                            ->label('Başlık 1 (Türkçe)')
+                                            ->placeholder('İşlerinizi Yöneten')
+                                            ->maxLength(100),
+
+                                        TextInput::make('hero_title_2_en')
+                                            ->label('Başlık 2 (İngilizce)')
+                                            ->placeholder('Operations')
+                                            ->maxLength(100),
+
+                                        TextInput::make('hero_title_2_tr')
+                                            ->label('Başlık 2 (Türkçe)')
+                                            ->placeholder('Özel Yazılımlar')
+                                            ->maxLength(100),
+
+                                        Textarea::make('hero_subtitle_en')
+                                            ->label('Alt başlık (İngilizce)')
+                                            ->rows(3)
+                                            ->placeholder('I build internal systems...')
+                                            ->maxLength(500),
+
+                                        Textarea::make('hero_subtitle_tr')
+                                            ->label('Alt başlık (Türkçe)')
+                                            ->rows(3)
+                                            ->placeholder('İşlerin kişilere bağlı kalmadan...')
+                                            ->maxLength(500),
+                                    ])
+                                    ->columns(2)
+                                    ->collapsible(),
 
                                 Section::make('Logolar')
                                     ->schema([
@@ -378,6 +433,19 @@ class DesignSettings extends \Filament\Pages\Page
 
         Setting::set('site_name', $data['site_name'] ?? config('app.name'));
         Setting::set('site_width', $data['site_width'] ?? 'max-w-7xl');
+
+        $heroAvatarRaw = $this->data['hero_avatar'] ?? $data['hero_avatar'] ?? null;
+        $heroAvatar = $this->toSingleFilePath(is_array($heroAvatarRaw) ? array_slice($heroAvatarRaw, 0, 1) : $heroAvatarRaw);
+        if ($heroAvatar !== null && $heroAvatar !== '') {
+            Setting::set('hero_avatar', $heroAvatar);
+        }
+
+        Setting::set('hero_title_1_en', $data['hero_title_1_en'] ?? 'Software That Runs Your');
+        Setting::set('hero_title_1_tr', $data['hero_title_1_tr'] ?? 'İşlerinizi Yöneten');
+        Setting::set('hero_title_2_en', $data['hero_title_2_en'] ?? 'Operations');
+        Setting::set('hero_title_2_tr', $data['hero_title_2_tr'] ?? 'Özel Yazılımlar');
+        Setting::set('hero_subtitle_en', $data['hero_subtitle_en'] ?? '');
+        Setting::set('hero_subtitle_tr', $data['hero_subtitle_tr'] ?? '');
 
         // FileUpload state - use $this->data (Livewire) as getState() may not include file paths
         $dashboardLogoRaw = $this->data['dashboard_logo'] ?? $data['dashboard_logo'] ?? null;
